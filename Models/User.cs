@@ -7,9 +7,13 @@ namespace CvProjekt.Models
     //Inherits: Id, Username, Email och PasswordHash
     public class User:IdentityUser
     {
+        [Required(ErrorMessage = "First name is required")]
         public string FirstName;
+        
+        [Required(ErrorMessage = "Last name is required")]
         public string LastName;
 
+        [Required(ErrorMessage = "Adress is required")]
         public string Adress;
 
         public bool isActive;
