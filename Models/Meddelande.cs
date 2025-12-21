@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CvProject.Models
+namespace CvProjekt.Models
 {
     public class Meddelande
     {
@@ -9,22 +9,22 @@ namespace CvProject.Models
         public int Id { get; set; }
 
         // DateTime.now hämtar datumet när meddelande skickades 
-        public DateTime Datum { get; set; } = DateTime.Now;
+        public DateTime Date { get; set; } = DateTime.Now;
 
         public string Text { get; set; }
 
-        public bool Läst { get; set; } = false;
+        public bool Read { get; set; } = false;
 
-        public string FrånAnvändareId { get; set; }
+        public string FromUserId { get; set; }
 
 
         // Virtual gör lazy loading möjligt  
-        [ForeignKey(nameof(FrånAnvändareId))]
-        public virtual Användare FrånAnvändare { get; set; }
+        [ForeignKey(nameof(FromUserId))]
+        public virtual User FromUser { get; set; }
 
-        public string TillAnvändareId { get; set; }
+        public string ToUserId { get; set; }
 
-        [ForeignKey(nameof(TillAnvändareId))]
-        public virtual Användare TillAnvändare { get; set; }
+        [ForeignKey(nameof(ToUserId))]
+        public virtual User ToUser { get; set; }
     }
 }

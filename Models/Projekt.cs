@@ -1,22 +1,22 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CvProject.Models
+namespace CvProjekt.Models
 {
 	public class Projekt
 	{
 		[Key]
 		public int Id { get; set; }
 
-		public string Titel { get; set; }
+		public string Title { get; set; }
 
-		public string Språk { get; set; }
+		public string Language { get; set; }
 
-		public string GithubLänk { get; set; }
+		public string GithubLink { get; set; }
 
-		public int År { get; set; }
+		public int Year { get; set; }
 
-		public string Beskrivning { get; set; }
+		public string Description { get; set; }
 
 
 	}
