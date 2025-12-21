@@ -1,19 +1,27 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
 
 namespace CvProjekt.Models
 {
+    //Inherits: Id, Username, Email och PasswordHash
     public class User:IdentityUser
     {
-        public int Id {get; set; }
+        public string FirstName;
+        public string LastName;
 
-        public string Name {get; set;}
+        public string Adress;
 
-        public string Adress {get; set;}
+        public bool isActive;
 
-        public string Email {get; set;}
+        public int ProfileVisits;
 
-        
+        public virtual ICollection<Message> Messages {get; set;} = new List<Message>();
+        public virtual ICollection<Project> Projects {get; set;} = new List<Project>();
+
+        public int ResumeId;
+
+        [ForeignKey(nameof(ResumeId))]
+        public virtual Resume Resume {get; set;}
+
+
     }
 }

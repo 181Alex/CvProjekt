@@ -3,12 +3,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CvProjekt.Models
 {
-    public class Meddelande
+    public class Message
     {
         [Key]
         public int Id { get; set; }
 
-        // DateTime.now hämtar datumet när meddelande skickades 
+        // DateTime.now hï¿½mtar datumet nï¿½r meddelande skickades 
         public DateTime Date { get; set; } = DateTime.Now;
 
         public string Text { get; set; }
@@ -18,7 +18,7 @@ namespace CvProjekt.Models
         public string FromUserId { get; set; }
 
 
-        // Virtual gör lazy loading möjligt  
+        // Virtual gï¿½r lazy loading mï¿½jligt  
         [ForeignKey(nameof(FromUserId))]
         public virtual User FromUser { get; set; }
 
