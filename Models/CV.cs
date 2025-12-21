@@ -9,12 +9,7 @@ namespace CvProjekt.Models
         public int Id { get; set; }
         public List<String> qualifications { get; set; }
 
-        public List<Work> workList { get; set; }
-        public List<Projekt> projektList { get; set; }
-        public List<Education> educationList { get; set; }
-
-
-
-
+        public virtual ICollection <Work> workList { get; set; } = new List<Work>();
+        public virtual ICollection<Education> educationList { get; set; } = new List<Education>();  
     }
 }
