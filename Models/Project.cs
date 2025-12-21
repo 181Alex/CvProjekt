@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CvProjekt.Models
 {
-	public class Projekt
+	public class Project
 	{
 		[Key]
 		public int Id { get; set; }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CvProjekt.Models
 {
-    public class CV
+    public class Resume
     {
         [Key]
         public int Id { get; set; }
