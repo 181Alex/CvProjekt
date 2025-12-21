@@ -7,13 +7,22 @@ namespace CvProjekt.Models
     //Inherits: Id, Username, Email och PasswordHash
     public class User:IdentityUser
     {
-        [Required(ErrorMessage = "First name is required")]
+        [Required(ErrorMessage = "Du måste skriva förnamn")]
+        [StringLength(30, ErrorMessage = "Max 30 tecken")]
+        [RegularExpression("^[a-zA-ZåäöÅÄÖ]+$",
+            ErrorMessage = "Du får inte ha specialtecken eller siffror")]
         public string FirstName;
         
-        [Required(ErrorMessage = "Last name is required")]
+        [Required(ErrorMessage = "Du måste skriva efternamn")]
+        [StringLength(50, ErrorMessage = "Max 50 tecken")]
+        [RegularExpression("^[a-zA-ZåäöÅÄÖ]+$",
+            ErrorMessage = "Du får inte ha specialtecken eller siffror")]
         public string LastName;
 
-        [Required(ErrorMessage = "Adress is required")]
+        [Required(ErrorMessage = "Du måste skriva adress")]
+        [StringLength(100, ErrorMessage = "Max 100 tecken")]
+        [RegularExpression("^[a-zA-Z0-9]+$",
+            ErrorMessage = "Du får inte ha specialtecken")]
         public string Adress;
 
         public bool isActive;
