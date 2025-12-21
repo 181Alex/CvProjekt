@@ -7,9 +7,13 @@ namespace CvProjekt.Models
     {
         [Key]
         public int Id { get; set; }
-        public List<String> qualifications { get; set; }
+        [Required(ErrorMessage = "Vänligen lägg in minst en kompetens")]
+        [RegularExpression("^[a-zA-Z0-9]+$", 
+            ErrorMessage = "Du får inte ha specialtecken")]
+        public List<String> Qualifications { get; set; }
 
-        public virtual ICollection <Work> workList { get; set; } = new List<Work>();
-        public virtual ICollection<Education> educationList { get; set; } = new List<Education>();  
+        public virtual ICollection <Work> WorkList { get; set; } = new List<Work>();
+        public virtual ICollection<Education> EducationList { get; set; } = new List<Education>(); 
+        public User UsersCv { get; set; }
     }
 }
