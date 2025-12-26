@@ -75,7 +75,7 @@ namespace CvProjekt.Models
             // SEED DATA (STATISK DATA)
             // ==========================================
 
-            /*     string u1 = "user-1"; 
+                string u1 = "user-1"; 
                 string u2 = "user-2"; 
                 string u3 = "user-3"; 
                 string u4 = "user-4"; 
@@ -88,11 +88,11 @@ namespace CvProjekt.Models
                 string staticPasswordHash = "AQAAAAIAAYagAAAAELg7Xy0k9/8Q7k6Xy0k9/8Q7k6Xy0k9/8Q7k6Xy0k9/8Q7k6Xy==";
 
                 modelBuilder.Entity<User>().HasData(
-                    CreateUser(u1, "erik@mail.com", "Erik", "Svensson", "Storgatan 1", true, 1, staticPasswordHash),
-                    CreateUser(u2, "anna@mail.com", "Anna", "Lind", "Sveavägen 10", true, 2, staticPasswordHash),
-                    CreateUser(u3, "johan@mail.com", "Johan", "Ek", "Hamngatan 4", true, 3, staticPasswordHash),
-                    CreateUser(u4, "sara@mail.com", "Sara", "Berg", "Skolgatan 55", true, 4, staticPasswordHash),
-                    CreateUser(u5, "david@mail.com", "David", "Nordin", "Studentvägen 3", false, 5, staticPasswordHash)
+                    CreateUser(u1, "erik@mail.com", "Erik", "Svensson", "Storgatan 1", true, 1, "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=400&h=400", staticPasswordHash),
+                    CreateUser(u2, "anna@mail.com", "Anna", "Lind", "Sveavägen 10", true, 2, "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&h=400", staticPasswordHash),
+                    CreateUser(u3, "johan@mail.com", "Johan", "Ek", "Hamngatan 4", true, 3, "https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&w=400&h=400", staticPasswordHash),
+                    CreateUser(u4, "sara@mail.com", "Sara", "Berg", "Skolgatan 55", true, 4, "https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=400&h=400", staticPasswordHash),
+                    CreateUser(u5, "david@mail.com", "David", "Nordin", "Studentvägen 3", false, 5, "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=400&h=400", staticPasswordHash)
                 );
 
                 modelBuilder.Entity<Qualification>().HasData(
@@ -131,12 +131,12 @@ namespace CvProjekt.Models
                     new Message { Id = 1, Text = "Tjena Anna! Snygg frontend du byggde.", Date = new DateTime(2024, 02, 20), Read = true, FromUserId = u1, ToUserId = u2 },
                     new Message { Id = 2, Text = "Tack Erik! Behöver hjälp med API:et dock.", Date = new DateTime(2024, 02, 21), Read = false, FromUserId = u2, ToUserId = u1 },
                     new Message { Id = 3, Text = "Hej David, söker du jobb?", Date = new DateTime(2024, 03, 01), Read = false, FromUserId = u3, ToUserId = u5 }
-                ); */
+                ); 
 
 
         }
 
-        /*         private User CreateUser(string id, string email, string fName, string lName, string adress, bool active, int resumeId, string passwordHash)
+                private User CreateUser(string id, string email, string fName, string lName, string adress, bool active,  string imgUrl, int resumeId, string passwordHash)
                 {
                     return new User
                     {
@@ -151,12 +151,13 @@ namespace CvProjekt.Models
                         Adress = adress,
                         IsActive = active,
                         ProfileVisits = 0,
+                        ImgUrl = imgUrl,
                         ResumeId = resumeId,
                         PasswordHash = passwordHash,
 
                         SecurityStamp = "static-security-stamp-" + id,
                         ConcurrencyStamp = "static-concurrency-stamp-" + id
                     };
-                } */
+                } 
     }
 }

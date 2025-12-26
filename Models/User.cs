@@ -32,6 +32,8 @@ namespace CvProjekt.Models
 
         public int ProfileVisits{get;set;}
 
+        public string ImgUrl {get; set;}
+
         public virtual ICollection<Message> Messages {get; set;} = new List<Message>();
         public virtual ICollection<Project> Projects {get; set;} = new List<Project>();
 
