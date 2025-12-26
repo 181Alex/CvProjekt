@@ -18,12 +18,15 @@ namespace CvProjekt.Controllers
             _userManager = user;
         }   
 
-        
-        [HttpGet]
         [Authorize]
         public async Task<IActionResult> MyProfile()
         {
            var userId = _userManager.GetUserId(User);
+
+            var user = await _context.Users
+                        .Include(u => u.Projects)
+                        .Include(u => u.Resume)
+                            .ThenInclude(r => r.Quali)
 
         }
 
