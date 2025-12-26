@@ -9,9 +9,11 @@
     @if (Model != null)
     {
         <h4>Välkommen @Model.FirstName @Model.LastName</h4>
-        <img src="@Model.ImgUrl" alt="Profilbild">
+        <div class="ratio ratio-1x1 rounded-circle overflow-hidden" style="width: 25%; margin: 2rem auto;">
+            <img src="@Model.ImgUrl" alt="Profilbild" class="img-fluid object-fit-cover">
+        </div>
 
-        <div class="container rounded-3 bg-light mt-5 text-center p-5">
+        <div class="container rounded-3 bg-light mt-5 mb-5 text-center p-5">
             <h6>Epost: @Model.Email</h6>
 
             <div class="d-flex flex-row">
@@ -30,15 +32,15 @@
                     @foreach(var w in Model.Resume.WorkList)
                     {
                         <li>@w.CompanyName</li>
-                        <div class="d-flex flex-row justify-content-center">
-                            <li>@w.StartDate - </li>
-                            @if(w.EndDate != null)
-                            {
-                                <li>@w.EndDate</li>
-                            } else {
-                                <li>Nu</li>
-                            }
-                        </div>
+                            <div class="d-flex flex-row justify-content-center">
+                                <li>@w.StartDate - </li>
+                                @if(w.EndDate != null)
+                                {
+                                    <li>@w.EndDate</li>
+                                } else {
+                                    <li>Nu</li>
+                                }
+                            </div>
                         <li>@w.Position</li>
                         <li>@w.Description</li>
 
@@ -52,15 +54,15 @@
                     {
                         <li>@e.SchoolName</li>
                         <li>@e.DegreeName</li>
-                        <div class="d-flex flex-row justify-content-center">
-                            <li>@e.StartYear - </li>
-                            @if(e.EndYear != null)
-                            {
-                                <li>@e.EndYear</li>
-                            } else {
-                                <li>Nu</li>
-                            }
-                        </div>
+                            <div class="d-flex flex-row justify-content-center">
+                                <li>@e.StartYear - </li>
+                                @if(e.EndYear != null)
+                                {
+                                    <li>@e.EndYear</li>
+                                } else {
+                                    <li>Nu</li>
+                                }
+                            </div>
                         <li>@e.Description</li>
 
                     }
@@ -68,6 +70,21 @@
                 </div>
             </div>
         </div>
+        <button>Redigera Cv</button>
+        <div class="container mt-5">
+        <h2>Mina projekt:</h2>
+            <ul class="list-unstyled">
+                @foreach(var p in Model.Projects)
+                {
+                    <li>@p.Title</li>
+                    <li>@p.Year</li>
+                    <li>@p.Language</li>
+                    <li>@p.GithubLink</li>
+                    <li>@p.Description</li>
+                }
+            </ul>
+        </div>
+        <button>Redigera Projekt</button>
     }
     else
     {
