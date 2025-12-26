@@ -12,6 +12,6 @@ namespace CvProjekt.Models
 
         public virtual ICollection <Work> WorkList { get; set; } = new List<Work>();
         public virtual ICollection<Education> EducationList { get; set; } = new List<Education>(); 
-        public User UsersCv { get; set; }
+        public virtual User User { get; set; } = null!;
     }
 }
