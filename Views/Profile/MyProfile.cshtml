@@ -4,23 +4,28 @@
     ViewData["Title"] = "Min Profil";
 }
 
-<div class="container">
+<div class="container text-center">
     <h1>Min Profil</h1>
     @if (Model != null)
     {
         <h4>Välkommen @Model.FirstName @Model.LastName</h4>
-        <h6>Epost: @Model.Email</h6>
+
+        <div class="container mt-5 text-center">
+            <h6>Epost: @Model.Email</h6>
+
+            <div>
+                <h2>Mina kompetenser:</h2>
+                <ul class="list-group">
+                @foreach (var q in Model.Resume.Qualifications)
+                {
+                    <li>@q.Name</li>
+                }
+                </ul>
+            </div>
+        </div>
     }
     else
     {
         <h4>Ingen information hittad</h4>
     }
-
-    <h2>Mina kompetenser:</h2>
-    <ul>
-    @foreach (var q in Model.Resume.Qualifications)
-    {
-        <li>@q.Name</li>
-    }
-    </ul>
 </div>
