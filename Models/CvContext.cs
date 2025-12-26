@@ -40,7 +40,7 @@ namespace CvProjekt.Models
                 .HasOne(m => m.ToUser)
                 .WithMany(u => u.Messages)
                 .HasForeignKey(m => m.ToUserId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
 
             //Relation för MEDDELANDEN (Avsändare): Om avsändaren raderas, sätt FromUserId till NULL
             modelBuilder.Entity<Message>()
