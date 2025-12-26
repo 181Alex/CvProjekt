@@ -3,5 +3,15 @@
 @{
     ViewData["Title"] = "Min Profil";
 }
-
-<h1>Min Profil</h1>
+<div class="container">
+    <h1>Min Profil</h1>
+    @if (Model != null)
+    {
+        <h4>Välkommen @Model.FirstName @Model.LastName</h4>
+        <h6>Epost: @Model.Email</h6>
+    }
+    else
+    {
+        <h4>Ingen information hittad</h4>
+    }
+</div>
