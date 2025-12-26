@@ -18,6 +18,10 @@ namespace CvProjekt.Models
 
 		public string Description { get; set; }
 
+		public string UserId { get; set; }
+        [ForeignKey(nameof(UserId))]
+        public virtual User User { get; set; }
+
 
 	}
 }

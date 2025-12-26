@@ -15,12 +15,12 @@ namespace CvProjekt.Models
 
         public bool Read { get; set; } = false;
 
-        public string FromUserId { get; set; }
+        public string? FromUserId { get; set; }
 
 
         // Virtual g�r lazy loading m�jligt  
         [ForeignKey(nameof(FromUserId))]
-        public virtual User FromUser { get; set; }
+        public virtual User? FromUser { get; set; }
 
         public string ToUserId { get; set; }
 
