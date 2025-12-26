@@ -8,13 +8,13 @@ namespace CvProjekt.Controllers
 {
     public class ProfileController : Controller
     {
-        private readonly CvContext context;
+        private readonly CvContext _context;
 
         private readonly UserManager<User> _userManager;
 
         public ProfileController(CvContext context, UserManager<User> user)
         {
-            this.context = context;
+            _context = context;
             _userManager = user;
         }   
 
