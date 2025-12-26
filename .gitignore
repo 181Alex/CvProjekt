@@ -423,3 +423,4 @@ appsettings.Development.json
 # Om du råkar ha filer i undermappar kan du använda:
 **/appsettings.json
 **/appsettings.Development.json
+appsettings.json
