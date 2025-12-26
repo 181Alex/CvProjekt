@@ -5,7 +5,7 @@ namespace CvProjekt.Models
 {
     public class CvContext: IdentityDbContext<User>
     {
-        public CvContext(DbContextOptions<ApplicationDbContext> options)
+        public CvContext(DbContextOptions<CvContext> options)
             : base(options)
         {
         }
