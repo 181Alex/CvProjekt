@@ -32,7 +32,7 @@ namespace CvProjekt.Models
         public virtual ICollection<Message> Messages {get; set;} = new List<Message>();
         public virtual ICollection<Project> Projects {get; set;} = new List<Project>();
 
-        public int? ResumeId;
+        public int? ResumeId {get; set;}
 
         [ForeignKey(nameof(ResumeId))]
         public virtual Resume? Resume {get; set;}
