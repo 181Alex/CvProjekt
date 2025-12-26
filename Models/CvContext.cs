@@ -49,7 +49,7 @@ namespace CvProjekt.Models
                 .HasForeignKey(m => m.FromUserId)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            //Relation för UTBILDNING/JOBB: Om CV:t raderas, radera alla tillhörande erfarenheter
+            //Relation för UTBILDNING/JOBB/kvalifikationer: Om CV:t raderas, radera alla tillhörande erfarenheter
             modelBuilder.Entity<Education>()
                 .HasOne(e => e.Resume)
                 .WithMany(r => r.EducationList)
@@ -60,6 +60,12 @@ namespace CvProjekt.Models
                 .HasOne(w => w.Resume)
                 .WithMany(r => r.WorkList)
                 .HasForeignKey(w => w.ResumeId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Qualification>()
+                .HasOne(q => q.Resume)
+                .WithMany(r => r.Qualifications)
+                .HasForeignKey(q => q.ResumeId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }
