@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CvProjekt.Migrations
 {
     [DbContext(typeof(CvContext))]
-    [Migration("20251226143634_FixMessageCascadePath")]
-    partial class FixMessageCascadePath
+    [Migration("20251226145450_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,6 +59,58 @@ namespace CvProjekt.Migrations
                     b.HasIndex("ResumeId");
 
                     b.ToTable("Education");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DegreeName = "Civilingenjör",
+                            Description = "Datateknik",
+                            EndYear = 2020,
+                            ResumeId = 1,
+                            SchoolName = "KTH",
+                            StartYear = 2015
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DegreeName = "Frontend",
+                            Description = "YH-utbildning",
+                            EndYear = 2021,
+                            ResumeId = 2,
+                            SchoolName = "Nackademin",
+                            StartYear = 2019
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DegreeName = "Ekonomi",
+                            Description = "Master",
+                            EndYear = 2014,
+                            ResumeId = 3,
+                            SchoolName = "Handels",
+                            StartYear = 2010
+                        },
+                        new
+                        {
+                            Id = 4,
+                            DegreeName = "PhD CS",
+                            Description = "Forskning",
+                            EndYear = 2019,
+                            ResumeId = 4,
+                            SchoolName = "MIT",
+                            StartYear = 2015
+                        },
+                        new
+                        {
+                            Id = 5,
+                            DegreeName = "Teknik",
+                            Description = "Student",
+                            EndYear = 2024,
+                            ResumeId = 5,
+                            SchoolName = "Gymnasiet",
+                            StartYear = 2021
+                        });
                 });
 
             modelBuilder.Entity("CvProjekt.Models.Message", b =>
@@ -93,6 +145,35 @@ namespace CvProjekt.Migrations
                     b.HasIndex("ToUserId");
 
                     b.ToTable("Messages");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Date = new DateTime(2024, 2, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FromUserId = "user-1",
+                            Read = true,
+                            Text = "Tjena Anna! Snygg frontend du byggde.",
+                            ToUserId = "user-2"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Date = new DateTime(2024, 2, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FromUserId = "user-2",
+                            Read = false,
+                            Text = "Tack Erik! Behöver hjälp med API:et dock.",
+                            ToUserId = "user-1"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Date = new DateTime(2024, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FromUserId = "user-3",
+                            Read = false,
+                            Text = "Hej David, söker du jobb?",
+                            ToUserId = "user-5"
+                        });
                 });
 
             modelBuilder.Entity("CvProjekt.Models.Project", b =>
@@ -131,6 +212,38 @@ namespace CvProjekt.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Projects");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Byggde en butik",
+                            GithubLink = "github.com/erik/shop",
+                            Language = "C#",
+                            Title = "E-handel",
+                            UserId = "user-1",
+                            Year = 2023
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Min hemsida",
+                            GithubLink = "github.com/anna/me",
+                            Language = "React",
+                            Title = "Portfolio",
+                            UserId = "user-2",
+                            Year = 2024
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "AI budgetering",
+                            GithubLink = "github.com/sara/cash",
+                            Language = "Python",
+                            Title = "BudgetApp",
+                            UserId = "user-4",
+                            Year = 2022
+                        });
                 });
 
             modelBuilder.Entity("CvProjekt.Models.Qualification", b =>
@@ -154,6 +267,56 @@ namespace CvProjekt.Migrations
                     b.HasIndex("ResumeId");
 
                     b.ToTable("Qualification");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "C#",
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "SQL Server",
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "JavaScript",
+                            ResumeId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "React",
+                            ResumeId = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Scrum",
+                            ResumeId = 3
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Python",
+                            ResumeId = 4
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Machine Learning",
+                            ResumeId = 4
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "HTML",
+                            ResumeId = 5
+                        });
                 });
 
             modelBuilder.Entity("CvProjekt.Models.Resume", b =>
@@ -167,6 +330,28 @@ namespace CvProjekt.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Resumes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1
+                        },
+                        new
+                        {
+                            Id = 2
+                        },
+                        new
+                        {
+                            Id = 3
+                        },
+                        new
+                        {
+                            Id = 4
+                        },
+                        new
+                        {
+                            Id = 5
+                        });
                 });
 
             modelBuilder.Entity("CvProjekt.Models.User", b =>
@@ -197,6 +382,9 @@ namespace CvProjekt.Migrations
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -242,9 +430,6 @@ namespace CvProjekt.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<bool>("isActive")
-                        .HasColumnType("bit");
-
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -260,6 +445,118 @@ namespace CvProjekt.Migrations
                         .HasFilter("[ResumeId] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "user-1",
+                            AccessFailedCount = 0,
+                            Adress = "Storgatan 1",
+                            ConcurrencyStamp = "static-concurrency-stamp-user-1",
+                            Email = "erik@mail.com",
+                            EmailConfirmed = true,
+                            FirstName = "Erik",
+                            IsActive = true,
+                            LastName = "Svensson",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ERIK@MAIL.COM",
+                            NormalizedUserName = "ERIK@MAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAELg7Xy0k9/8Q7k6Xy0k9/8Q7k6Xy0k9/8Q7k6Xy0k9/8Q7k6Xy==",
+                            PhoneNumberConfirmed = false,
+                            ProfileVisits = 0,
+                            ResumeId = 1,
+                            SecurityStamp = "static-security-stamp-user-1",
+                            TwoFactorEnabled = false,
+                            UserName = "erik@mail.com"
+                        },
+                        new
+                        {
+                            Id = "user-2",
+                            AccessFailedCount = 0,
+                            Adress = "Sveavägen 10",
+                            ConcurrencyStamp = "static-concurrency-stamp-user-2",
+                            Email = "anna@mail.com",
+                            EmailConfirmed = true,
+                            FirstName = "Anna",
+                            IsActive = true,
+                            LastName = "Lind",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ANNA@MAIL.COM",
+                            NormalizedUserName = "ANNA@MAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAELg7Xy0k9/8Q7k6Xy0k9/8Q7k6Xy0k9/8Q7k6Xy0k9/8Q7k6Xy==",
+                            PhoneNumberConfirmed = false,
+                            ProfileVisits = 0,
+                            ResumeId = 2,
+                            SecurityStamp = "static-security-stamp-user-2",
+                            TwoFactorEnabled = false,
+                            UserName = "anna@mail.com"
+                        },
+                        new
+                        {
+                            Id = "user-3",
+                            AccessFailedCount = 0,
+                            Adress = "Hamngatan 4",
+                            ConcurrencyStamp = "static-concurrency-stamp-user-3",
+                            Email = "johan@mail.com",
+                            EmailConfirmed = true,
+                            FirstName = "Johan",
+                            IsActive = true,
+                            LastName = "Ek",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "JOHAN@MAIL.COM",
+                            NormalizedUserName = "JOHAN@MAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAELg7Xy0k9/8Q7k6Xy0k9/8Q7k6Xy0k9/8Q7k6Xy0k9/8Q7k6Xy==",
+                            PhoneNumberConfirmed = false,
+                            ProfileVisits = 0,
+                            ResumeId = 3,
+                            SecurityStamp = "static-security-stamp-user-3",
+                            TwoFactorEnabled = false,
+                            UserName = "johan@mail.com"
+                        },
+                        new
+                        {
+                            Id = "user-4",
+                            AccessFailedCount = 0,
+                            Adress = "Skolgatan 55",
+                            ConcurrencyStamp = "static-concurrency-stamp-user-4",
+                            Email = "sara@mail.com",
+                            EmailConfirmed = true,
+                            FirstName = "Sara",
+                            IsActive = true,
+                            LastName = "Berg",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "SARA@MAIL.COM",
+                            NormalizedUserName = "SARA@MAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAELg7Xy0k9/8Q7k6Xy0k9/8Q7k6Xy0k9/8Q7k6Xy0k9/8Q7k6Xy==",
+                            PhoneNumberConfirmed = false,
+                            ProfileVisits = 0,
+                            ResumeId = 4,
+                            SecurityStamp = "static-security-stamp-user-4",
+                            TwoFactorEnabled = false,
+                            UserName = "sara@mail.com"
+                        },
+                        new
+                        {
+                            Id = "user-5",
+                            AccessFailedCount = 0,
+                            Adress = "Studentvägen 3",
+                            ConcurrencyStamp = "static-concurrency-stamp-user-5",
+                            Email = "david@mail.com",
+                            EmailConfirmed = true,
+                            FirstName = "David",
+                            IsActive = false,
+                            LastName = "Nordin",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "DAVID@MAIL.COM",
+                            NormalizedUserName = "DAVID@MAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAELg7Xy0k9/8Q7k6Xy0k9/8Q7k6Xy0k9/8Q7k6Xy0k9/8Q7k6Xy==",
+                            PhoneNumberConfirmed = false,
+                            ProfileVisits = 0,
+                            ResumeId = 5,
+                            SecurityStamp = "static-security-stamp-user-5",
+                            TwoFactorEnabled = false,
+                            UserName = "david@mail.com"
+                        });
                 });
 
             modelBuilder.Entity("CvProjekt.Models.Work", b =>
@@ -296,6 +593,46 @@ namespace CvProjekt.Migrations
                     b.HasIndex("ResumeId");
 
                     b.ToTable("Works");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CompanyName = "Volvo",
+                            Description = "Backend C#",
+                            EndDate = new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Position = "Utvecklare",
+                            ResumeId = 1,
+                            StartDate = new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CompanyName = "Spotify",
+                            Description = "Jobbar med webbspelaren",
+                            Position = "Frontend Dev",
+                            ResumeId = 2,
+                            StartDate = new DateTime(2021, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CompanyName = "IKEA",
+                            Description = "Ledde IT-team",
+                            EndDate = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Position = "Chef",
+                            ResumeId = 3,
+                            StartDate = new DateTime(2018, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CompanyName = "Google",
+                            Description = "AI forskning",
+                            Position = "Data Analyst",
+                            ResumeId = 4,
+                            StartDate = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

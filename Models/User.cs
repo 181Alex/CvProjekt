@@ -28,7 +28,7 @@ namespace CvProjekt.Models
             ErrorMessage = "Adressen får inte innehålla specialtecken")]
         public string Adress{get;set;}
 
-        public bool isActive{get;set;}
+        public bool IsActive{get;set;}
 
         public int ProfileVisits{get;set;}
 
