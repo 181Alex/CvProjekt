@@ -1,0 +1,71 @@
+@model RegisterViewModel
+@{
+    ViewData["Title"] = "Registrera";
+}
+
+<h1>Registrera</h1>
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form method="post" asp-action="Register" asp-controller="Account">
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label>Förnamn: </label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="FirstName" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label>Efternamn: </label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="LastName" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group row mb-2">
+        <div class="col-sm-2">
+            <label>Adress: </label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="Adress" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group row mb-2">
+        <div class="col-sm-2">
+            <label>E-post: </label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="Email" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group row mb-2">
+        <div class="col-sm-2">
+            <label>Lösenord: </label>
+        </div>
+        <div class="col-sm-4">
+            <input type="password" asp-for="Password" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label>Bekräfta lösenord: </label>
+        </div>
+        <div class="col-sm-4">
+            <input type="password" asp-for="ConfirmPassword" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="offset-sm-2 col-sm-4">
+            <button type="submit" class="btn btn-primary">Registrera</button>
+        </div>
+    </div>
+</form>
+
