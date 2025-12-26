@@ -25,7 +25,7 @@ namespace CvProjekt.Controllers
         {
             Console.WriteLine("Nu körs MyProfile action!");
             
-            var userId = "u3";
+            var userId = "user-3";
                
                //_userManager.GetUserId(User);
 
