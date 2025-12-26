@@ -17,7 +17,6 @@ namespace CvProjekt.Models
         public DbSet<Education> Education { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Work> Works { get; set; }
-
         public DbSet<Qualification> Qualifications {get; set;}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
