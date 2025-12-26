@@ -189,7 +189,7 @@ namespace CvProjekt.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int>("ResumeId")
+                    b.Property<int?>("ResumeId")
                         .HasColumnType("int");
 
                     b.Property<string>("SecurityStamp")
@@ -213,7 +213,8 @@ namespace CvProjekt.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.HasIndex("ResumeId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[ResumeId] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -432,8 +433,7 @@ namespace CvProjekt.Migrations
                     b.HasOne("CvProjekt.Models.Resume", "Resume")
                         .WithOne("User")
                         .HasForeignKey("CvProjekt.Models.User", "ResumeId")
-                        .OnDelete(DeleteBehavior.SetNull)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Resume");
                 });

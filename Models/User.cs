@@ -7,22 +7,22 @@ namespace CvProjekt.Models
     //Inherits: Id, Username, Email och PasswordHash
     public class User:IdentityUser
     {
-        [Required(ErrorMessage = "Du måste skriva förnamn")]
+        [Required(ErrorMessage = "Du mï¿½ste skriva fï¿½rnamn")]
         [StringLength(30, ErrorMessage = "Max 30 tecken")]
-        [RegularExpression("^[a-zA-ZåäöÅÄÖ]+$",
-            ErrorMessage = "Du får inte ha specialtecken eller siffror")]
+        [RegularExpression("^[a-zA-Zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½]+$",
+            ErrorMessage = "Du fï¿½r inte ha specialtecken eller siffror")]
         public string FirstName;
         
-        [Required(ErrorMessage = "Du måste skriva efternamn")]
+        [Required(ErrorMessage = "Du mï¿½ste skriva efternamn")]
         [StringLength(50, ErrorMessage = "Max 50 tecken")]
-        [RegularExpression("^[a-zA-ZåäöÅÄÖ]+$",
-            ErrorMessage = "Du får inte ha specialtecken eller siffror")]
+        [RegularExpression("^[a-zA-Zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½]+$",
+            ErrorMessage = "Du fï¿½r inte ha specialtecken eller siffror")]
         public string LastName;
 
-        [Required(ErrorMessage = "Du måste skriva adress")]
+        [Required(ErrorMessage = "Du mï¿½ste skriva adress")]
         [StringLength(100, ErrorMessage = "Max 100 tecken")]
         [RegularExpression("^[a-zA-Z0-9]+$",
-            ErrorMessage = "Du får inte ha specialtecken")]
+            ErrorMessage = "Du fï¿½r inte ha specialtecken")]
         public string Adress;
 
         public bool isActive;
@@ -32,10 +32,10 @@ namespace CvProjekt.Models
         public virtual ICollection<Message> Messages {get; set;} = new List<Message>();
         public virtual ICollection<Project> Projects {get; set;} = new List<Project>();
 
-        public int ResumeId;
+        public int? ResumeId;
 
         [ForeignKey(nameof(ResumeId))]
-        public virtual Resume Resume {get; set;}
+        public virtual Resume? Resume {get; set;}
 
 
     }
