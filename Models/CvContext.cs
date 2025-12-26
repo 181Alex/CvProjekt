@@ -18,6 +18,8 @@ namespace CvProjekt.Models
         public DbSet<Message> Messages { get; set; }
         public DbSet<Work> Works { get; set; }
 
+        public DbSet<Qualification> Qualifications {get; set;}
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
