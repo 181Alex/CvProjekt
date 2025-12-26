@@ -1,11 +1,13 @@
 using System.Diagnostics;
 using CvProjekt.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace CvProjekt.Controllers
 {
+    //[Authorize]
     public class ProfileController : Controller
     {
         private readonly CvContext _context;
@@ -18,10 +20,14 @@ namespace CvProjekt.Controllers
             _userManager = user;
         }   
 
-/*       [Authorize] */
+
         public async Task<IActionResult> MyProfile()
         {
-           var userId = _userManager.GetUserId(User);
+            Console.WriteLine("Nu körs MyProfile action!");
+            
+            var userId = "u3";
+               
+               //_userManager.GetUserId(User);
 
             var user = await _context.Users
                         .Include(u => u.Projects)
@@ -34,7 +40,7 @@ namespace CvProjekt.Controllers
                         .FirstOrDefaultAsync(u => u.Id == userId);
 
             if(user == null){
-                return NotFound();
+                return Content($"Fel: Hittade ingen användare med ID '{userId}' i databasen. Har du kört database update?");
             }
 
             return View(user);
