@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CvProjekt.Migrations
 {
     [DbContext(typeof(CvContext))]
-    [Migration("20251226205534_InitialTestData")]
-    partial class InitialTestData
+    [Migration("20251226223607_ResetAndSeed")]
+    partial class ResetAndSeed
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -1,5 +1,48 @@
-@model CvProjekt.Models.Message
+@model IEnumerable<CvProjekt.Models.Message>
 
 @{
     ViewData["Title"] = "Se Meddelanden";
+}
+
+<h1>Meddelanden</h1>
+
+@if (Model != null && Model.Any())
+{
+    @foreach(var mess in Model)
+    {
+        <div class="bg-light rounded-3 p-4 mb-3">
+            <form asp-action="ReadMessage" asp-route-id="@mess.Id" method="post" style="display:inline;">
+                <button type="submit" class="btn btn-primary">Markera som läst</button>
+            </form>
+            
+            <h3>Från: 
+                @if (mess.FromUser != null)
+                {
+                    <span>@mess.FromUser.FirstName @mess.FromUser.LastName</span>
+                }
+                else
+                {
+                    <span style="color:gray; font-style:italic;">Okänd avsändare (Användare borttagen)</span>
+                }
+            </h3>
+
+            <div class="align-content-center bg-dark-subtle p-4">
+                <p>@mess.Text</p>
+                <small>@mess.Date.ToString("yyyy-MM-dd HH:mm")</small>
+            </div>
+            
+            @if(mess.Read)
+            {
+                <span class="badge bg-success">Läst</span>
+            }
+            else 
+            {
+                 <span class="badge bg-warning">Oläst</span>
+            }
+        </div>
+    }
+}
+else
+{
+    <h2>Inga meddelanden hittade</h2>
 }
