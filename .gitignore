@@ -419,3 +419,4 @@ FodyWeavers.xsd
 # Ignorera konfigurationsfiler med känslig data
 appsettings.json
 appsettings.Development.json
+appsettings.json
