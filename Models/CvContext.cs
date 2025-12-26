@@ -17,6 +17,7 @@ namespace CvProjekt.Models
         public DbSet<Education> Education { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Work> Works { get; set; }
+        public DbSet<Qualification> Qualifications {get; set;}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -74,8 +75,8 @@ namespace CvProjekt.Models
             // ==========================================
             // SEED DATA (STATISK DATA)
             // ==========================================
-
-            /*     string u1 = "user-1"; 
+            
+                string u1 = "user-1"; 
                 string u2 = "user-2"; 
                 string u3 = "user-3"; 
                 string u4 = "user-4"; 
@@ -88,11 +89,20 @@ namespace CvProjekt.Models
                 string staticPasswordHash = "AQAAAAIAAYagAAAAELg7Xy0k9/8Q7k6Xy0k9/8Q7k6Xy0k9/8Q7k6Xy0k9/8Q7k6Xy==";
 
                 modelBuilder.Entity<User>().HasData(
-                    CreateUser(u1, "erik@mail.com", "Erik", "Svensson", "Storgatan 1", true, 1, staticPasswordHash),
-                    CreateUser(u2, "anna@mail.com", "Anna", "Lind", "Sveavägen 10", true, 2, staticPasswordHash),
-                    CreateUser(u3, "johan@mail.com", "Johan", "Ek", "Hamngatan 4", true, 3, staticPasswordHash),
-                    CreateUser(u4, "sara@mail.com", "Sara", "Berg", "Skolgatan 55", true, 4, staticPasswordHash),
-                    CreateUser(u5, "david@mail.com", "David", "Nordin", "Studentvägen 3", false, 5, staticPasswordHash)
+                    CreateUser(u1, "erik@mail.com", "Erik", "Svensson", "Storgatan 1", true, 1, staticPasswordHash, 
+                        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200"),
+                    
+                    CreateUser(u2, "anna@mail.com", "Anna", "Lind", "Sveavägen 10", true, 2, staticPasswordHash, 
+                        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200"),
+                    
+                    CreateUser(u3, "johan@mail.com", "Johan", "Ek", "Hamngatan 4", true, 3, staticPasswordHash, 
+                        "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200"),
+                    
+                    CreateUser(u4, "sara@mail.com", "Sara", "Berg", "Skolgatan 55", true, 4, staticPasswordHash, 
+                        "https://images.unsplash.com/photo-1573496359-0933d2768d98?w=200"),
+                    
+                    CreateUser(u5, "david@mail.com", "David", "Nordin", "Studentvägen 3", false, 5, staticPasswordHash, 
+                        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200")
                 );
 
                 modelBuilder.Entity<Qualification>().HasData(
@@ -131,32 +141,31 @@ namespace CvProjekt.Models
                     new Message { Id = 1, Text = "Tjena Anna! Snygg frontend du byggde.", Date = new DateTime(2024, 02, 20), Read = true, FromUserId = u1, ToUserId = u2 },
                     new Message { Id = 2, Text = "Tack Erik! Behöver hjälp med API:et dock.", Date = new DateTime(2024, 02, 21), Read = false, FromUserId = u2, ToUserId = u1 },
                     new Message { Id = 3, Text = "Hej David, söker du jobb?", Date = new DateTime(2024, 03, 01), Read = false, FromUserId = u3, ToUserId = u5 }
-                ); */
-
+                ); 
 
         }
 
-        /*         private User CreateUser(string id, string email, string fName, string lName, string adress, bool active, int resumeId, string passwordHash)
-                {
-                    return new User
-                    {
-                        Id = id,
-                        UserName = email,
-                        NormalizedUserName = email.ToUpper(),
-                        Email = email,
-                        NormalizedEmail = email.ToUpper(),
-                        EmailConfirmed = true,
-                        FirstName = fName,
-                        LastName = lName,
-                        Adress = adress,
-                        IsActive = active,
-                        ProfileVisits = 0,
-                        ResumeId = resumeId,
-                        PasswordHash = passwordHash,
-
-                        SecurityStamp = "static-security-stamp-" + id,
-                        ConcurrencyStamp = "static-concurrency-stamp-" + id
-                    };
-                } */
+        private User CreateUser(string id, string email, string fName, string lName, string adress, bool active, int resumeId, string passwordHash, string imagePath)
+        {
+            return new User
+            {
+                Id = id,
+                UserName = email,
+                NormalizedUserName = email.ToUpper(),
+                Email = email,
+                NormalizedEmail = email.ToUpper(), // Viktigt för inloggning
+                EmailConfirmed = true,             // Viktigt för inloggning
+                FirstName = fName,
+                LastName = lName,
+                Adress = adress,
+                IsActive = active,
+                ProfileVisits = 0,
+                ResumeId = resumeId,
+                PasswordHash = passwordHash,
+                SecurityStamp = "static-security-stamp-" + id,
+                ConcurrencyStamp = "static-concurrency-stamp-" + id,
+                ImgUrl = imagePath // Här sparas bildlänken
+            };
+        } 
     }
 }

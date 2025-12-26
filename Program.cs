@@ -1,5 +1,6 @@
 using CvProjekt.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,9 @@ builder.Services.AddControllersWithViews();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<CvContext>(options =>
     options.UseSqlServer(connectionString));
+builder.Services.AddIdentity<User, IdentityRole>()
+    .AddEntityFrameworkStores<CvContext>()
+    .AddDefaultTokenProviders();
 
 
 var app = builder.Build();
@@ -24,6 +28,7 @@ app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapStaticAssets();
 

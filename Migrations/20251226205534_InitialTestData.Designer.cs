@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CvProjekt.Migrations
 {
     [DbContext(typeof(CvContext))]
-    [Migration("20251226145450_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20251226205534_InitialTestData")]
+    partial class InitialTestData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -266,7 +266,7 @@ namespace CvProjekt.Migrations
 
                     b.HasIndex("ResumeId");
 
-                    b.ToTable("Qualification");
+                    b.ToTable("Qualifications");
 
                     b.HasData(
                         new
@@ -383,6 +383,10 @@ namespace CvProjekt.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
+                    b.Property<string>("ImgUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -456,6 +460,7 @@ namespace CvProjekt.Migrations
                             Email = "erik@mail.com",
                             EmailConfirmed = true,
                             FirstName = "Erik",
+                            ImgUrl = "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200",
                             IsActive = true,
                             LastName = "Svensson",
                             LockoutEnabled = false,
@@ -478,6 +483,7 @@ namespace CvProjekt.Migrations
                             Email = "anna@mail.com",
                             EmailConfirmed = true,
                             FirstName = "Anna",
+                            ImgUrl = "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200",
                             IsActive = true,
                             LastName = "Lind",
                             LockoutEnabled = false,
@@ -500,6 +506,7 @@ namespace CvProjekt.Migrations
                             Email = "johan@mail.com",
                             EmailConfirmed = true,
                             FirstName = "Johan",
+                            ImgUrl = "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200",
                             IsActive = true,
                             LastName = "Ek",
                             LockoutEnabled = false,
@@ -522,6 +529,7 @@ namespace CvProjekt.Migrations
                             Email = "sara@mail.com",
                             EmailConfirmed = true,
                             FirstName = "Sara",
+                            ImgUrl = "https://images.unsplash.com/photo-1573496359-0933d2768d98?w=200",
                             IsActive = true,
                             LastName = "Berg",
                             LockoutEnabled = false,
@@ -544,6 +552,7 @@ namespace CvProjekt.Migrations
                             Email = "david@mail.com",
                             EmailConfirmed = true,
                             FirstName = "David",
+                            ImgUrl = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200",
                             IsActive = false,
                             LastName = "Nordin",
                             LockoutEnabled = false,

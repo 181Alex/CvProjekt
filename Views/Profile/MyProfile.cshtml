@@ -1,0 +1,76 @@
+@model CvProjekt.Models.User
+
+@{
+    ViewData["Title"] = "Min Profil";
+}
+
+<div class="container text-center">
+    <h1>Min Profil</h1>
+    @if (Model != null)
+    {
+        <h4>Välkommen @Model.FirstName @Model.LastName</h4>
+        <img src="@Model.ImgUrl" alt="Profilbild">
+
+        <div class="container rounded-3 bg-light mt-5 text-center p-5">
+            <h6>Epost: @Model.Email</h6>
+
+            <div class="d-flex flex-row">
+                <div class="container">
+                    <h4>Mina kompetenser:</h4>
+                    <ul class="list-unstyled">
+                    @foreach (var q in Model.Resume.Qualifications)
+                    {
+                        <li>@q.Name</li>
+                    }
+                    </ul>
+                </div>
+                <div class="container">
+                    <h4>Tidigare erfarenheter:</h4>
+                    <ul class="list-unstyled">
+                    @foreach(var w in Model.Resume.WorkList)
+                    {
+                        <li>@w.CompanyName</li>
+                        <div class="d-flex flex-row justify-content-center">
+                            <li>@w.StartDate - </li>
+                            @if(w.EndDate != null)
+                            {
+                                <li>@w.EndDate</li>
+                            } else {
+                                <li>Nu</li>
+                            }
+                        </div>
+                        <li>@w.Position</li>
+                        <li>@w.Description</li>
+
+                    }
+                    </ul>
+                </div>
+                <div class="container">
+                    <h4>Utbildning:</h4>
+                     <ul class="list-unstyled">
+                    @foreach(var e in Model.Resume.EducationList)
+                    {
+                        <li>@e.SchoolName</li>
+                        <li>@e.DegreeName</li>
+                        <div class="d-flex flex-row justify-content-center">
+                            <li>@e.StartYear - </li>
+                            @if(e.EndYear != null)
+                            {
+                                <li>@e.EndYear</li>
+                            } else {
+                                <li>Nu</li>
+                            }
+                        </div>
+                        <li>@e.Description</li>
+
+                    }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <h4>Ingen information hittad</h4>
+    }
+</div>
