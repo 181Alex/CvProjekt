@@ -1,10 +1,11 @@
 using CvProjekt.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace CvProjekt.Controllers;
-
+[Authorize]
 public class MessageController : Controller
 {
     private readonly CvContext context;
@@ -15,7 +16,7 @@ public class MessageController : Controller
         this.context = context;
         _userManager = user;
     }
-
+    
     [HttpPost]
     public async Task<IActionResult> SendMessage(Message mess)
     {
@@ -49,19 +50,27 @@ public class MessageController : Controller
     }
     
     [HttpPost]
-    public async Task<IActionResult> ReadMessage(Message mess)
+    public async Task<IActionResult> ReadMessage(int id)
     {
-        mess.Read=true;
-        context.Messages.Update(mess);
-        await context.SaveChangesAsync();
+        var mess = await context.Messages.FindAsync(id);
+        if (mess != null)
+        {
+            mess.Read=true;
+            context.Messages.Update(mess);
+            await context.SaveChangesAsync();
+        }
         return RedirectToAction("SeeMessages");
     }
 
     [HttpPost]
-    public async Task<IActionResult> DeleteMessage(Message mess)
+    public async Task<IActionResult> DeleteMessage(int id)
     {
-        context.Messages.Remove(mess);
-        await context.SaveChangesAsync();
+        var mess = await context.Messages.FindAsync(id);
+        if (mess != null)
+        {
+            context.Messages.Remove(mess);
+            await context.SaveChangesAsync();
+        }
         return RedirectToAction("SeeMessages");
     }
 
