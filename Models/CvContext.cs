@@ -76,7 +76,7 @@ namespace CvProjekt.Models
             // SEED DATA (STATISK DATA)
             // ==========================================
 
-                string u1 = "user-1"; 
+ /*                string u1 = "user-1"; 
                 string u2 = "user-2"; 
                 string u3 = "user-3"; 
                 string u4 = "user-4"; 
@@ -142,11 +142,11 @@ namespace CvProjekt.Models
                     new Message { Id = 2, Text = "Tack Erik! Behöver hjälp med API:et dock.", Date = new DateTime(2024, 02, 21), Read = false, FromUserId = u2, ToUserId = u1 },
                     new Message { Id = 3, Text = "Hej David, söker du jobb?", Date = new DateTime(2024, 03, 01), Read = false, FromUserId = u3, ToUserId = u5 }
                 ); 
-
+ */
 
         }
 
-private User CreateUser(string id, string email, string fName, string lName, string adress, bool active, int resumeId, string passwordHash, string imagePath)
+/* private User CreateUser(string id, string email, string fName, string lName, string adress, bool active, int resumeId, string passwordHash, string imagePath)
 {
     return new User
     {
@@ -167,6 +167,6 @@ private User CreateUser(string id, string email, string fName, string lName, str
         ConcurrencyStamp = "static-concurrency-stamp-" + id,
         ImgUrl = imagePath // Här sparas bildlänken
     };
-} 
+}  */
     }
 }
