@@ -18,7 +18,7 @@ namespace CvProjekt.Controllers
             _userManager = user;
         }   
 
-        [Authorize]
+/*       [Authorize] */
         public async Task<IActionResult> MyProfile()
         {
            var userId = _userManager.GetUserId(User);
@@ -26,7 +26,18 @@ namespace CvProjekt.Controllers
             var user = await _context.Users
                         .Include(u => u.Projects)
                         .Include(u => u.Resume)
-                            .ThenInclude(r => r.Quali)
+                            .ThenInclude(r => r.Qualifications)
+                        .Include(u => u.Resume)
+                            .ThenInclude(r => r.WorkList)
+                        .Include(u => u.Resume)
+                            .ThenInclude(r => r.EducationList)
+                        .FirstOrDefaultAsync(u => u.Id == userId);
+
+            if(user == null){
+                return NotFound();
+            }
+
+            return View(user);
 
         }
 
