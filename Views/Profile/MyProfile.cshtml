@@ -15,4 +15,12 @@
     {
         <h4>Ingen information hittad</h4>
     }
+
+    <h2>Mina kompetenser:</h2>
+    <ul>
+    @foreach (var q in Model.Resume.Qualifications)
+    {
+        <li>@q.Name</li>
+    }
+    </ul>
 </div>
