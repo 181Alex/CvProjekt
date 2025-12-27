@@ -4,87 +4,119 @@
     ViewData["Title"] = "Min Profil";
 }
 
-<div class="container text-center">
-    <h1>Min Profil</h1>
+<div class="container bg-light p-5">
+    <div class="d-flex align-items-center">
+        <div style="flex: 1;"></div>
+
+        <h1 class="m-0" style="flex: 2; text-align: center;">Min Profil</h1>
+
+        <div style="flex: 1; text-align: right;">
+            <button class="btn btn-outline-secondary">Inställningar</button>
+        </div>
+    </div>
     @if (Model != null)
     {
-        <h4>Välkommen @Model.FirstName @Model.LastName</h4>
-        <div class="ratio ratio-1x1 rounded-circle overflow-hidden" style="width: 25%; margin: 2rem auto;">
-            <img src="@Model.ImgUrl" alt="Profilbild" class="img-fluid object-fit-cover">
-        </div>
+        <h4 class="text-center" style="margin: 2rem auto;">Välkommen @Model.FirstName @Model.LastName</h4>
 
-        <div class="container rounded-3 bg-light mt-5 mb-5 text-center p-5">
-            <h6>Epost: @Model.Email</h6>
+        <div class="container mb-3 p-5">
+            <div class="container mt-3 mb-3 p-5 bg-white shadow-sm">
+                <div class="ratio ratio-1x1 rounded-circle overflow-hidden" style="width: 25%; margin: 2rem 1rem;">
+                    <img src="@Model.ImgUrl" alt="Profilbild" class="img-fluid object-fit-cover">
+                </div>
 
-            <div class="d-flex flex-row">
+                <div class="container mt-3 mb-3">
+                    <h3 class="mb-3">@Model.FirstName @Model.LastName</h3>
+                    <h4>Kontakt:</h4>
+                    <h6>@Model.Email</h6>
+                    <h6>@Model.Adress</h6>
+                </div>
+
                 <div class="container">
+
                     <h4>Mina kompetenser:</h4>
-                    <ul class="list-unstyled">
-                    @foreach (var q in Model.Resume.Qualifications)
-                    {
-                        <li>@q.Name</li>
-                    }
+                    <ul class="list-inline">
+                        @foreach (var q in Model.Resume.Qualifications)
+                        {
+                            <li class="list-inline-item border border-info p-1">@q.Name</li>
+                        }
                     </ul>
                 </div>
-                <div class="container">
-                    <h4>Tidigare erfarenheter:</h4>
-                    <ul class="list-unstyled">
-                    @foreach(var w in Model.Resume.WorkList)
-                    {
-                        <li>@w.CompanyName</li>
-                            <div class="d-flex flex-row justify-content-center">
-                                <li>@w.StartDate - </li>
-                                @if(w.EndDate != null)
-                                {
-                                    <li>@w.EndDate</li>
-                                } else {
-                                    <li>Nu</li>
-                                }
-                            </div>
-                        <li>@w.Position</li>
-                        <li>@w.Description</li>
 
-                    }
-                    </ul>
-                </div>
                 <div class="container">
                     <h4>Utbildning:</h4>
-                     <ul class="list-unstyled">
-                    @foreach(var e in Model.Resume.EducationList)
-                    {
-                        <li>@e.SchoolName</li>
-                        <li>@e.DegreeName</li>
-                            <div class="d-flex flex-row justify-content-center">
-                                <li>@e.StartYear - </li>
-                                @if(e.EndYear != null)
+                    <ul class="list-unstyled">
+                        @foreach (var e in Model.Resume.EducationList)
+                        {
+                            <div class="d-flex flex-row justify-content-start">
+                                <li>@e.SchoolName -&#160;</li>
+                                <li>@e.DegreeName &#160;</li>
+                                <li>&#40;@e.StartYear -&#160;</li>
+                                @if (e.EndYear != null)
                                 {
-                                    <li>@e.EndYear</li>
-                                } else {
+                                    <li>@e.EndYear&#41;</li>
+                                }
+                                else
+                                {
                                     <li>Nu</li>
                                 }
                             </div>
-                        <li>@e.Description</li>
+                            <li>@e.Description</li>
 
-                    }
+                        }
                     </ul>
+                </div>
+
+                <div class="container">
+                    <h4>Arbetslivserfarenhet:</h4>
+                    <ul class="list-unstyled">
+                        @foreach (var w in Model.Resume.WorkList)
+                        {
+                            <div class="d-flex flex-row justify-content-start">
+                                <li>@w.CompanyName -&#160;</li>
+                                <li>@w.Position &#160;</li>
+                                <li>&#40;@w.StartDate -&#160;</li>
+                                @if (w.EndDate != null)
+                                {
+                                    <li>@w.EndDate &#41;</li>
+                                }
+                                else
+                                {
+                                    <li>Nu</li>
+                                }
+                            </div>
+                            <li>@w.Description</li>
+
+                        }
+                    </ul>
+                </div>
+                <div class="container mt-5 mb-3 mr-2 ml-2">
+                    <h2 class="text-center">Mina projekt:</h2>
+
+                    <div class="row row-cols-1 row-cols-md-2 g-4">
+                        <div class="col">
+                            <div class="card h-100 border-info p-2 shadow-sm">
+                                @foreach (var p in Model.Projects)
+                                {
+                                    <div class="card-body">
+                                        <div class="d-flex flex-row justify-content-center align-items-center">
+                                            <h5 class="card-title fw-bold text-info">@p.Title &#160</h5>
+                                            <h6>&#40;@p.Year&#41;</h6>
+                                        </div>
+                                        <p>Språk: @p.Language</p>
+                                        <p>Beskrivning: @p.Description</p>
+                                        <a href="@p.GithubLink">Visa på Github</a>
+                                    </div>
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex flex-row justify-content-center">
+                    <a asp-controller="Profile" asp-action="EditResume" class="btn btn-primary">Redigera CV</a>
                 </div>
             </div>
         </div>
-        <button>Redigera Cv</button>
-        <div class="container mt-5">
-        <h2>Mina projekt:</h2>
-            <ul class="list-unstyled">
-                @foreach(var p in Model.Projects)
-                {
-                    <li>@p.Title</li>
-                    <li>@p.Year</li>
-                    <li>@p.Language</li>
-                    <li>@p.GithubLink</li>
-                    <li>@p.Description</li>
-                }
-            </ul>
-        </div>
-        <button>Redigera Projekt</button>
     }
     else
     {
