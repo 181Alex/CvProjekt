@@ -8,6 +8,7 @@
     <h1>Min Profil</h1>
     @if (Model != null)
     {
+        <button>Inställningar</button>
         <h4>Välkommen @Model.FirstName @Model.LastName</h4>
         <div class="ratio ratio-1x1 rounded-circle overflow-hidden" style="width: 25%; margin: 2rem auto;">
             <img src="@Model.ImgUrl" alt="Profilbild" class="img-fluid object-fit-cover">
