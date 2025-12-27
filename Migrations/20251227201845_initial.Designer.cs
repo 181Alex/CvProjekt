@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CvProjekt.Migrations
 {
     [DbContext(typeof(CvContext))]
-    [Migration("20251227164828_boop")]
-    partial class boop
+    [Migration("20251227201845_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,7 +41,7 @@ namespace CvProjekt.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("EndYear")
+                    b.Property<int?>("EndYear")
                         .HasColumnType("int");
 
                     b.Property<int>("ResumeId")
@@ -392,7 +392,8 @@ namespace CvProjekt.Migrations
 
                     b.Property<string>("ImgUrl")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(400)
+                        .HasColumnType("nvarchar(400)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");

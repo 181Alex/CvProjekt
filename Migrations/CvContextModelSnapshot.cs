@@ -38,7 +38,7 @@ namespace CvProjekt.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("EndYear")
+                    b.Property<int?>("EndYear")
                         .HasColumnType("int");
 
                     b.Property<int>("ResumeId")
@@ -389,7 +389,8 @@ namespace CvProjekt.Migrations
 
                     b.Property<string>("ImgUrl")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(400)
+                        .HasColumnType("nvarchar(400)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");

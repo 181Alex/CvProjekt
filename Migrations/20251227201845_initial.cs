@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CvProjekt.Migrations
 {
     /// <inheritdoc />
-    public partial class boop : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -70,7 +70,7 @@ namespace CvProjekt.Migrations
                     Adress = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     ProfileVisits = table.Column<int>(type: "int", nullable: false),
-                    ImgUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImgUrl = table.Column<string>(type: "nvarchar(400)", maxLength: 400, nullable: false),
                     ResumeId = table.Column<int>(type: "int", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -107,7 +107,7 @@ namespace CvProjekt.Migrations
                     SchoolName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DegreeName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StartYear = table.Column<int>(type: "int", nullable: false),
-                    EndYear = table.Column<int>(type: "int", nullable: false),
+                    EndYear = table.Column<int>(type: "int", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ResumeId = table.Column<int>(type: "int", nullable: false)
                 },
