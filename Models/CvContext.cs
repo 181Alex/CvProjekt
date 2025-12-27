@@ -117,10 +117,10 @@ namespace CvProjekt.Models
                 );
 
                 modelBuilder.Entity<Work>().HasData(
-                    new Work { Id = 1, CompanyName = "Volvo", Position = "Utvecklare", StartDate = new DateTime(2020, 1, 1), EndDate = new DateTime(2022, 1, 1), Description = "Backend C#", ResumeId = 1 },
-                    new Work { Id = 2, CompanyName = "Spotify", Position = "Frontend Dev", StartDate = new DateTime(2021, 5, 1), Description = "Jobbar med webbspelaren", ResumeId = 2 },
-                    new Work { Id = 3, CompanyName = "IKEA", Position = "Chef", StartDate = new DateTime(2018, 1, 1), EndDate = new DateTime(2023, 1, 1), Description = "Ledde IT-team", ResumeId = 3 },
-                    new Work { Id = 4, CompanyName = "Google", Position = "Data Analyst", StartDate = new DateTime(2019, 1, 1), Description = "AI forskning", ResumeId = 4 }
+                    new Work { Id = 1, CompanyName = "Volvo", Position = "Utvecklare", StartDate = new DateOnly(2020, 1, 1), EndDate = new DateOnly(2022, 1, 1), Description = "Backend C#", ResumeId = 1 },
+                    new Work { Id = 2, CompanyName = "Spotify", Position = "Frontend Dev", StartDate = new DateOnly(2021, 5, 1), Description = "Jobbar med webbspelaren", ResumeId = 2 },
+                    new Work { Id = 3, CompanyName = "IKEA", Position = "Chef", StartDate = new DateOnly(2018, 1, 1), EndDate = new DateOnly(2023, 1, 1), Description = "Ledde IT-team", ResumeId = 3 },
+                    new Work { Id = 4, CompanyName = "Google", Position = "Data Analyst", StartDate = new DateOnly(2019, 1, 1), Description = "AI forskning", ResumeId = 4 }
                 );
 
                 modelBuilder.Entity<Education>().HasData(
@@ -138,10 +138,37 @@ namespace CvProjekt.Models
                 );
 
                 modelBuilder.Entity<Message>().HasData(
-                    new Message { Id = 1, Text = "Tjena Anna! Snygg frontend du byggde.", Date = new DateTime(2024, 02, 20), Read = true, FromUserId = u1, ToUserId = u2 },
-                    new Message { Id = 2, Text = "Tack Erik! Behöver hjälp med API:et dock.", Date = new DateTime(2024, 02, 21), Read = false, FromUserId = u2, ToUserId = u1 },
-                    new Message { Id = 3, Text = "Hej David, söker du jobb?", Date = new DateTime(2024, 03, 01), Read = false, FromUserId = u3, ToUserId = u5 }
-                ); 
+                new Message 
+                { 
+                    Id = 1, 
+                    Text = "Tjena Anna! Snygg frontend du byggde.", 
+                    Date = new DateTime(2024, 02, 20), 
+                    Read = true, 
+                    FromUserId = u1, 
+                    ToUserId = u2,
+                    SenderName = "Erik Svensson" // Eller vad u1 heter i din User-data
+                },
+                new Message 
+                { 
+                    Id = 2, 
+                    Text = "Tack Erik! Behöver hjälp med API:et dock.", 
+                    Date = new DateTime(2024, 02, 21), 
+                    Read = false, 
+                    FromUserId = u2, 
+                    ToUserId = u1,
+                    SenderName = "Anna Andersson" // Eller vad u2 heter
+                },
+                new Message 
+                { 
+                    Id = 3, 
+                    Text = "Hej David, söker du jobb?", 
+                    Date = new DateTime(2024, 03, 01), 
+                    Read = false, 
+                    FromUserId = u3, 
+                    ToUserId = u5,
+                    SenderName = "Cecilia Carlsson" // Eller vad u3 heter
+                }
+);
 
         }
 

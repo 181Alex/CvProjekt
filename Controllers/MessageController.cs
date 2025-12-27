@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using CvProjekt.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -16,37 +17,66 @@ public class MessageController : Controller
         this.context = context;
         _userManager = user;
     }
+
+
+
+    [HttpGet]
+    public IActionResult SendMessages(string receiverId)
+    {
+    var receiver = context.Users.FirstOrDefault(u => u.Id == receiverId);
+    var model = new Message
+    {
+        ToUserId = receiver.Id,
+        ToUser = receiver   
+    };
+    return View(model);
+    }
     
     [HttpPost]
     public async Task<IActionResult> SendMessage(Message mess)
     {
-        mess.Date= DateTime.Now;
-        var nowUser = await _userManager.GetUserAsync(User);
-
-        //detta måste göras iordning sen när allt dunkar med inlogg
-        if (nowUser == null)
+    mess.Date = DateTime.Now;
+    mess.Read = false;
+    
+    var nowUser = await _userManager.GetUserAsync(User);
+        if (nowUser != null)
         {
-            mess.FromUserId = "user-1"; 
+            mess.FromUserId = nowUser.Id;
+            mess.SenderName = $"{nowUser.FirstName} {nowUser.LastName}";
         }
         else
         {
-            mess.FromUserId = nowUser.Id;
+            mess.FromUserId = null;
+            if (string.IsNullOrWhiteSpace(mess.SenderName))
+                {
+                    ModelState.AddModelError("SenderName", "Du måste ange ditt namn för att skicka meddelande.");
+                }
         }
-        
+    ModelState.Remove("ToUser");
+    ModelState.Remove("FromUser");
+    ModelState.Remove("FromUserId");
+    if (ModelState.IsValid)
+    {
         context.Messages.Add(mess);
         await context.SaveChangesAsync();
         return RedirectToAction("SeeMessages");
+        }
+
+    mess.ToUser = context.Users.Find(mess.ToUserId);
+    return View("SendMessages", mess);
     }
 
-//borttaget för testing, när allt funkar, återsätll denna och ta bort den andra
+
+
     [HttpGet]
-/*     public async Task<IActionResult> SeeMessages()
+    public async Task<IActionResult> SeeMessages()
     {
         var nowUser = await _userManager.GetUserAsync(User);
-        if (nowUser != null)
+        if (nowUser == null)
         {
-            //Lägg in att användaren ska tillbaka till hemskärmen när den är klar
-        }
+            return Content("Fel: Inga användare hittades i databasen.");
+
+        }        
 
         var messages = await context.Messages
             .Include(m => m.FromUser)
@@ -54,35 +84,7 @@ public class MessageController : Controller
             .OrderByDescending(m => m.Date)
             .ToListAsync();
         return View(messages);
-    } */
-    public async Task<IActionResult> SeeMessages()
-    {
-        // 1. Försök hämta riktig användare
-        var user = await _userManager.GetUserAsync(User);
-
-        // 2. TEMPORÄR FIX: Om ingen är inloggad, hämta Erik manuellt
-        if (user == null)
-        {
-            // Vi hämtar användaren med ID "user-1" från din Seed Data
-            user = await context.Users.FirstOrDefaultAsync(u => u.Id == "user-1");
-        }
-
-        // Säkerhetskoll: Om databasen är tom
-        if (user == null)
-        {
-            return Content("Fel: Inga användare hittades i databasen. Har du kört seed data?");
-        }
-
-        // 3. Nu har vi garanterat en 'user' (antingen riktig eller Erik).
-        // Hämta meddelanden TILL denna användare.
-        var messages = await context.Messages
-            .Include(m => m.FromUser) // Viktigt för att visa namn/bild
-            .Where(m => m.ToUserId == user.Id)
-            .OrderByDescending(m => m.Date)
-            .ToListAsync();
-
-        return View(messages);
-    }
+    } 
     [HttpPost]
     public async Task<IActionResult> ReadMessage(int id)
     {
@@ -96,15 +98,32 @@ public class MessageController : Controller
         return RedirectToAction("SeeMessages");
     }
 
-    [HttpPost]
-    public async Task<IActionResult> DeleteMessage(int id)
+    [HttpGet]
+    public async Task<IActionResult> DeleteMessages(int id)
     {
-        var mess = await context.Messages.FindAsync(id);
-        if (mess != null)
+        var message = await context.Messages
+            .Include(m => m.FromUser)
+            .FirstOrDefaultAsync(m => m.Id == id);
+
+        if (message == null)
         {
-            context.Messages.Remove(mess);
+            return NotFound();
+        }
+        return View(message);
+    }
+    [HttpPost, ActionName("DeleteMessage")]
+    public async Task<IActionResult> DeleteMessageConfirmed(int id)
+    {
+        var message = await context.Messages.FindAsync(id);
+        
+        var currentUser = await _userManager.GetUserAsync(User);
+        
+        if (message != null && currentUser != null && message.ToUserId == currentUser.Id)
+        {
+            context.Messages.Remove(message);
             await context.SaveChangesAsync();
         }
+
         return RedirectToAction("SeeMessages");
     }
 

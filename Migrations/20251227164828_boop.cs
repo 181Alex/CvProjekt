@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CvProjekt.Migrations
 {
     /// <inheritdoc />
-    public partial class ResetAndSeed : Migration
+    public partial class boop : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -150,8 +150,8 @@ namespace CvProjekt.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Position = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    StartDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    EndDate = table.Column<DateOnly>(type: "date", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ResumeId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -260,6 +260,7 @@ namespace CvProjekt.Migrations
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Read = table.Column<bool>(type: "bit", nullable: false),
+                    SenderName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FromUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     ToUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -360,20 +361,20 @@ namespace CvProjekt.Migrations
                 columns: new[] { "Id", "CompanyName", "Description", "EndDate", "Position", "ResumeId", "StartDate" },
                 values: new object[,]
                 {
-                    { 1, "Volvo", "Backend C#", new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Utvecklare", 1, new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 2, "Spotify", "Jobbar med webbspelaren", null, "Frontend Dev", 2, new DateTime(2021, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 3, "IKEA", "Ledde IT-team", new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Chef", 3, new DateTime(2018, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 4, "Google", "AI forskning", null, "Data Analyst", 4, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                    { 1, "Volvo", "Backend C#", new DateOnly(2022, 1, 1), "Utvecklare", 1, new DateOnly(2020, 1, 1) },
+                    { 2, "Spotify", "Jobbar med webbspelaren", null, "Frontend Dev", 2, new DateOnly(2021, 5, 1) },
+                    { 3, "IKEA", "Ledde IT-team", new DateOnly(2023, 1, 1), "Chef", 3, new DateOnly(2018, 1, 1) },
+                    { 4, "Google", "AI forskning", null, "Data Analyst", 4, new DateOnly(2019, 1, 1) }
                 });
 
             migrationBuilder.InsertData(
                 table: "Messages",
-                columns: new[] { "Id", "Date", "FromUserId", "Read", "Text", "ToUserId" },
+                columns: new[] { "Id", "Date", "FromUserId", "Read", "SenderName", "Text", "ToUserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 2, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "user-1", true, "Tjena Anna! Snygg frontend du byggde.", "user-2" },
-                    { 2, new DateTime(2024, 2, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "user-2", false, "Tack Erik! Behöver hjälp med API:et dock.", "user-1" },
-                    { 3, new DateTime(2024, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "user-3", false, "Hej David, söker du jobb?", "user-5" }
+                    { 1, new DateTime(2024, 2, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "user-1", true, "Erik Svensson", "Tjena Anna! Snygg frontend du byggde.", "user-2" },
+                    { 2, new DateTime(2024, 2, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "user-2", false, "Anna Andersson", "Tack Erik! Behöver hjälp med API:et dock.", "user-1" },
+                    { 3, new DateTime(2024, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "user-3", false, "Cecilia Carlsson", "Hej David, söker du jobb?", "user-5" }
                 });
 
             migrationBuilder.InsertData(

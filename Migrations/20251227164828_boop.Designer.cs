@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CvProjekt.Migrations
 {
     [DbContext(typeof(CvContext))]
-    [Migration("20251226223607_ResetAndSeed")]
-    partial class ResetAndSeed
+    [Migration("20251227164828_boop")]
+    partial class boop
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -130,6 +130,10 @@ namespace CvProjekt.Migrations
                     b.Property<bool>("Read")
                         .HasColumnType("bit");
 
+                    b.Property<string>("SenderName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Text")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -153,6 +157,7 @@ namespace CvProjekt.Migrations
                             Date = new DateTime(2024, 2, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FromUserId = "user-1",
                             Read = true,
+                            SenderName = "Erik Svensson",
                             Text = "Tjena Anna! Snygg frontend du byggde.",
                             ToUserId = "user-2"
                         },
@@ -162,6 +167,7 @@ namespace CvProjekt.Migrations
                             Date = new DateTime(2024, 2, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FromUserId = "user-2",
                             Read = false,
+                            SenderName = "Anna Andersson",
                             Text = "Tack Erik! Behöver hjälp med API:et dock.",
                             ToUserId = "user-1"
                         },
@@ -171,6 +177,7 @@ namespace CvProjekt.Migrations
                             Date = new DateTime(2024, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FromUserId = "user-3",
                             Read = false,
+                            SenderName = "Cecilia Carlsson",
                             Text = "Hej David, söker du jobb?",
                             ToUserId = "user-5"
                         });
@@ -584,8 +591,8 @@ namespace CvProjekt.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("EndDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly?>("EndDate")
+                        .HasColumnType("date");
 
                     b.Property<string>("Position")
                         .IsRequired()
@@ -594,8 +601,8 @@ namespace CvProjekt.Migrations
                     b.Property<int>("ResumeId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("StartDate")
+                        .HasColumnType("date");
 
                     b.HasKey("Id");
 
@@ -609,10 +616,10 @@ namespace CvProjekt.Migrations
                             Id = 1,
                             CompanyName = "Volvo",
                             Description = "Backend C#",
-                            EndDate = new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EndDate = new DateOnly(2022, 1, 1),
                             Position = "Utvecklare",
                             ResumeId = 1,
-                            StartDate = new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            StartDate = new DateOnly(2020, 1, 1)
                         },
                         new
                         {
@@ -621,17 +628,17 @@ namespace CvProjekt.Migrations
                             Description = "Jobbar med webbspelaren",
                             Position = "Frontend Dev",
                             ResumeId = 2,
-                            StartDate = new DateTime(2021, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            StartDate = new DateOnly(2021, 5, 1)
                         },
                         new
                         {
                             Id = 3,
                             CompanyName = "IKEA",
                             Description = "Ledde IT-team",
-                            EndDate = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EndDate = new DateOnly(2023, 1, 1),
                             Position = "Chef",
                             ResumeId = 3,
-                            StartDate = new DateTime(2018, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            StartDate = new DateOnly(2018, 1, 1)
                         },
                         new
                         {
@@ -640,7 +647,7 @@ namespace CvProjekt.Migrations
                             Description = "AI forskning",
                             Position = "Data Analyst",
                             ResumeId = 4,
-                            StartDate = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            StartDate = new DateOnly(2019, 1, 1)
                         });
                 });
 
