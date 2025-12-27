@@ -8,8 +8,8 @@
             <p class="lead">Är du säker på att du vill radera detta meddelande? Det går inte att ångra.</p>
             
             <dl class="row">
-                <h3 class="col-sm-3">Från:</h3>
-                <p class="col-sm-9">
+                <dt class="col-sm-3">Från:</dt>
+                <dd class="col-sm-9">
                     @if (Model.FromUser != null)
                     {
                         @Model.FromUser.FirstName @Model.FromUser.LastName
@@ -18,15 +18,15 @@
                     {
                         @Model.SenderName
                     }
-                </p>
+                </dd>
 
-                <h3 class="col-sm-3">Mottaget:</h3>
-                <p class="col-sm-9">@Model.Date.ToShortDateString()</p>
+                <dt class="col-sm-3">Mottaget:</dt>
+                <dd class="col-sm-9">@Model.Date.ToShortDateString()</dd>
 
-                <h3 class="col-sm-3">Meddelande:</h3>
-                <p class="col-sm-9 p-3 bg-light border rounded">
+                <dt class="col-sm-3">Meddelande:</dt>
+                <dd class="col-sm-9 p-3 bg-light border rounded">
                     @Model.Text
-                </p>
+                </dd>
             </dl>
 
             <div class="mt-4">

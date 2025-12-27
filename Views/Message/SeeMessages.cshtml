@@ -22,13 +22,13 @@
                 }
                 else
                 {
-                    <span style="color:gray; font-style:italic;">Okänd avsändare (Användare borttagen)</span>
+                    <span style="color:gray; font-style:italic;">@mess.SenderName</span>
                 }
             </h3>
 
             <div class="align-content-center bg-dark-subtle p-4">
                 <p>@mess.Text</p>
-                <small>@mess.Date.ToString("yyyy-MM-dd HH:mm")</small>
+                <p>@mess.Date.ToString("yyyy-MM-dd HH:mm")</p>
             </div>
             
             @if(mess.Read)
