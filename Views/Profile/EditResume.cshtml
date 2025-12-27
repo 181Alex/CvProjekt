@@ -8,49 +8,94 @@
     <h1 class="text-center">Redigera ditt Cv</h1>
     <nav>
         <div class="nav nav-tabs bg-white mr-5 ml-5 mt-5" role="tablist">
-            <button class="nav-link active" id="nav-base-tab" data-bs-toggle="tab" data-bs-target="#nav-base" 
-            type="button" role="tab" aria-controls="nav-base" aria-selected="true">
-            Basinformation</button>
+            <button class="nav-link active" id="nav-base-tab" data-bs-toggle="tab" data-bs-target="#nav-base"
+                type="button" role="tab" aria-controls="nav-base" aria-selected="true">
+                Basinformation
+                @{
+                    bool hasBaseErrors = ViewData.ModelState["FirstName"]?.Errors.Count > 0 ||
+                            ViewData.ModelState["LastName"]?.Errors.Count > 0 ||
+                            ViewData.ModelState["Adress"]?.Errors.Count > 0 ||
+                            ViewData.ModelState["Email"]?.Errors.Count > 0;
+                            ViewData.ModelState["ImgUrl"]?.Errors.Count > 0;
+                }
+                @if (hasBaseErrors)
+                {
+                    <span class="text-danger">*</span>
+                }
+            </button>
 
-            <button class="nav-link" id="nav-qualif-tab" data-bs-toggle="tab" data-bs-target="#nav-qualif" 
-            type="button" role="tab" aria-controls="nav-qualif" aria-selected="true">
-            Kompetenser</button>
+            <button class="nav-link" id="nav-qualif-tab" data-bs-toggle="tab" data-bs-target="#nav-qualif" type="button"
+                role="tab" aria-controls="nav-qualif" aria-selected="true">
+                Kompetenser</button>
 
-            <button class="nav-link" id="nav-edu-tab" data-bs-toggle="tab" data-bs-target="#nav-edu" 
-            type="button" role="tab" aria-controls="nav-edu" aria-selected="true">
-            Utbildning</button>
+            <button class="nav-link" id="nav-edu-tab" data-bs-toggle="tab" data-bs-target="#nav-edu" type="button"
+                role="tab" aria-controls="nav-edu" aria-selected="true">
+                Utbildning</button>
 
-            <button class="nav-link" id="nav-work-tab" data-bs-toggle="tab" data-bs-target="#nav-work" 
-            type="button" role="tab" aria-controls="nav-work" aria-selected="true">
-            Arbetslivserfarenhet</button>
+            <button class="nav-link" id="nav-work-tab" data-bs-toggle="tab" data-bs-target="#nav-work" type="button"
+                role="tab" aria-controls="nav-work" aria-selected="true">
+                Arbetslivserfarenhet</button>
 
-            <button class="nav-link" id="nav-proj-tab" data-bs-toggle="tab" data-bs-target="#nav-proj" 
-            type="button" role="tab" aria-controls="nav-proj" aria-selected="true">
-            Projekt</button>
+            <button class="nav-link" id="nav-proj-tab" data-bs-toggle="tab" data-bs-target="#nav-proj" type="button"
+                role="tab" aria-controls="nav-proj" aria-selected="true">
+                Projekt</button>
         </div>
     </nav>
     <div class="tab-content bg-white mr-5 ml-5 mb-5" id="nav-tabContent">
+        <form asp-action="EditResumeInfo" method="post">
+            <input type="hidden" asp-for="Id" />
 
-        <div class="tab-pane fade show active p-3" id="nav-base" role="tabpanel" aria-labelledby="nav-base-tab">
-            <h2>Basinformation</h2>
-        </div>
+            <div class="tab-pane fade show active p-3" id="nav-base" role="tabpanel" aria-labelledby="nav-base-tab">
+                <h2>Basinformation</h2>
 
-        <div class="tab-pane fade p-3" id="nav-qualif" role="tabpanel" aria-labelledby="nav-qualif-tab">
-            <h2>Kompetenser</h2>
-        </div>
+                <div class="mb-3">
+                    <label asp-for="FirstName" class="form-label">Förnamn</label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
 
-        <div class="tab-pane fade p-3" id="nav-edu" role="tabpanel" aria-labelledby="nav-edu-tab">
-            <h2>Utbildning</h2>
-        </div>
+                <div class="mb-3">
+                    <label asp-for="LastName" class="form-label">Efternamn</label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
 
-        <div class="tab-pane fade p-3" id="nav-work" role="tabpanel" aria-labelledby="nav-work-tab">
-            <h2>Arbetslivserfarenhet</h2>
-        </div>
+                <div class="mb-3">
+                    <label asp-for="Adress" class="form-label">Adress</label>
+                    <input asp-for="Adress" class="form-control" />
+                    <span asp-validation-for="Adress" class="text-danger"></span>
+                </div>
 
-        <div class="tab-pane fade p-3" id="nav-proj" role="tabpanel" aria-labelledby="nav-proj-tab">
-            <h2>Projekt</h2>
-        </div>
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label">Epost</label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
 
+                <div class="mb-3">
+                    <label asp-for="ImgUrl" class="form-label">Profilbild</label>
+                    <input asp-for="ImgUrl" class="form-control" />
+                    <span asp-validation-for="ImgUrl" class="text-danger"></span>
+                </div>
+
+            </div>
+
+            <div class="tab-pane fade p-3" id="nav-qualif" role="tabpanel" aria-labelledby="nav-qualif-tab">
+                <h2>Kompetenser</h2>
+            </div>
+
+            <div class="tab-pane fade p-3" id="nav-edu" role="tabpanel" aria-labelledby="nav-edu-tab">
+                <h2>Utbildning</h2>
+            </div>
+
+            <div class="tab-pane fade p-3" id="nav-work" role="tabpanel" aria-labelledby="nav-work-tab">
+                <h2>Arbetslivserfarenhet</h2>
+            </div>
+
+            <div class="tab-pane fade p-3" id="nav-proj" role="tabpanel" aria-labelledby="nav-proj-tab">
+                <h2>Projekt</h2>
+            </div>
+            <button type="submit" class="btn btn-primary">Spara ändringar</button>
+        </form>
     </div>
 </div>
-

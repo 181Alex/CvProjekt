@@ -32,6 +32,10 @@ namespace CvProjekt.Models
 
         public int ProfileVisits{get;set;}
 
+        [StringLength(400, ErrorMessage = "Max 400 tecken")]
+        // Tillåter bokstäver, siffror, mellanslag (viktigt!) och åäö
+        [RegularExpression(@"^(https?://)[^\s/$.?#].[^\s]*$", 
+            ErrorMessage = "Länken måste börja med http:// eller https:// och vara giltig")]
         public string ImgUrl {get; set;}
 
         public virtual ICollection<Message> Messages {get; set;} = new List<Message>();

@@ -71,5 +71,35 @@ namespace CvProjekt.Controllers
 
         }
 
+        [HttpPost]
+
+        public async Task<IActionResult> EditResumeInfo(User updatedUser)
+        {
+
+            if (!ModelState.IsValid)
+            {
+
+                return View("EditResume", updatedUser);
+            }
+
+            var currentUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == updatedUser.Id);
+
+            if (currentUser == null)
+            {       
+                return Content("Hittar ej användare i databas");
+            }
+
+            currentUser.FirstName = updatedUser.FirstName;
+            currentUser.LastName = updatedUser.LastName;
+            currentUser.Adress = updatedUser.Adress;
+            currentUser.Email = updatedUser.Email;
+            currentUser.ImgUrl = updatedUser.ImgUrl;
+
+            _context.Update(currentUser);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("MyProfile");
+        }
+
     }
 }
