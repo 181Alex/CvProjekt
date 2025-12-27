@@ -12,10 +12,10 @@
                 type="button" role="tab" aria-controls="nav-base" aria-selected="true">
                 Basinformation
                 @{
-                    bool hasBaseErrors = ViewData.ModelState["FirstName"]?.Errors.Count > 0 ||
+                    var hasBaseErrors = ViewData.ModelState["FirstName"]?.Errors.Count > 0 ||
                             ViewData.ModelState["LastName"]?.Errors.Count > 0 ||
                             ViewData.ModelState["Adress"]?.Errors.Count > 0 ||
-                            ViewData.ModelState["Email"]?.Errors.Count > 0;
+                            ViewData.ModelState["Email"]?.Errors.Count > 0 ||
                             ViewData.ModelState["ImgUrl"]?.Errors.Count > 0;
                 }
                 @if (hasBaseErrors)
