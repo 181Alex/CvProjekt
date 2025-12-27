@@ -67,7 +67,7 @@
                 </div>
 
                 <div class="container">
-                    <h4>Tidigare erfarenheter:</h4>
+                    <h4>Arbetslivserfarenhet:</h4>
                     <ul class="list-unstyled">
                         @foreach (var w in Model.Resume.WorkList)
                         {
@@ -89,37 +89,34 @@
                         }
                     </ul>
                 </div>
+                <div class="container mt-5 mb-3 mr-2 ml-2">
+                    <h2 class="text-center">Mina projekt:</h2>
+
+                    <div class="row row-cols-1 row-cols-md-2 g-4">
+                        <div class="col">
+                            <div class="card h-100 border-info p-2 shadow-sm">
+                                @foreach (var p in Model.Projects)
+                                {
+                                    <div class="card-body">
+                                        <div class="d-flex flex-row justify-content-center align-items-center">
+                                            <h5 class="card-title fw-bold text-info">@p.Title &#160</h5>
+                                            <h6>&#40;@p.Year&#41;</h6>
+                                        </div>
+                                        <p>Språk: @p.Language</p>
+                                        <p>Beskrivning: @p.Description</p>
+                                        <a href="@p.GithubLink">Visa på Github</a>
+                                    </div>
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
                 <div class="d-flex flex-row justify-content-center">
                     <a asp-controller="Profile" asp-action="EditResume" class="btn btn-primary">Redigera CV</a>
                 </div>
             </div>
         </div>
-
-        <div class="container mt-5 mb-3">
-            <h2 class="text-center">Mina projekt:</h2>
-
-            <div class="row row-cols-1 row-cols-md-2 g-4">
-                <div class="col">
-                    <div class="card h-100 border-info p-2 shadow-sm">
-                            @foreach (var p in Model.Projects)
-                            {
-                                <div class="card-body"> 
-                                    <div class="d-flex flex-row justify-content-center align-items-center">
-                                        <h5 class="card-title fw-bold text-info">@p.Title &#160</h5>
-                                        <h6>&#40;@p.Year&#41;</h6>
-                                    </div>                                                                
-                                    <p>Språk: @p.Language</p>
-                                    <p>Beskrivning: @p.Description</p>
-                                    <a href="@p.GithubLink">Visa på Github</a>
-                                </div>
-                            }
-                    </div>
-
-                </div>
-            </div>
-            <button style="margin: 1rem auto;">Redigera Projekt</button>
-        </div>
-
     }
     else
     {
