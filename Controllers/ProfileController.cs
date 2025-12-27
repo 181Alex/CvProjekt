@@ -98,7 +98,9 @@ namespace CvProjekt.Controllers
             _context.Update(currentUser);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("MyProfile");
+            TempData["SuccessMessage"] = "Uppdaterad";
+
+            return RedirectToAction("EditResume");
         }
 
     }
