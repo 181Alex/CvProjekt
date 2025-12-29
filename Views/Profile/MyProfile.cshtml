@@ -10,8 +10,8 @@
 
         <h1 class="m-0" style="flex: 2; text-align: center;">Min Profil</h1>
 
-        <div style="flex: 1; text-align: right;">
-            <button class="btn btn-outline-secondary">Inställningar</button>
+        <div class="d-flex flex-row justify-content-center">
+            <a asp-controller="Profile" asp-action="Settings" class="btn btn-primary">Redigera CV</a>
         </div>
     </div>
     @if (Model != null)
