@@ -132,6 +132,75 @@
 
         <div class="tab-pane fade p-3" id="nav-edu" role="tabpanel" aria-labelledby="nav-edu-tab">
             <h2>Utbildning</h2>
+
+            <form asp-action="EditEducation" method="post">
+                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="Resume.Id" />
+            
+            <div id="education-container">
+
+            @if (Model.Resume?.EducationList != null)
+            {
+
+                var eList = Model.Resume.EducationList.ToList();
+
+                for (int i = 0; i < eList.Count; i++)
+                {
+                    <div class="container bg-light border rounded p-3 mb-3 education-card">
+
+                        <div class="row justify-content-md-center">
+                            <div class="col-md-4">
+                                <label class="form-label small">Skola</label>
+                                <input type="text" data-prop="SchoolName" name="Resume.EducationList[@i].SchoolName" value="@eList[i].SchoolName"
+                                class="form-control" placeholder="Skolnamn..." />
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small">Utbildning</label>
+                                <input type="text" data-prop="DegreeName" name="Resume.EducationList[@i].DegreeName" value="@eList[i].DegreeName"
+                                class="form-control" placeholder="Utbildningsnamn..." />
+                            </div>
+                        </div>
+                        <div class="row justify-content-md-center">
+                            <div class="col-md-4">
+                                <label class="form-label small">Startår</label>
+                                <input type="text" data-prop="StartYear" name="Resume.EducationList[@i].StartYear" value="@eList[i].StartYear"
+                                class="form-control" placeholder="Startår..." />
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small">Slutår</label>
+                                <input type="text" data-prop="EndYear" name="Resume.EducationList[@i].EndYear" value="@eList[i].EndYear"
+                                class="form-control" placeholder="Slutår..." />
+                            </div>
+                        </div>
+                        <div class="row justify-content-md-center">
+                            <div class="col-md-6">
+                                <label class="form-label small">Beskrivning</label>
+                                <textarea data-prop="Description" name="Resume.EducationList[@i].Description" class="form-control" rows="2" placeholder="Beskrivning...">@eList[i].Description</textarea>
+                            </div>
+                        </div>
+                        <div class="rowjustify-content-md-center">
+                            <div class="col-md-4">
+                                <button type="button" class="btn btn-outline-danger"
+                                onclick="removeEduCard(this)">X</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                }
+
+
+            }
+            </div>
+
+            <div class="d-flex justify-content-between mt-3">
+                <button type="button" class="btn btn-secondary" onclick="addNewEduCard()">+ Lägg till
+                    utbildning</button>
+                <button type="submit" class="btn btn-success">Spara utbildning</button>
+            </div>
+
+            </form>
+
         </div>
 
         <div class="tab-pane fade p-3" id="nav-work" role="tabpanel" aria-labelledby="nav-work-tab">

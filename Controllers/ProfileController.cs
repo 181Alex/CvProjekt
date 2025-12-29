@@ -196,5 +196,52 @@ namespace CvProjekt.Controllers
 
         }
 
+        [HttpPost]
+        public async Task<IActionResult> EditEducation(User updatedUser)
+        {
+
+            var currentUser = await _context.Users
+                .Include(u => u.Resume)
+                .ThenInclude(r => r.EducationList)
+            .FirstOrDefaultAsync(u => u.Id == updatedUser.Id);
+
+            if (currentUser == null)
+            {       
+                return Content("Hittar ej användare i databas");
+            }
+
+            if (currentUser.Resume == null)
+            {
+                currentUser.Resume = new Resume();
+            }
+
+            currentUser.Resume.EducationList.Clear();
+
+            if(updatedUser.Resume?.EducationList != null)
+            {
+                foreach(var e in updatedUser.Resume.EducationList)
+                {
+                    if (!string.IsNullOrWhiteSpace(e.SchoolName) && !string.IsNullOrWhiteSpace(e.DegreeName) && e.StartYear != null )
+                    {
+                        currentUser.Resume.EducationList.Add(new Education{
+                            SchoolName = e.SchoolName, 
+                            DegreeName = e.DegreeName,
+                            StartYear = e.StartYear,
+                            EndYear = e.EndYear,
+                            Description = e.Description,
+                            ResumeId = currentUser.Resume.Id 
+                        });
+                    }
+                }
+            }
+
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Utbildning sparad";
+            
+            return RedirectToAction("EditResume");
+
+        }
+
     }
 }

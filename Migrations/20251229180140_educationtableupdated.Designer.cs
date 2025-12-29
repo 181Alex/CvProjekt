@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CvProjekt.Migrations
 {
     [DbContext(typeof(CvContext))]
-    [Migration("20251228151808_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20251229180140_educationtableupdated")]
+    partial class educationtableupdated
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,11 +35,12 @@ namespace CvProjekt.Migrations
 
                     b.Property<string>("DegreeName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<int?>("EndYear")
                         .HasColumnType("int");
@@ -49,7 +50,8 @@ namespace CvProjekt.Migrations
 
                     b.Property<string>("SchoolName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<int>("StartYear")
                         .HasColumnType("int");
@@ -391,7 +393,6 @@ namespace CvProjekt.Migrations
                         .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("ImgUrl")
-                        .IsRequired()
                         .HasMaxLength(400)
                         .HasColumnType("nvarchar(400)");
 
