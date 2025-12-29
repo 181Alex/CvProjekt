@@ -3,6 +3,14 @@
 @{
     ViewData["Title"] = "Min Profil";
 }
+<div class="container mt-3 mb-3 p-3 bg-light border rounded text-center" style="max-width: 250px;">
+    <h5 class="mb-2">📊 Statistik</h5>
+    <p class="mb-0">
+        Profilbesök:
+        <strong>@Model.ProfileVisits</strong>
+    </p>
+</div>
+
 
 <div class="container bg-light p-5">
     <div class="position-relative d-flex justify-content-center align-items-center mb-4">
@@ -148,4 +156,5 @@
     {
         <h4>Ingen information hittad</h4>
     }
+
 </div>

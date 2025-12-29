@@ -38,8 +38,20 @@ namespace CvProjekt.Controllers
         [HttpGet]
         public async Task<IActionResult> MyProfile()
         {
+<<<<<<< Updated upstream
             
             var userId = _userManager.GetUserId(User);
+=======
+<<<<<<< HEAD
+
+            var userId = "user-1";
+
+            //_userManager.GetUserId(User);
+=======
+            
+            var userId = _userManager.GetUserId(User);
+>>>>>>> f1492f335d1b1012ad173cad733b2ad27570684f
+>>>>>>> Stashed changes
 
             var user = await _context.Users
                         .Include(u => u.Projects)
@@ -51,13 +63,47 @@ namespace CvProjekt.Controllers
                             .ThenInclude(r => r.EducationList)
                         .FirstOrDefaultAsync(u => u.Id == userId);
 
-            if(user == null){
+            if (user == null) {
                 return Content($"Fel: Hittade ingen användare med ID '{userId}' i databasen. Har du kört database update?");
             }
 
             return View(user);
 
-        }
+            }
+        [HttpGet]
+        public async Task<IActionResult> ViewProfile(string id)
+            {
+                if (string.IsNullOrEmpty(id))
+                    return BadRequest("Ingen användar-id skickades.");
+
+                var profileUser = await _context.Users
+                    .Include(u => u.Projects)
+                    .Include(u => u.Resume)
+                        .ThenInclude(r => r.Qualifications)
+                    .Include(u => u.Resume)
+                        .ThenInclude(r => r.WorkList)
+                    .Include(u => u.Resume)
+                        .ThenInclude(r => r.EducationList)
+                    .FirstOrDefaultAsync(u => u.Id == id);
+
+                if (profileUser == null)
+                    return NotFound("Användaren hittades inte.");
+
+                // 🔹 Hämta inloggad användare (kan vara null)
+                var currentUser = await _userManager.GetUserAsync(User);
+
+                // 🔹 Räkna endast om man tittar på någon annans profil
+                if (currentUser == null || currentUser.Id != profileUser.Id)
+                {
+                    profileUser.ProfileVisits++;
+                    await _context.SaveChangesAsync();
+                }
+
+                return View("MyProfile", profileUser);
+            }
+
+
+        
 
         public async Task<IActionResult> EditResume()
         {
