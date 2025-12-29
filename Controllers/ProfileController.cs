@@ -98,9 +98,32 @@ namespace CvProjekt.Controllers
             _context.Update(currentUser);
             await _context.SaveChangesAsync();
 
-            TempData["SuccessMessage"] = "Uppdaterad";
+            TempData["SuccessMessage"] = "Uppdaterat basinformation";
 
             return RedirectToAction("EditResume");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddQualification(string name, int resumeId)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                return RedirectToAction("EditResume");
+            }
+
+            var newQualif= new Qualification
+            {
+                Name = name,
+                ResumeId = resumeId
+            };
+
+            _context.Qualifications.Add(newQualif);
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Lagt till kvalifikationer";
+
+            return RedirectToAction("EditResume");
+
         }
 
     }
