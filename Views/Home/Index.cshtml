@@ -1,4 +1,7 @@
 ﻿@{
+@model List<User>
+
+
     ViewData["Title"] = "Home Page";
 }
 
@@ -6,3 +9,32 @@
     <h1 class="display-4">Hallå där Världen</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+<form method="get">
+    <input type="text"
+           name="search"
+           placeholder="Sök profiler..."
+           value="@Context.Request.Query["search"]" />
+
+    <button type="submit">Sök</button>
+</form>
+@if (!Model.Any())
+{
+    <p>Inga profiler hittades.</p>
+}
+else
+{
+    <ul>
+        @foreach (var user in Model)
+        {
+            <li>
+                <strong>@user.FirstName @user.LastName</strong><br />
+
+                <a asp-controller="Profile"
+                   asp-action="ViewProfile"
+                   asp-route-id="@user.Id">
+                    Visa profil
+                </a>
+            </li>
+        }
+    </ul>
+}

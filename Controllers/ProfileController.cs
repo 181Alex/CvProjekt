@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CvProjekt.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class ProfileController : Controller
     {
         private readonly CvContext _context;
@@ -38,35 +38,65 @@ namespace CvProjekt.Controllers
         [HttpGet]
         public async Task<IActionResult> MyProfile()
         {
-            
-            var userId = "user-1";
-               
-               //_userManager.GetUserId(User);
+            var userId = _userManager.GetUserId(User);
 
             var user = await _context.Users
-                        .Include(u => u.Projects)
-                        .Include(u => u.Resume)
-                            .ThenInclude(r => r.Qualifications)
-                        .Include(u => u.Resume)
-                            .ThenInclude(r => r.WorkList)
-                        .Include(u => u.Resume)
-                            .ThenInclude(r => r.EducationList)
-                        .FirstOrDefaultAsync(u => u.Id == userId);
+                .Include(u => u.Projects)
+                .Include(u => u.Resume)
+                    .ThenInclude(r => r.Qualifications)
+                .Include(u => u.Resume)
+                    .ThenInclude(r => r.WorkList)
+                .Include(u => u.Resume)
+                    .ThenInclude(r => r.EducationList)
+                .FirstOrDefaultAsync(u => u.Id == userId);
 
-            if(user == null){
+            if (user == null)
+            {
                 return Content($"Fel: Hittade ingen användare med ID '{userId}' i databasen. Har du kört database update?");
             }
 
             return View(user);
-
         }
+
+        [HttpGet]
+        public async Task<IActionResult> ViewProfile(string id)
+            {
+                if (string.IsNullOrEmpty(id))
+                    return BadRequest("Ingen användar-id skickades.");
+
+                var profileUser = await _context.Users
+                    .Include(u => u.Projects)
+                    .Include(u => u.Resume)
+                        .ThenInclude(r => r.Qualifications)
+                    .Include(u => u.Resume)
+                        .ThenInclude(r => r.WorkList)
+                    .Include(u => u.Resume)
+                        .ThenInclude(r => r.EducationList)
+                    .FirstOrDefaultAsync(u => u.Id == id);
+
+                if (profileUser == null)
+                    return NotFound("Användaren hittades inte.");
+
+                // 🔹 Hämta inloggad användare (kan vara null)
+                var currentUser = await _userManager.GetUserAsync(User);
+
+                // 🔹 Räkna endast om man tittar på någon annans profil
+                if (currentUser == null || currentUser.Id != profileUser.Id)
+                {
+                    profileUser.ProfileVisits++;
+                    await _context.SaveChangesAsync();
+                }
+
+                return View("MyProfile", profileUser);
+            }
+
+
+        
 
         public async Task<IActionResult> EditResume()
         {
             
-            var userId = "user-1";
-               
-               //_userManager.GetUserId(User);
+            var userId = _userManager.GetUserId(User);
 
             var user = await _context.Users
                         .Include(u => u.Projects)
@@ -104,6 +134,11 @@ namespace CvProjekt.Controllers
                 return Content("Hittar ej användare i databas");
             }
 
+            if (currentUser.Resume == null)
+            {
+                currentUser.Resume = new Resume();
+            }
+
             currentUser.FirstName = updatedUser.FirstName;
             currentUser.LastName = updatedUser.LastName;
             currentUser.Adress = updatedUser.Adress;
@@ -119,24 +154,44 @@ namespace CvProjekt.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddQualification(string name, int resumeId)
+        public async Task<IActionResult> EditQualifications(User updatedUser)
         {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                return RedirectToAction("EditResume");
+
+            var currentUser = await _context.Users
+                .Include(u => u.Resume)
+                .ThenInclude(r => r.Qualifications)
+            .FirstOrDefaultAsync(u => u.Id == updatedUser.Id);
+
+            if (currentUser == null)
+            {       
+                return Content("Hittar ej användare i databas");
             }
 
-            var newQualif= new Qualification
+            if (currentUser.Resume == null)
             {
-                Name = name,
-                ResumeId = resumeId
-            };
+                currentUser.Resume = new Resume();
+            }
 
-            _context.Qualifications.Add(newQualif);
+            currentUser.Resume.Qualifications.Clear();
+
+            if(updatedUser.Resume?.Qualifications != null)
+            {
+                foreach(var q in updatedUser.Resume.Qualifications)
+                {
+                    if (!string.IsNullOrWhiteSpace(q.Name))
+                    {
+                        currentUser.Resume.Qualifications.Add(new Qualification{
+                            Name = q.Name, 
+                            ResumeId = currentUser.Resume.Id 
+                        });
+                    }
+                }
+            }
+
             await _context.SaveChangesAsync();
 
-            TempData["SuccessMessage"] = "Lagt till kvalifikationer";
-
+            TempData["SuccessMessage"] = "Kompetenser sparade";
+            
             return RedirectToAction("EditResume");
 
         }

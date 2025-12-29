@@ -3,16 +3,24 @@
 @{
     ViewData["Title"] = "Min Profil";
 }
+<div class="container mt-3 mb-3 p-3 bg-light border rounded text-center" style="max-width: 250px;">
+    <h5 class="mb-2">📊 Statistik</h5>
+    <p class="mb-0">
+        Profilbesök:
+        <strong>@Model.ProfileVisits</strong>
+    </p>
+</div>
+
 
 <div class="container bg-light p-5">
-    <div class="d-flex align-items-center">
-        <div style="flex: 1;"></div>
+    <div class="position-relative d-flex justify-content-center align-items-center mb-4">
+    
+        <h1 class="m-0">Min Profil</h1>
 
-        <h1 class="m-0" style="flex: 2; text-align: center;">Min Profil</h1>
-
-        <div class="d-flex flex-row justify-content-center">
+        <div class="position-absolute end-0">
             <a asp-controller="Profile" asp-action="Settings" class="btn btn-primary">Inställningar</a>
         </div>
+
     </div>
     @if (Model != null)
     {
@@ -20,9 +28,12 @@
 
         <div class="container mb-3 p-5">
             <div class="container mt-3 mb-3 p-5 bg-white shadow-sm">
-                <div class="ratio ratio-1x1 rounded-circle overflow-hidden" style="width: 25%; margin: 2rem 1rem;">
-                    <img src="@Model.ImgUrl" alt="Profilbild" class="img-fluid object-fit-cover">
-                </div>
+                @if (Model.ImgUrl != null)
+                {
+                    <div class="ratio ratio-1x1 rounded-circle overflow-hidden" style="width: 25%; margin: 2rem 1rem;">
+                        <img src="@Model.ImgUrl" alt="Profilbild" class="img-fluid object-fit-cover">
+                    </div>
+                }
 
                 <div class="container mt-3 mb-3">
                     <h3 class="mb-3">@Model.FirstName @Model.LastName</h3>
@@ -34,63 +45,80 @@
                 <div class="container">
 
                     <h4>Mina kompetenser:</h4>
-                    <ul class="list-inline">
-                        @foreach (var q in Model.Resume.Qualifications)
-                        {
-                            <li class="list-inline-item border border-info p-1">@q.Name</li>
-                        }
-                    </ul>
+                    @if (Model.Resume != null && Model.Resume.Qualifications != null)
+                    {
+                        <ul class="list-inline">
+
+                            @foreach (var q in Model.Resume.Qualifications)
+                            {
+                                <li class="list-inline-item border border-info p-1 mb-2">@q.Name</li>
+                            }
+                        </ul>
+                    }
                 </div>
 
                 <div class="container">
                     <h4>Utbildning:</h4>
-                    <ul class="list-unstyled">
-                        @foreach (var e in Model.Resume.EducationList)
-                        {
-                            <div class="d-flex flex-row justify-content-start">
-                                <li>@e.SchoolName -&#160;</li>
-                                <li>@e.DegreeName &#160;</li>
-                                <li>&#40;@e.StartYear -&#160;</li>
-                                @if (e.EndYear != null)
-                                {
-                                    <li>@e.EndYear&#41;</li>
-                                }
-                                else
-                                {
-                                    <li>Nu</li>
-                                }
-                            </div>
-                            <li>@e.Description</li>
+                    @if (Model.Resume != null && Model.Resume.EducationList != null)
+                    {
+                        <ul class="list-unstyled">
+                            @foreach (var e in Model.Resume.EducationList)
+                            {
+                                <div class="d-flex flex-row justify-content-start">
+                                    <li>@e.SchoolName -&#160;</li>
+                                    <li>@e.DegreeName &#160;</li>
+                                    <li>&#40;@e.StartYear -&#160;</li>
+                                    @if (e.EndYear != null)
+                                    {
+                                        <li>@e.EndYear&#41;</li>
+                                    }
+                                    else
+                                    {
+                                        <li>Nu</li>
+                                    }
+                                </div>
+                                <li>@e.Description</li>
 
-                        }
-                    </ul>
+                            }
+                        </ul>
+                    }
+
                 </div>
 
                 <div class="container">
                     <h4>Arbetslivserfarenhet:</h4>
-                    <ul class="list-unstyled">
-                        @foreach (var w in Model.Resume.WorkList)
-                        {
-                            <div class="d-flex flex-row justify-content-start">
-                                <li>@w.CompanyName -&#160;</li>
-                                <li>@w.Position &#160;</li>
-                                <li>&#40;@w.StartDate -&#160;</li>
-                                @if (w.EndDate != null)
-                                {
-                                    <li>@w.EndDate &#41;</li>
-                                }
-                                else
-                                {
-                                    <li>Nu</li>
-                                }
-                            </div>
-                            <li>@w.Description</li>
+                    @if (Model.Resume != null && Model.Resume.WorkList != null)
+                    {
+                        <ul class="list-unstyled">
+                            @foreach (var w in Model.Resume.WorkList)
+                            {
+                                <div class="d-flex flex-row justify-content-start">
+                                    <li>@w.CompanyName -&#160;</li>
+                                    <li>@w.Position &#160;</li>
+                                    <li>&#40;@w.StartDate -&#160;</li>
+                                    @if (w.EndDate != null)
+                                    {
+                                        <li>@w.EndDate &#41;</li>
+                                    }
+                                    else
+                                    {
+                                        <li>Nu</li>
+                                    }
+                                </div>
+                                <li>@w.Description</li>
 
-                        }
-                    </ul>
+                            }
+                        </ul>
+                    }
                 </div>
-                <div class="container mt-5 mb-3 mr-2 ml-2">
-                    <h2 class="text-center">Mina projekt:</h2>
+                <div class="d-flex flex-row justify-content-center">
+                    <a asp-controller="Profile" asp-action="EditResume" class="btn btn-primary">Redigera CV</a>
+                </div>
+            </div>
+            <div class="container mt-5 mb-3 mr-2 ml-2">
+                <h2 class="text-center">Mina projekt:</h2>
+                @if (Model.Projects != null && Model.Projects.Count > 0)
+                {
 
                     <div class="row row-cols-1 row-cols-md-2 g-4">
                         <div class="col">
@@ -111,9 +139,15 @@
 
                         </div>
                     </div>
-                </div>
-                <div class="d-flex flex-row justify-content-center">
-                    <a asp-controller="Profile" asp-action="EditResume" class="btn btn-primary">Redigera CV</a>
+                }
+                else
+                {
+                    <div class="d-flex flex-column justify-content-center">
+                        <h4>Inga projekt tillagda</h4>
+                    </div>
+                }
+                <div class="d-flex flex-row justify-content-center mt-4">
+                    <a asp-controller="Profile" asp-action="EditProject" class="btn btn-primary">Redigera Projekt</a>
                 </div>
             </div>
         </div>
@@ -122,4 +156,5 @@
     {
         <h4>Ingen information hittad</h4>
     }
+
 </div>
