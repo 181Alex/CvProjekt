@@ -20,7 +20,22 @@ namespace CvProjekt.Controllers
             _userManager = user;
         }   
 
+        [HttpGet]
+        public async Task<IActionResult> Settings()
+        {
+            var nowUser = await _userManager.GetUserAsync(User);
+            if(nowUser== null){
+                return Content("Fel: Ingen inloggad användare hittades.");
+            }
+            return View(nowUser);
+        }
 
+
+
+
+
+
+        [HttpGet]
         public async Task<IActionResult> MyProfile()
         {
             

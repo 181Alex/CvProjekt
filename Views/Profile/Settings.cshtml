@@ -1,0 +1,21 @@
+@model CvProjekt.Models.User
+
+@{
+    ViewData["Title"] = "Inställningar";
+}
+
+<div class="container mb-3 p-5">
+    <H3> Epost adress @Model.Email </H3>
+    <br />
+    <a asp-controller="Profile" asp-action="ChangePassword" class="btn btn-primary">Byt Lösenord</a>
+</div>
+
+
+
+
+
+
+
+
+
+
