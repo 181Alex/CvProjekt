@@ -30,5 +30,6 @@ namespace CvProjekt.Models
 
         [ForeignKey(nameof(ToUserId))]
         public virtual User ToUser { get; set; }
+        
     }
 }

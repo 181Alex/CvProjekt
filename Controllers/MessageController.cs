@@ -43,6 +43,7 @@ public class MessageController : Controller
         {
             mess.FromUserId = nowUser.Id;
             mess.SenderName = $"{nowUser.FirstName} {nowUser.LastName}";
+            ModelState.Remove("SenderName");
         }
         else
         {
