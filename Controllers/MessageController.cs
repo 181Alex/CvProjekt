@@ -100,7 +100,7 @@ public class MessageController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> DeleteMessages(int id)
+    public async Task<IActionResult> DeleteMessage(int id)
     {
         var message = await context.Messages
             .Include(m => m.FromUser)

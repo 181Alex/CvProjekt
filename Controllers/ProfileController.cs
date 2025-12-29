@@ -30,7 +30,32 @@ namespace CvProjekt.Controllers
             return View(nowUser);
         }
 
-
+        [HttpPost]
+        public async Task<IActionResult> Avaktivera()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            user.IsActive = false;
+            _context.Update(user);
+            return RedirectToAction("MyProfile");
+        }
+        [HttpPost]
+        public async Task<IActionResult> Aktivera()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            user.IsActive = true;
+            _context.Update(user);
+            return RedirectToAction("MyProfile");
+        }
+        [HttpPost]
+        public async Task<IActionResult> PasswordTime()
+        {
+            var nowUser = await _userManager.GetUserAsync(User);
+            if (nowUser == null)
+            {
+                return Content("Fel: Ingen inloggad användare hittades.");
+            }
+            return View(nowUser);
+        }
 
 
 

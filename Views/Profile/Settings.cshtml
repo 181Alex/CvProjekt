@@ -8,6 +8,15 @@
     <H3> Epostadress @Model.Email </H3>
     <br />
     <a asp-controller="Profile" asp-action="ChangePassword" class="btn btn-primary">Byt Lösenord</a>
+    @if (@Model.IsActive == true)
+    {
+        <a asp-controller="Profile" asp-action="Avaktivera" class="btn btn-primary">Avaktivera konto</a>
+    }
+    else
+    {
+        <a asp-controller="Profile" asp-action="Aktivera" class="btn btn-primary">Avaktivera konto</a>
+    }
+
 </div>
 
 
