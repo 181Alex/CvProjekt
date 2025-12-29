@@ -1,6 +1,8 @@
 function removeQualifRow(button)
 {
     button.closest('.input-group').remove();
+
+    updateQualifIndexes();
 }
 
 function addNewQualifRow()
@@ -15,9 +17,21 @@ function addNewQualifRow()
                        name="Resume.Qualifications[${index}].Name" 
                        class="form-control" 
                        placeholder="Ny kompetens..." />
-                <button type="button" class="btn btn-outline-danger" onclick="removeRow(this)">X</button>
+                <button type="button" class="btn btn-outline-danger" onclick="removeQualifRow(this)">X</button>
             </div>
         `;
 
     container.insertAdjacentHTML('beforeend', html);
+    updateQualifIndexes();
+}
+
+function updateQualifIndexes()
+{
+    var container = document.getElementById('qualifications-container');
+    var rows = container.querySelectorAll('.qualification-row');
+
+    rows.forEach((row, index) => {
+        var input = row.querySelector('input');
+        input.name = `Resume.Qualifications[${index}].Name`;
+    });
 }
