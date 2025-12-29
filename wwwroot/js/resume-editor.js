@@ -1,9 +1,9 @@
-function removeRow(button)
+function removeQualifRow(button)
 {
     button.closest('.input-group').remove();
 }
 
-function addNewRow()
+function addNewQualifRow()
 {
     var container = document.getElementById('qualifications-container');
 
