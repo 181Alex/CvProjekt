@@ -104,24 +104,39 @@ namespace CvProjekt.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddQualification(string name, int resumeId)
+        public async Task<IActionResult> EditQualifications(User updatedUser)
         {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                return RedirectToAction("EditResume");
+
+            var currentUser = await _context.Users
+                .Include(u => u.Resume)
+                .ThenInclude(r => r.Qualifications)
+            .FirstOrDefaultAsync(u => u.Id == updatedUser.Id);
+
+            if (currentUser == null)
+            {       
+                return Content("Hittar ej användare i databas");
             }
 
-            var newQualif= new Qualification
-            {
-                Name = name,
-                ResumeId = resumeId
-            };
+            currentUser.Resume.Qualifications.Clear();
 
-            _context.Qualifications.Add(newQualif);
+            if(updatedUser.Resume?.Qualifications != null)
+            {
+                foreach(var q in updatedUser.Resume.Qualifications)
+                {
+                    if (!string.IsNullOrWhiteSpace(q.Name))
+                    {
+                        currentUser.Resume.Qualifications.Add(new Qualification{
+                            Name = q.Name, 
+                            ResumeId = currentUser.Resume.Id 
+                        });
+                    }
+                }
+            }
+
             await _context.SaveChangesAsync();
 
-            TempData["SuccessMessage"] = "Lagt till kvalifikationer";
-
+            TempData["SuccessMessage"] = "Kompetenser sparade";
+            
             return RedirectToAction("EditResume");
 
         }
