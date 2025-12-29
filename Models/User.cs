@@ -35,7 +35,7 @@ namespace CvProjekt.Models
         [StringLength(400, ErrorMessage = "Max 400 tecken")]
         [RegularExpression(@"^https?://[^\s]+$", 
             ErrorMessage = "Länken måste börja med http:// eller https:// och får inte innehålla mellanslag")]
-        public string ImgUrl {get; set;}
+        public string? ImgUrl {get; set;}
 
         public virtual ICollection<Message> Messages {get; set;} = new List<Message>();
         public virtual ICollection<Project> Projects {get; set;} = new List<Project>();
