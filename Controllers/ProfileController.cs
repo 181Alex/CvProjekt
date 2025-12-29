@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CvProjekt.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class ProfileController : Controller
     {
         private readonly CvContext _context;
@@ -39,9 +39,7 @@ namespace CvProjekt.Controllers
         public async Task<IActionResult> MyProfile()
         {
             
-            var userId = "user-1";
-               
-               //_userManager.GetUserId(User);
+            var userId = _userManager.GetUserId(User);
 
             var user = await _context.Users
                         .Include(u => u.Projects)
@@ -64,9 +62,7 @@ namespace CvProjekt.Controllers
         public async Task<IActionResult> EditResume()
         {
             
-            var userId = "user-1";
-               
-               //_userManager.GetUserId(User);
+            var userId = _userManager.GetUserId(User);
 
             var user = await _context.Users
                         .Include(u => u.Projects)
@@ -104,6 +100,11 @@ namespace CvProjekt.Controllers
                 return Content("Hittar ej användare i databas");
             }
 
+            if (currentUser.Resume == null)
+            {
+                currentUser.Resume = new Resume();
+            }
+
             currentUser.FirstName = updatedUser.FirstName;
             currentUser.LastName = updatedUser.LastName;
             currentUser.Adress = updatedUser.Adress;
@@ -130,6 +131,11 @@ namespace CvProjekt.Controllers
             if (currentUser == null)
             {       
                 return Content("Hittar ej användare i databas");
+            }
+
+            if (currentUser.Resume == null)
+            {
+                currentUser.Resume = new Resume();
             }
 
             currentUser.Resume.Qualifications.Clear();
