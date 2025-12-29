@@ -24,6 +24,12 @@
                     <div class="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center" style="width:200px;height:200px;">
                         <span>@Model.FirstName?.Substring(0,1)@Model.LastName?.Substring(0,1)</span>
                     </div>
+                    <a asp-controller="Message"
+                       asp-action="SendMessages"
+                       asp-route-receiverId="@Model.Id"
+                       class="btn btn-primary">
+                        Skicka meddelande
+                    </a>
                 }
                 <p class="mt-2"><strong>@Model.FirstName @Model.LastName</strong></p>
                 <p>@Model.Email</p>
