@@ -38,5 +38,24 @@ namespace CvProjekt.Controllers
         {
             return View();
         }
+
+        public async Task<IActionResult> Index()
+        {
+           
+            var latestProject = await _context.Projects
+                .OrderByDescending(p => p.Id)
+                .FirstOrDefaultAsync();
+
+            
+            var users = await _context.Users.ToListAsync();
+
+            var model = new HomeViewModel
+            {
+                Users = users,
+                LatestProject = latestProject
+            };
+
+            return View(model);
+        }
     }
 }
