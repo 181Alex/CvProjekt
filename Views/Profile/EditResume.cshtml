@@ -10,6 +10,7 @@
 
 <div class="container bg-light">
     <h1 class="text-center">Redigera ditt Cv</h1>
+    <input type="hidden" id="active-tab-choose" value="@TempData["ActiveTab"]" />
 
     @if (TempData["SuccessMessage"] != null)
     {

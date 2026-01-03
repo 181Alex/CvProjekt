@@ -174,6 +174,7 @@ namespace CvProjekt.Controllers
             await _context.SaveChangesAsync();
 
             TempData["SuccessMessage"] = "Uppdaterat basinformation";
+            TempData["ActiveTab"] = "base";
 
             return RedirectToAction("EditResume");
         }
@@ -216,6 +217,7 @@ namespace CvProjekt.Controllers
             await _context.SaveChangesAsync();
 
             TempData["SuccessMessage"] = "Kompetenser sparade";
+            TempData["ActiveTab"] = "qualif";
             
             return RedirectToAction("EditResume");
 
@@ -263,6 +265,7 @@ namespace CvProjekt.Controllers
             await _context.SaveChangesAsync();
 
             TempData["SuccessMessage"] = "Utbildning sparad";
+            TempData["ActiveTab"] = "edu";
             
             return RedirectToAction("EditResume");
 
@@ -310,6 +313,7 @@ namespace CvProjekt.Controllers
             await _context.SaveChangesAsync();
 
             TempData["SuccessMessage"] = "Arbete sparad";
+            TempData["ActiveTab"] = "work";
             
             return RedirectToAction("EditResume");
 
