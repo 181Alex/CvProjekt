@@ -95,14 +95,14 @@
                                 <div class="d-flex flex-row justify-content-start">
                                     <li>@w.CompanyName -&#160;</li>
                                     <li>@w.Position &#160;</li>
-                                    <li>&#40;@w.StartDate -&#160;</li>
+                                    <li>&#40;@w.StartDate.ToString("yyyy/MM/dd") -&#160;</li>
                                     @if (w.EndDate != null)
                                     {
-                                        <li>@w.EndDate &#41;</li>
+                                        <li>@w.EndDate?.ToString("yyyy/MM/dd")&#41;</li>
                                     }
                                     else
                                     {
-                                        <li>Nu</li>
+                                        <li>Nu&#41;</li>
                                     }
                                 </div>
                                 <li>@w.Description</li>

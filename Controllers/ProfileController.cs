@@ -208,6 +208,7 @@ namespace CvProjekt.Controllers
             await _context.SaveChangesAsync();
 
             TempData["SuccessMessage"] = "Uppdaterat basinformation";
+            TempData["ActiveTab"] = "base";
 
             return RedirectToAction("EditResume");
         }
@@ -250,6 +251,7 @@ namespace CvProjekt.Controllers
             await _context.SaveChangesAsync();
 
             TempData["SuccessMessage"] = "Kompetenser sparade";
+            TempData["ActiveTab"] = "qualif";
             
             return RedirectToAction("EditResume");
 
@@ -297,6 +299,55 @@ namespace CvProjekt.Controllers
             await _context.SaveChangesAsync();
 
             TempData["SuccessMessage"] = "Utbildning sparad";
+            TempData["ActiveTab"] = "edu";
+            
+            return RedirectToAction("EditResume");
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditWork(User updatedUser)
+        {
+
+            var currentUser = await _context.Users
+                .Include(u => u.Resume)
+                .ThenInclude(r => r.WorkList)
+            .FirstOrDefaultAsync(u => u.Id == updatedUser.Id);
+
+            if (currentUser == null)
+            {       
+                return Content("Hittar ej användare i databas");
+            }
+
+            if (currentUser.Resume == null)
+            {
+                currentUser.Resume = new Resume();
+            }
+
+            currentUser.Resume.WorkList.Clear();
+
+            if(updatedUser.Resume?.WorkList != null)
+            {
+                foreach(var w in updatedUser.Resume.WorkList)
+                {
+                    if (!string.IsNullOrWhiteSpace(w.CompanyName) && !string.IsNullOrWhiteSpace(w.Position) && w.StartDate != null )
+                    {
+                        currentUser.Resume.WorkList.Add(new Work{
+                            CompanyName = w.CompanyName, 
+                            Position = w.Position,
+                            StartDate = w.StartDate,
+                            EndDate = w.EndDate,
+                            Description = w.Description,
+                            ResumeId = currentUser.Resume.Id 
+                        });
+                    }
+                }
+            }
+
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Arbete sparad";
+            TempData["ActiveTab"] = "work";
             
             return RedirectToAction("EditResume");
 

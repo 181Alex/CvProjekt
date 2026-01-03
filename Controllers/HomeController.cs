@@ -19,43 +19,39 @@ namespace CvProjekt.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(string search)
         {
-            var usersQuery = _context.Users.AsQueryable();
+            
+            var usersQuery = _context.Users
+                .Include(u => u.Resume).ThenInclude(r => r.Qualifications)
+                .Include(u => u.Resume).ThenInclude(r => r.WorkList)
+                .Include(u => u.Resume).ThenInclude(r => r.EducationList)
+                .Where(u => u.ResumeId != null)
+                .OrderByDescending(u => u.ResumeId) 
+                .AsSplitQuery()
+                .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(search))
             {
                 usersQuery = usersQuery.Where(u =>
-                    u.FirstName.Contains(search) ||
-                    u.LastName.Contains(search)
-                );
+                    u.FirstName.Contains(search) || u.LastName.Contains(search));
             }
 
-            var users = await usersQuery.ToListAsync();
-
-            return View(users);
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        public async Task<IActionResult> Index()
-        {
-           
-            var latestProject = await _context.Projects
-                .OrderByDescending(p => p.Id)
-                .FirstOrDefaultAsync();
+            var users = await usersQuery.Take(5).ToListAsync(); 
 
             
-            var users = await _context.Users.ToListAsync();
+            var latestProjects = await _context.Projects
+                .Include(p => p.User)
+                .OrderByDescending(p => p.Id) 
+                .Take(5)                      
+                .ToListAsync();
 
             var model = new HomeViewModel
             {
                 Users = users,
-                LatestProject = latestProject
+                LatestProjects = latestProjects 
             };
 
             return View(model);
         }
     }
+
 }

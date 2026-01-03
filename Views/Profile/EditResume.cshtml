@@ -10,6 +10,7 @@
 
 <div class="container bg-light">
     <h1 class="text-center">Redigera ditt Cv</h1>
+    <input type="hidden" id="active-tab-choose" value="@TempData["ActiveTab"]" />
 
     @if (TempData["SuccessMessage"] != null)
     {
@@ -188,8 +189,6 @@
                     </div>
 
                 }
-
-
             }
             </div>
 
@@ -205,6 +204,75 @@
 
         <div class="tab-pane fade p-3" id="nav-work" role="tabpanel" aria-labelledby="nav-work-tab">
             <h2>Arbetslivserfarenhet</h2>
+
+            <form asp-action="EditWork" method="post">
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="Resume.Id" />
+            
+                <div id="work-container">
+
+                @if (Model.Resume?.WorkList != null)
+                {
+
+                    var wList = Model.Resume.WorkList.ToList();
+
+                    for (int i = 0; i < wList.Count; i++)
+                    {
+                        <div class="container bg-light border rounded p-3 mb-3 work-card">
+
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-4">
+                                    <label class="form-label small">Företag</label>
+                                    <input type="text" data-prop="CompanyName" name="Resume.WorkList[@i].CompanyName" value="@wList[i].CompanyName"
+                                    class="form-control" placeholder="Företagsnamn..." />
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label small">Position</label>
+                                    <input type="text" data-prop="Position" name="Resume.WorkList[@i].Position" value="@wList[i].Position"
+                                    class="form-control" placeholder="Position..." />
+                                </div>
+                            </div>
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-4">
+                                    <label class="form-label small">Start datum</label>
+                                    <input type="date" data-prop="StartDate" name="Resume.WorkList[@i].StartDate" value="@wList[i].StartDate.ToString("yyyy-MM-dd")"
+                                    class="form-control" placeholder="Startdatum..." />
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label small">Slutår</label>
+                                    <input type="date" data-prop="EndDate" name="Resume.WorkList[@i].EndDate" value="@wList[i].EndDate?.ToString("yyyy-MM-dd")"
+                                    class="form-control" placeholder="Slutdatum..." />
+                                </div>
+                            </div>
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-6">
+                                    <label class="form-label small">Beskrivning</label>
+                                    <textarea data-prop="Description" name="Resume.WorkList[@i].Description" class="form-control" rows="2" placeholder="Beskrivning...">@wList[i].Description</textarea>
+                                </div>
+                            </div>
+                            <div class="rowjustify-content-md-center">
+                                <div class="col-md-4">
+                                    <button type="button" class="btn btn-outline-danger"
+                                    onclick="removeWorkCard(this)">X</button>
+                                </div>
+                            </div>
+
+                    </div>
+
+                }
+            }
+                </div>
+
+                <div class="d-flex justify-content-between mt-3">
+                    <button type="button" class="btn btn-secondary" onclick="addNewWorkCard()">+ Lägg till
+                        arbete</button>
+                    <button type="submit" class="btn btn-success">Spara arbete</button>
+                </div>
+
+            </form>
+
+        </div>
+
         </div>
     </div>
 </div>
