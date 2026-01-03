@@ -28,7 +28,6 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
 
-                        @* Kontrollera om användaren är inloggad för att visa rätt knappar *@
                         @if (User.Identity.IsAuthenticated)
                         {
                         <li class="nav-item">
