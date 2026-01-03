@@ -24,7 +24,7 @@ namespace CvProjekt.Controllers
                 .Include(u => u.Resume).ThenInclude(r => r.Qualifications)
                 .Include(u => u.Resume).ThenInclude(r => r.WorkList)
                 .Include(u => u.Resume).ThenInclude(r => r.EducationList)
-                .Where(u => u.ResumeId != null)
+                .Where(u => u.ResumeId != null && u.IsPrivate==false && u.IsActive==true)
                 .OrderByDescending(u => u.ResumeId) 
                 .AsSplitQuery()
                 .AsQueryable();
