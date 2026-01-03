@@ -29,6 +29,7 @@ namespace CvProjekt.Models
         public string Adress{get;set;}
 
         public bool IsActive{get;set;}
+        public bool IsPrivate { get;set;} = false;
 
         public int ProfileVisits{get;set;}
 

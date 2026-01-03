@@ -440,6 +440,9 @@ namespace CvProjekt.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<bool>("isPrivate")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -478,7 +481,8 @@ namespace CvProjekt.Migrations
                             ResumeId = 1,
                             SecurityStamp = "static-security-stamp-user-1",
                             TwoFactorEnabled = false,
-                            UserName = "erik@mail.com"
+                            UserName = "erik@mail.com",
+                            isPrivate = false
                         },
                         new
                         {
@@ -501,7 +505,8 @@ namespace CvProjekt.Migrations
                             ResumeId = 2,
                             SecurityStamp = "static-security-stamp-user-2",
                             TwoFactorEnabled = false,
-                            UserName = "anna@mail.com"
+                            UserName = "anna@mail.com",
+                            isPrivate = false
                         },
                         new
                         {
@@ -524,7 +529,8 @@ namespace CvProjekt.Migrations
                             ResumeId = 3,
                             SecurityStamp = "static-security-stamp-user-3",
                             TwoFactorEnabled = false,
-                            UserName = "johan@mail.com"
+                            UserName = "johan@mail.com",
+                            isPrivate = false
                         },
                         new
                         {
@@ -547,7 +553,8 @@ namespace CvProjekt.Migrations
                             ResumeId = 4,
                             SecurityStamp = "static-security-stamp-user-4",
                             TwoFactorEnabled = false,
-                            UserName = "sara@mail.com"
+                            UserName = "sara@mail.com",
+                            isPrivate = false
                         },
                         new
                         {
@@ -570,7 +577,8 @@ namespace CvProjekt.Migrations
                             ResumeId = 5,
                             SecurityStamp = "static-security-stamp-user-5",
                             TwoFactorEnabled = false,
-                            UserName = "david@mail.com"
+                            UserName = "david@mail.com",
+                            isPrivate = false
                         });
                 });
 

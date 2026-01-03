@@ -40,6 +40,7 @@ namespace CvProjekt.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("MyProfile");
         }
+
         [HttpPost]
         public async Task<IActionResult> Aktivera()
         {
@@ -50,6 +51,28 @@ namespace CvProjekt.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("MyProfile");
         }
+        [HttpPost]
+        public async Task<IActionResult> GoPublic()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            user.IsPrivate = false;
+            await _userManager.UpdateAsync(user);
+            _context.Update(user);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("MyProfile");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GoPrivate()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            user.IsPrivate = true;
+            await _userManager.UpdateAsync(user);
+            _context.Update(user);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("MyProfile");
+        }
+
         [HttpGet]
         public async Task<IActionResult> ChangePassword()
         {
@@ -89,10 +112,6 @@ namespace CvProjekt.Controllers
 
             return RedirectToAction("Settings");
         }
-
-
-
-
 
         [HttpGet]
         public async Task<IActionResult> MyProfile()
@@ -136,10 +155,8 @@ namespace CvProjekt.Controllers
                 if (profileUser == null)
                     return NotFound("Användaren hittades inte.");
 
-                // 🔹 Hämta inloggad användare (kan vara null)
                 var currentUser = await _userManager.GetUserAsync(User);
 
-                // 🔹 Räkna endast om man tittar på någon annans profil
                 if (currentUser == null || currentUser.Id != profileUser.Id)
                 {
                     profileUser.ProfileVisits++;

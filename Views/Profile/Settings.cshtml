@@ -20,6 +20,18 @@
             <button type="submit" class="btn btn-primary">Aktivera konto</button>
         </form>
     }
+    @if (@Model.IsPrivate == true)
+    {
+        <form asp-controller="Profile" asp-action="GoPublic" method="post" class="d-inline">
+            <button type="submit" class="btn btn-primary">Gör kontot publikt</button>
+        </form>
+    }
+    else
+    {
+        <form asp-controller="Profile" asp-action="GoPrivate" method="post" class="d-inline">
+            <button type="submit" class="btn btn-primary">Gör kontot privat</button>
+        </form>
+    }
 
 </div>
 
