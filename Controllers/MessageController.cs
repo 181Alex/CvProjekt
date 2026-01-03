@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace CvProjekt.Controllers;
-//[Authorize]
+[Authorize]
 public class MessageController : Controller
 {
     private readonly CvContext context;

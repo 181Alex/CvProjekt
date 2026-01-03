@@ -35,7 +35,9 @@ namespace CvProjekt.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
             user.IsActive = false;
+            await _userManager.UpdateAsync(user);
             _context.Update(user);
+            await _context.SaveChangesAsync();
             return RedirectToAction("MyProfile");
         }
         [HttpPost]
@@ -43,19 +45,51 @@ namespace CvProjekt.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
             user.IsActive = true;
+            await _userManager.UpdateAsync(user);
             _context.Update(user);
+            await _context.SaveChangesAsync();
             return RedirectToAction("MyProfile");
         }
-        [HttpPost]
-        public async Task<IActionResult> PasswordTime()
+        [HttpGet]
+        public async Task<IActionResult> ChangePassword()
         {
             var nowUser = await _userManager.GetUserAsync(User);
             if (nowUser == null)
             {
                 return Content("Fel: Ingen inloggad användare hittades.");
             }
-            return View(nowUser);
+            return View(new ChangePasswordViewModel());
         }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePasswordNow(ChangePasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("ChangePassword", model);
+            }
+
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            // Ändra lösenordet
+            var result = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.Password);
+
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+                return View("ChangePassword", model);
+            }
+
+            return RedirectToAction("Settings");
+        }
+
 
 
 
