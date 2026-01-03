@@ -139,12 +139,12 @@ function addNewWorkCard()
                                 <div class="col-md-4">
                                     <label class="form-label small">Start datum</label>
                                     <input type="date" data-prop="StartDate" name=""
-                                    class="form-control" placeholder="Startdatum..." />
+                                    class="form-control" />
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label small">Slutår</label>
                                     <input type="date" data-prop="EndDate" name=""
-                                    class="form-control" placeholder="Slutdatum..." />
+                                    class="form-control" />
                                 </div>
                             </div>
                             <div class="row justify-content-md-center">

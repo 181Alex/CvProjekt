@@ -234,12 +234,12 @@
                             <div class="row justify-content-md-center">
                                 <div class="col-md-4">
                                     <label class="form-label small">Start datum</label>
-                                    <input type="text" data-prop="StartDate" name="Resume.WorkList[@i].StartDate" value="@wList[i].StartDate"
+                                    <input type="date" data-prop="StartDate" name="Resume.WorkList[@i].StartDate" value="@wList[i].StartDate.ToString("yyyy-MM-dd")"
                                     class="form-control" placeholder="Startdatum..." />
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label small">Slutår</label>
-                                    <input type="text" data-prop="EndDate" name="Resume.WorkList[@i].EndDate" value="@wList[i].EndDate"
+                                    <input type="date" data-prop="EndDate" name="Resume.WorkList[@i].EndDate" value="@wList[i].EndDate?.ToString("yyyy-MM-dd")"
                                     class="form-control" placeholder="Slutdatum..." />
                                 </div>
                             </div>
