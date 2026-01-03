@@ -268,5 +268,52 @@ namespace CvProjekt.Controllers
 
         }
 
+        [HttpPost]
+        public async Task<IActionResult> EditWork(User updatedUser)
+        {
+
+            var currentUser = await _context.Users
+                .Include(u => u.Resume)
+                .ThenInclude(r => r.WorkList)
+            .FirstOrDefaultAsync(u => u.Id == updatedUser.Id);
+
+            if (currentUser == null)
+            {       
+                return Content("Hittar ej användare i databas");
+            }
+
+            if (currentUser.Resume == null)
+            {
+                currentUser.Resume = new Resume();
+            }
+
+            currentUser.Resume.WorkList.Clear();
+
+            if(updatedUser.Resume?.WorkList != null)
+            {
+                foreach(var w in updatedUser.Resume.WorkList)
+                {
+                    if (!string.IsNullOrWhiteSpace(w.CompanyName) && !string.IsNullOrWhiteSpace(w.Position) && w.StartDate != null )
+                    {
+                        currentUser.Resume.WorkList.Add(new Work{
+                            CompanyName = w.CompanyName, 
+                            Position = w.Position,
+                            StartDate = w.StartDate,
+                            EndDate = w.EndDate,
+                            Description = w.Description,
+                            ResumeId = currentUser.Resume.Id 
+                        });
+                    }
+                }
+            }
+
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Arbete sparad";
+            
+            return RedirectToAction("EditResume");
+
+        }
+
     }
 }

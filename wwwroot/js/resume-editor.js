@@ -110,3 +110,78 @@ function updateEduIndexes()
 
     });
 }
+
+function removeWorkCard(button)
+{
+    button.closest('.work-card').remove();
+    updateWorkIndexes();
+}
+
+function addNewWorkCard()
+{
+    var container = document.getElementById('work-container');
+
+    var html = `<div class="container bg-light border rounded p-3 mb-3 work-card">
+
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-4">
+                                    <label class="form-label small">Företag</label>
+                                    <input type="text" data-prop="CompanyName" name=""
+                                    class="form-control" placeholder="Företagsnamn..." />
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label small">Position</label>
+                                    <input type="text" data-prop="Position" name=""
+                                    class="form-control" placeholder="Position..." />
+                                </div>
+                            </div>
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-4">
+                                    <label class="form-label small">Start datum</label>
+                                    <input type="date" data-prop="StartDate" name=""
+                                    class="form-control" placeholder="Startdatum..." />
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label small">Slutår</label>
+                                    <input type="date" data-prop="EndDate" name=""
+                                    class="form-control" placeholder="Slutdatum..." />
+                                </div>
+                            </div>
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-6">
+                                    <label class="form-label small">Beskrivning</label>
+                                    <textarea data-prop="Description" name="" class="form-control" rows="2" placeholder="Beskrivning..."></textarea>
+                                </div>
+                            </div>
+                            <div class="rowjustify-content-md-center">
+                                <div class="col-md-4">
+                                    <button type="button" class="btn btn-outline-danger"
+                                    onclick="removeWorkCard(this)">X</button>
+                                </div>
+                            </div>
+
+                    </div>`;
+
+    container.insertAdjacentHTML('beforeend', html);
+    updateWorkIndexes();
+}
+
+function updateWorkIndexes()
+{
+    var cards = document.querySelectorAll('.work-card');
+
+    cards.forEach((card, index) => {
+        var inputs = card.querySelectorAll('input, textarea');
+
+        inputs.forEach(input => {
+        
+            var dataName = input.getAttribute('data-prop');
+
+            if (dataName) {
+                input.name = `Resume.WorkList[${index}].${dataName}`;
+            }
+
+        });
+
+    });
+}
