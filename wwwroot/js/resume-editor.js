@@ -1,12 +1,27 @@
-function removeQualifRow(button)
-{
+document.addEventListener("DOMContentLoaded", function () {
+    var activeTab = document.getElementById('active-tab-choose');
+
+    if (activeTab && activeTab.value) {
+        var tabName = activeTab.value;
+
+        var tabButton = document.querySelector(`#nav-${tabName}-tab`);
+
+        if (tabButton) {
+            var tab = new bootstrap.Tab(tabButton);
+            tab.show();
+        }
+    }
+
+});
+
+
+function removeQualifRow(button) {
     button.closest('.input-group').remove();
 
     updateQualifIndexes();
 }
 
-function addNewQualifRow()
-{
+function addNewQualifRow() {
     var container = document.getElementById('qualifications-container');
 
     var index = container.children.length;
@@ -25,8 +40,7 @@ function addNewQualifRow()
     updateQualifIndexes();
 }
 
-function updateQualifIndexes()
-{
+function updateQualifIndexes() {
     var container = document.getElementById('qualifications-container');
     var rows = container.querySelectorAll('.qualification-row');
 
@@ -36,14 +50,12 @@ function updateQualifIndexes()
     });
 }
 
-function removeEduCard(button)
-{
+function removeEduCard(button) {
     button.closest('.education-card').remove();
     updateEduIndexes();
 }
 
-function addNewEduCard()
-{
+function addNewEduCard() {
     var container = document.getElementById('education-container');
 
     var html = `<div class="container bg-light border rounded p-3 mb-3 education-card">
@@ -91,15 +103,14 @@ function addNewEduCard()
     updateEduIndexes();
 }
 
-function updateEduIndexes()
-{
+function updateEduIndexes() {
     var cards = document.querySelectorAll('.education-card');
 
     cards.forEach((card, index) => {
         var inputs = card.querySelectorAll('input, textarea');
 
         inputs.forEach(input => {
-        
+
             var dataName = input.getAttribute('data-prop');
 
             if (dataName) {
@@ -111,14 +122,12 @@ function updateEduIndexes()
     });
 }
 
-function removeWorkCard(button)
-{
+function removeWorkCard(button) {
     button.closest('.work-card').remove();
     updateWorkIndexes();
 }
 
-function addNewWorkCard()
-{
+function addNewWorkCard() {
     var container = document.getElementById('work-container');
 
     var html = `<div class="container bg-light border rounded p-3 mb-3 work-card">
@@ -166,15 +175,14 @@ function addNewWorkCard()
     updateWorkIndexes();
 }
 
-function updateWorkIndexes()
-{
+function updateWorkIndexes() {
     var cards = document.querySelectorAll('.work-card');
 
     cards.forEach((card, index) => {
         var inputs = card.querySelectorAll('input, textarea');
 
         inputs.forEach(input => {
-        
+
             var dataName = input.getAttribute('data-prop');
 
             if (dataName) {
