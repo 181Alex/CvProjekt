@@ -402,7 +402,7 @@ namespace CvProjekt.Controllers
             }
 
    
-            //kontrollerar om kompetenser är giltiga, men kopierar över datan så att det användaren skrev är kvar 
+            //kontrollerar om utbildning är giltiga, men kopierar över datan så att det användaren skrev är kvar 
             if (!ModelState.IsValid)
             {
                 
@@ -490,7 +490,7 @@ namespace CvProjekt.Controllers
             }
 
    
-            //kontrollerar om kompetenser är giltiga, men kopierar över datan så att det användaren skrev är kvar 
+            //kontrollerar om arbete är giltiga, men kopierar över datan så att det användaren skrev är kvar 
             if (!ModelState.IsValid)
             {
                 
