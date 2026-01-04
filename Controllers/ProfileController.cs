@@ -1,9 +1,12 @@
-using System.Diagnostics;
 using CvProjekt.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
+using System.IdentityModel.Tokens.Jwt;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace CvProjekt.Controllers
 {
@@ -24,10 +27,76 @@ namespace CvProjekt.Controllers
         public async Task<IActionResult> Settings()
         {
             var nowUser = await _userManager.GetUserAsync(User);
-            if(nowUser== null){
-                return Content("Fel: Ingen inloggad användare hittades.");
-            }
             return View(nowUser);
+        }
+        [HttpGet]
+        public async Task<IActionResult> DownloadData()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            //tar fram användaren och alla dessa erfarenheter osv. VIktigt är att denna är seperat från resume till en blrjan!!!
+            var userObject = await _context.Users
+                .Include (u=>u.Projects)
+                .Include(u => u.Resume)
+                .ThenInclude(r => r.WorkList)
+                .Include(u => u.Resume)
+                .ThenInclude(r => r.Qualifications)
+                .Include(u => u.Resume)
+                .ThenInclude(r => r.EducationList)
+                .Where(u => u.Id == user.Id)
+                .FirstOrDefaultAsync();
+            if (userObject == null) { ModelState.AddModelError("SenderName", "User not found"); }
+            var exporten = new UserExportDto
+            {
+                FirstName = userObject.FirstName,
+                LastName = userObject.LastName,
+                Email = userObject.Email,
+                Adress = userObject.Adress,
+                ImgUrl = userObject.ImgUrl,
+                Projects = userObject.Projects.Select(p => new ProjectExportDto // som det står i exportmodels så skapar man en lista av projektexportdto, istälelt för lsita av project
+                {
+                    Title = p.Title,
+                    Language = p.Language,
+                    Description = p.Description,
+                    GithubLink = p.GithubLink,
+                    Year = p.Year
+
+                }).ToList()
+            };
+            exporten.Resume = new ResumeExportDto
+            {
+                Qualifications = userObject.Resume.Qualifications.Select(q => new QualificationExportDto
+                {
+                    Name = q.Name
+                }).ToList(),
+
+                WorkList = userObject.Resume.WorkList.Select(w => new WorkExportDto
+                {
+                    CompanyName = w.CompanyName,
+                    Position = w.Position,
+                    Description = w.Description,
+                    StartDate = w.StartDate.ToString("yyyy-MM-dd"), //detta är en datetime/timeonly i work kalssen, gör om till string så den kan skrivas ut lättare
+                    EndDate = w.EndDate.HasValue ? w.EndDate.Value.ToString("yyyy-MM-dd") : "Pågående" //om enddate är null skriv pågående ut istället.
+                }).ToList(),
+
+                EducationList = userObject.Resume.EducationList.Select(e => new EducationExportDto
+                {
+                    SchoolName = e.SchoolName,
+                    DegreeName = e.DegreeName,
+                    StartYear = e.StartYear,
+                    EndYear = e.EndYear.HasValue ? e.EndYear.Value.ToString() : "Pågående",// som beskriver ovan
+                    Description = e.Description ?? ""
+                }).ToList()
+
+            };
+            var serializer = new XmlSerializer (typeof(UserExportDto));
+            using (var streaming = new MemoryStream())//memory stream används för att användaren ska kunna ladda ner informationen
+            {
+                serializer.Serialize (streaming, exporten); //serialiserar allt
+                //returnerar med hjälpa av metoden file.
+                // först streaming vilket är själva datan, sen står det bilken srta data (XML)
+                //$"profil.... är helt enkelöt vad filen ska heta, kommer se ut exempelvis profil_anna_anderson.xml
+                return File(streaming.ToArray(), "application/xml", $"profil_{userObject.FirstName}_{userObject.LastName}.xml");
+            }
         }
 
         [HttpPost]
@@ -77,10 +146,6 @@ namespace CvProjekt.Controllers
         public async Task<IActionResult> ChangePassword()
         {
             var nowUser = await _userManager.GetUserAsync(User);
-            if (nowUser == null)
-            {
-                return Content("Fel: Ingen inloggad användare hittades.");
-            }
             return View(new ChangePasswordViewModel());
         }
 
@@ -93,10 +158,6 @@ namespace CvProjekt.Controllers
             }
 
             var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                return RedirectToAction("Login", "Account");
-            }
 
             // Ändra lösenordet
             var result = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.Password);
