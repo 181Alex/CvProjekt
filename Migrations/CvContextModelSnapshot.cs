@@ -396,6 +396,9 @@ namespace CvProjekt.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsPrivate")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -440,9 +443,6 @@ namespace CvProjekt.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<bool>("isPrivate")
-                        .HasColumnType("bit");
-
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -471,6 +471,7 @@ namespace CvProjekt.Migrations
                             FirstName = "Erik",
                             ImgUrl = "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200",
                             IsActive = true,
+                            IsPrivate = false,
                             LastName = "Svensson",
                             LockoutEnabled = false,
                             NormalizedEmail = "ERIK@MAIL.COM",
@@ -481,8 +482,7 @@ namespace CvProjekt.Migrations
                             ResumeId = 1,
                             SecurityStamp = "static-security-stamp-user-1",
                             TwoFactorEnabled = false,
-                            UserName = "erik@mail.com",
-                            isPrivate = false
+                            UserName = "erik@mail.com"
                         },
                         new
                         {
@@ -495,6 +495,7 @@ namespace CvProjekt.Migrations
                             FirstName = "Anna",
                             ImgUrl = "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200",
                             IsActive = true,
+                            IsPrivate = false,
                             LastName = "Lind",
                             LockoutEnabled = false,
                             NormalizedEmail = "ANNA@MAIL.COM",
@@ -505,8 +506,7 @@ namespace CvProjekt.Migrations
                             ResumeId = 2,
                             SecurityStamp = "static-security-stamp-user-2",
                             TwoFactorEnabled = false,
-                            UserName = "anna@mail.com",
-                            isPrivate = false
+                            UserName = "anna@mail.com"
                         },
                         new
                         {
@@ -519,6 +519,7 @@ namespace CvProjekt.Migrations
                             FirstName = "Johan",
                             ImgUrl = "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200",
                             IsActive = true,
+                            IsPrivate = false,
                             LastName = "Ek",
                             LockoutEnabled = false,
                             NormalizedEmail = "JOHAN@MAIL.COM",
@@ -529,8 +530,7 @@ namespace CvProjekt.Migrations
                             ResumeId = 3,
                             SecurityStamp = "static-security-stamp-user-3",
                             TwoFactorEnabled = false,
-                            UserName = "johan@mail.com",
-                            isPrivate = false
+                            UserName = "johan@mail.com"
                         },
                         new
                         {
@@ -543,6 +543,7 @@ namespace CvProjekt.Migrations
                             FirstName = "Sara",
                             ImgUrl = "https://images.unsplash.com/photo-1573496359-0933d2768d98?w=200",
                             IsActive = true,
+                            IsPrivate = false,
                             LastName = "Berg",
                             LockoutEnabled = false,
                             NormalizedEmail = "SARA@MAIL.COM",
@@ -553,8 +554,7 @@ namespace CvProjekt.Migrations
                             ResumeId = 4,
                             SecurityStamp = "static-security-stamp-user-4",
                             TwoFactorEnabled = false,
-                            UserName = "sara@mail.com",
-                            isPrivate = false
+                            UserName = "sara@mail.com"
                         },
                         new
                         {
@@ -567,6 +567,7 @@ namespace CvProjekt.Migrations
                             FirstName = "David",
                             ImgUrl = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200",
                             IsActive = false,
+                            IsPrivate = false,
                             LastName = "Nordin",
                             LockoutEnabled = false,
                             NormalizedEmail = "DAVID@MAIL.COM",
@@ -577,8 +578,7 @@ namespace CvProjekt.Migrations
                             ResumeId = 5,
                             SecurityStamp = "static-security-stamp-user-5",
                             TwoFactorEnabled = false,
-                            UserName = "david@mail.com",
-                            isPrivate = false
+                            UserName = "david@mail.com"
                         });
                 });
 

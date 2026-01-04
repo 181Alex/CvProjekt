@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CvProjekt.Migrations
 {
     /// <inheritdoc />
-    public partial class nyversion : Migration
+    public partial class mig : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -69,7 +69,7 @@ namespace CvProjekt.Migrations
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Adress = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    isPrivate = table.Column<bool>(type: "bit", nullable: false),
+                    IsPrivate = table.Column<bool>(type: "bit", nullable: false),
                     ProfileVisits = table.Column<int>(type: "int", nullable: false),
                     ImgUrl = table.Column<string>(type: "nvarchar(400)", maxLength: 400, nullable: true),
                     ResumeId = table.Column<int>(type: "int", nullable: true),
@@ -320,14 +320,14 @@ namespace CvProjekt.Migrations
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "Adress", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "ImgUrl", "IsActive", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfileVisits", "ResumeId", "SecurityStamp", "TwoFactorEnabled", "UserName", "isPrivate" },
+                columns: new[] { "Id", "AccessFailedCount", "Adress", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "ImgUrl", "IsActive", "IsPrivate", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfileVisits", "ResumeId", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "user-1", 0, "Storgatan 1", "static-concurrency-stamp-user-1", "erik@mail.com", true, "Erik", "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200", true, "Svensson", false, null, "ERIK@MAIL.COM", "ERIK@MAIL.COM", "AQAAAAIAAYagAAAAELg7Xy0k9/8Q7k6Xy0k9/8Q7k6Xy0k9/8Q7k6Xy0k9/8Q7k6Xy==", null, false, 0, 1, "static-security-stamp-user-1", false, "erik@mail.com", false },
-                    { "user-2", 0, "Sveavägen 10", "static-concurrency-stamp-user-2", "anna@mail.com", true, "Anna", "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200", true, "Lind", false, null, "ANNA@MAIL.COM", "ANNA@MAIL.COM", "AQAAAAIAAYagAAAAELg7Xy0k9/8Q7k6Xy0k9/8Q7k6Xy0k9/8Q7k6Xy0k9/8Q7k6Xy==", null, false, 0, 2, "static-security-stamp-user-2", false, "anna@mail.com", false },
-                    { "user-3", 0, "Hamngatan 4", "static-concurrency-stamp-user-3", "johan@mail.com", true, "Johan", "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200", true, "Ek", false, null, "JOHAN@MAIL.COM", "JOHAN@MAIL.COM", "AQAAAAIAAYagAAAAELg7Xy0k9/8Q7k6Xy0k9/8Q7k6Xy0k9/8Q7k6Xy0k9/8Q7k6Xy==", null, false, 0, 3, "static-security-stamp-user-3", false, "johan@mail.com", false },
-                    { "user-4", 0, "Skolgatan 55", "static-concurrency-stamp-user-4", "sara@mail.com", true, "Sara", "https://images.unsplash.com/photo-1573496359-0933d2768d98?w=200", true, "Berg", false, null, "SARA@MAIL.COM", "SARA@MAIL.COM", "AQAAAAIAAYagAAAAELg7Xy0k9/8Q7k6Xy0k9/8Q7k6Xy0k9/8Q7k6Xy0k9/8Q7k6Xy==", null, false, 0, 4, "static-security-stamp-user-4", false, "sara@mail.com", false },
-                    { "user-5", 0, "Studentvägen 3", "static-concurrency-stamp-user-5", "david@mail.com", true, "David", "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200", false, "Nordin", false, null, "DAVID@MAIL.COM", "DAVID@MAIL.COM", "AQAAAAIAAYagAAAAELg7Xy0k9/8Q7k6Xy0k9/8Q7k6Xy0k9/8Q7k6Xy0k9/8Q7k6Xy==", null, false, 0, 5, "static-security-stamp-user-5", false, "david@mail.com", false }
+                    { "user-1", 0, "Storgatan 1", "static-concurrency-stamp-user-1", "erik@mail.com", true, "Erik", "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200", true, false, "Svensson", false, null, "ERIK@MAIL.COM", "ERIK@MAIL.COM", "AQAAAAIAAYagAAAAELg7Xy0k9/8Q7k6Xy0k9/8Q7k6Xy0k9/8Q7k6Xy0k9/8Q7k6Xy==", null, false, 0, 1, "static-security-stamp-user-1", false, "erik@mail.com" },
+                    { "user-2", 0, "Sveavägen 10", "static-concurrency-stamp-user-2", "anna@mail.com", true, "Anna", "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200", true, false, "Lind", false, null, "ANNA@MAIL.COM", "ANNA@MAIL.COM", "AQAAAAIAAYagAAAAELg7Xy0k9/8Q7k6Xy0k9/8Q7k6Xy0k9/8Q7k6Xy0k9/8Q7k6Xy==", null, false, 0, 2, "static-security-stamp-user-2", false, "anna@mail.com" },
+                    { "user-3", 0, "Hamngatan 4", "static-concurrency-stamp-user-3", "johan@mail.com", true, "Johan", "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200", true, false, "Ek", false, null, "JOHAN@MAIL.COM", "JOHAN@MAIL.COM", "AQAAAAIAAYagAAAAELg7Xy0k9/8Q7k6Xy0k9/8Q7k6Xy0k9/8Q7k6Xy0k9/8Q7k6Xy==", null, false, 0, 3, "static-security-stamp-user-3", false, "johan@mail.com" },
+                    { "user-4", 0, "Skolgatan 55", "static-concurrency-stamp-user-4", "sara@mail.com", true, "Sara", "https://images.unsplash.com/photo-1573496359-0933d2768d98?w=200", true, false, "Berg", false, null, "SARA@MAIL.COM", "SARA@MAIL.COM", "AQAAAAIAAYagAAAAELg7Xy0k9/8Q7k6Xy0k9/8Q7k6Xy0k9/8Q7k6Xy0k9/8Q7k6Xy==", null, false, 0, 4, "static-security-stamp-user-4", false, "sara@mail.com" },
+                    { "user-5", 0, "Studentvägen 3", "static-concurrency-stamp-user-5", "david@mail.com", true, "David", "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200", false, false, "Nordin", false, null, "DAVID@MAIL.COM", "DAVID@MAIL.COM", "AQAAAAIAAYagAAAAELg7Xy0k9/8Q7k6Xy0k9/8Q7k6Xy0k9/8Q7k6Xy0k9/8Q7k6Xy==", null, false, 0, 5, "static-security-stamp-user-5", false, "david@mail.com" }
                 });
 
             migrationBuilder.InsertData(

@@ -107,12 +107,13 @@
                                 @for (int i = 0; i < qList.Count; i++)
                                 {
                                     <div class="input-group mb-2 qualification-row">
-                                        <input type="text" name="Resume.Qualifications[@i].Name" value="@qList[i].Name"
+                                        <input type="text" data-prop="Name" name="Resume.Qualifications[@i].Name" value="@qList[i].Name"
                                     class="form-control" placeholder="Kompetens..." />
-
                                         <button type="button" class="btn btn-outline-danger"
                                     onclick="removeQualifRow(this)">X</button>
                                     </div>
+                                    <span asp-validation-for="Resume.Qualifications[@i].Name" class="text-danger"></span>
+                                    
                                 }
                             }
 
@@ -154,19 +155,22 @@
                                 <label class="form-label small">Skola</label>
                                 <input type="text" data-prop="SchoolName" name="Resume.EducationList[@i].SchoolName" value="@eList[i].SchoolName"
                                 class="form-control" placeholder="Skolnamn..." />
+                                 <span asp-validation-for="Resume.EducationList[@i].SchoolName" class="text-danger"></span>
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label small">Utbildning</label>
                                 <input type="text" data-prop="DegreeName" name="Resume.EducationList[@i].DegreeName" value="@eList[i].DegreeName"
                                 class="form-control" placeholder="Utbildningsnamn..." />
-                            </div>
+                                <span asp-validation-for="Resume.EducationList[@i].DegreeName" class="text-danger"></span>
+                            </div>          
                         </div>
                         <div class="row justify-content-md-center">
                             <div class="col-md-4">
                                 <label class="form-label small">Startår</label>
                                 <input type="text" data-prop="StartYear" name="Resume.EducationList[@i].StartYear" value="@eList[i].StartYear"
                                 class="form-control" placeholder="Startår..." />
-                            </div>
+                                <span asp-validation-for="Resume.EducationList[@i].StartYear" class="text-danger"></span>
+                            </div>  
                             <div class="col-md-4">
                                 <label class="form-label small">Slutår</label>
                                 <input type="text" data-prop="EndYear" name="Resume.EducationList[@i].EndYear" value="@eList[i].EndYear"
@@ -225,11 +229,13 @@
                                     <label class="form-label small">Företag</label>
                                     <input type="text" data-prop="CompanyName" name="Resume.WorkList[@i].CompanyName" value="@wList[i].CompanyName"
                                     class="form-control" placeholder="Företagsnamn..." />
+                                    <span asp-validation-for="Resume.WorkList[@i].CompanyName" class="text-danger"></span>
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label small">Position</label>
                                     <input type="text" data-prop="Position" name="Resume.WorkList[@i].Position" value="@wList[i].Position"
                                     class="form-control" placeholder="Position..." />
+                                    <span asp-validation-for="Resume.WorkList[@i].Position" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="row justify-content-md-center">
@@ -237,6 +243,7 @@
                                     <label class="form-label small">Start datum</label>
                                     <input type="date" data-prop="StartDate" name="Resume.WorkList[@i].StartDate" value="@wList[i].StartDate.ToString("yyyy-MM-dd")"
                                     class="form-control" placeholder="Startdatum..." />
+                                    <span asp-validation-for="Resume.WorkList[@i].StartDate" class="text-danger"></span>
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label small">Slutår</label>

@@ -11,7 +11,7 @@ namespace CvProjekt.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Kompetensen måste ha ett namn")]
-        [StringLength(50)]
+        [StringLength(50, ErrorMessage = "Max 50 tecken")]
         public string Name { get; set; }
 
         // Koppling till Resume
