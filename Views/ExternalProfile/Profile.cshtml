@@ -11,7 +11,14 @@
     }
     else
     {
-        <h2 class="text-center mb-4">Profil för @Model.FirstName @Model.LastName</h2>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="mb-0">Profil för @Model.FirstName @Model.LastName</h2>
+            <div>
+                <a asp-controller="ExternalProfile" asp-action="DownloadData" asp-route-id="@Model.Id" class="btn btn-outline-secondary">
+                    Exportera profil (XML)
+                </a>
+            </div>
+        </div>
 
         <div class="row mb-4">
             <div class="col-md-3 text-center">
@@ -24,12 +31,6 @@
                     <div class="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center" style="width:200px;height:200px;">
                         <span>@Model.FirstName?.Substring(0,1)@Model.LastName?.Substring(0,1)</span>
                     </div>
-                    <a asp-controller="Message"
-                       asp-action="SendMessages"
-                       asp-route-receiverId="@Model.Id"
-                       class="btn btn-primary">
-                        Skicka meddelande
-                    </a>
                 }
                 <p class="mt-2"><strong>@Model.FirstName @Model.LastName</strong></p>
                 <p>@Model.Email</p>
@@ -90,19 +91,7 @@
                             {
                                 <li class="mb-2">
                                     <strong>@w.Position</strong> — @w.CompanyName
-                                    <div class="text-muted">
-                                        @(
-                                            w.StartDate != null
-                                            ? (w.StartDate is System.DateOnly sd ? sd.Year.ToString() : w.StartDate.ToString())
-                                            : ""
-                                        )
-                                        -
-                                        @(
-                                            w.EndDate != null
-                                            ? (w.EndDate is System.DateOnly ed ? ed.Year.ToString() : w.EndDate.ToString())
-                                            : "Nu"
-                                        )
-                                    </div>
+                                    <div class="text-muted">@w.StartDate.ToString("yyyy") - @(w.EndDate.HasValue ? w.EndDate.Value.ToString("yyyy") : "Nu")</div>
                                     @if (!string.IsNullOrEmpty(w.Description))
                                     {
                                         <div>@w.Description</div>
