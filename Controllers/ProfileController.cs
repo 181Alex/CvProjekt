@@ -311,7 +311,7 @@ namespace CvProjekt.Controllers
             }
 
             //ignorera alla modelstate som inte har att göra med kompetenser
-            var qualifKey = ModelState.Keys.Where(k => k.StartsWith("Resume.Qualifications") && k.EndsWith(".Name")).ToList();
+            var qualifKey = ModelState.Keys.Where(k => k.StartsWith("Resume.Qualifications") && !k.EndsWith(".Resume")).ToList();
             var allKeys = ModelState.Keys.ToList();
             
             foreach (var key in allKeys)
@@ -389,9 +389,7 @@ namespace CvProjekt.Controllers
 
             //ignorera alla modelstate som inte har att göra med utbildning
             var eduKey = ModelState.Keys.Where(k => k.StartsWith("Resume.EducationList") 
-                                                && k.EndsWith(".SchoolName") || 
-                                                k.EndsWith(".DegreeName") ||
-                                                k.EndsWith(".StartYear"))
+                                                && !k.EndsWith(".Resume"))
                                                 .ToList();
             var allKeys = ModelState.Keys.ToList();
             
@@ -479,9 +477,7 @@ namespace CvProjekt.Controllers
 
             //ignorera alla modelstate som inte har att göra med arbete
             var eduKey = ModelState.Keys.Where(k => k.StartsWith("Resume.WorkList") 
-                                                && k.EndsWith(".CompanyName") || 
-                                                k.EndsWith(".Position") ||
-                                                k.EndsWith(".StartDate"))
+                                                && !k.EndsWith(".Resume"))
                                                 .ToList();
             var allKeys = ModelState.Keys.ToList();
             

@@ -73,7 +73,7 @@
                     <input asp-for="ImgUrl" class="form-control" />
                     <span asp-validation-for="ImgUrl" class="text-danger"></span>
                 </div>
-                <button type="submit" class="btn btn-primary">Spara ändringar</button>
+                <button type="submit" class="btn btn-primary">Spara basinformation</button>
             </form>
         </div>
 
@@ -163,12 +163,14 @@
                                 <label class="form-label small">Slutår</label>
                                 <input type="text" data-prop="EndYear" name="Resume.EducationList[@i].EndYear" value="@eList[i].EndYear"
                                 class="form-control" placeholder="Slutår..." />
+                                 <span asp-validation-for="Resume.EducationList[@i].EndYear" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="row justify-content-md-center">
                             <div class="col-md-6">
                                 <label class="form-label small">Beskrivning</label>
                                 <textarea data-prop="Description" name="Resume.EducationList[@i].Description" class="form-control" rows="2" placeholder="Beskrivning...">@eList[i].Description</textarea>
+                                <span asp-validation-for="Resume.EducationList[@i].Description" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="rowjustify-content-md-center">
@@ -237,12 +239,14 @@
                                     <label class="form-label small">Slutår</label>
                                     <input type="date" data-prop="EndDate" name="Resume.WorkList[@i].EndDate" value="@wList[i].EndDate?.ToString("yyyy-MM-dd")"
                                     class="form-control" placeholder="Slutdatum..." />
+                                     <span asp-validation-for="Resume.WorkList[@i].EndDate" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="row justify-content-md-center">
                                 <div class="col-md-6">
                                     <label class="form-label small">Beskrivning</label>
                                     <textarea data-prop="Description" name="Resume.WorkList[@i].Description" class="form-control" rows="2" placeholder="Beskrivning...">@wList[i].Description</textarea>
+                                     <span asp-validation-for="Resume.WorkList[@i].Description" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="rowjustify-content-md-center">
