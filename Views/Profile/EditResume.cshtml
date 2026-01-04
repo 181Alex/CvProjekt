@@ -23,19 +23,7 @@
         <div class="nav nav-tabs bg-white mr-5 ml-5 mt-5" role="tablist">
             <button class="nav-link active" id="nav-base-tab" data-bs-toggle="tab" data-bs-target="#nav-base"
                 type="button" role="tab" aria-controls="nav-base" aria-selected="true">
-                Basinformation
-                @{
-                    var hasBaseErrors = ViewData.ModelState["FirstName"]?.Errors.Count > 0 ||
-            ViewData.ModelState["LastName"]?.Errors.Count > 0 ||
-            ViewData.ModelState["Adress"]?.Errors.Count > 0 ||
-            ViewData.ModelState["Email"]?.Errors.Count > 0 ||
-            ViewData.ModelState["ImgUrl"]?.Errors.Count > 0;
-                }
-                @if (hasBaseErrors)
-                {
-                    <span class="text-danger">*</span>
-                }
-            </button>
+                Basinformation</button>
 
             <button class="nav-link" id="nav-qualif-tab" data-bs-toggle="tab" data-bs-target="#nav-qualif" type="button"
                 role="tab" aria-controls="nav-qualif" aria-selected="true">
