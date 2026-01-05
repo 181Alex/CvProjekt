@@ -43,15 +43,27 @@ namespace CvProjekt.Controllers
                 .OrderByDescending(p => p.Id) 
                 .Take(5)                      
                 .ToListAsync();
+            var allProjects = await _context.Projects
+                .Include(p => p.User)
+                .OrderByDescending(p => p.Id)
+                .ToListAsync();
 
             var model = new HomeViewModel
             {
                 Users = users,
-                LatestProjects = latestProjects 
+                LatestProjects = latestProjects, 
+                AllProjects = allProjects
             };
 
             return View(model);
         }
     }
+
+
+
+
+
+
+
 
 }
