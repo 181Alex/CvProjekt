@@ -36,8 +36,8 @@ namespace CvProjekt.Controllers
                 .ToListAsync();
 
             var membersList = await context.ProjectMembers
-                .Include(PM => PM.MemberId)
-                .Include(PM => PM.MProjectId)
+                .Include(PM => PM.user)
+                .Include(PM => PM.project)
                 .ToListAsync();
 
             var model = new HomeViewModel
@@ -50,8 +50,56 @@ namespace CvProjekt.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> JoinProject(int Pid)
+        {
+            var user= await _userManager.GetUserAsync(User);
 
+            var project = await context.Projects.FindAsync(Pid);
+            if (project == null)
+            {
+                ModelState.AddModelError("sender","Projektet hittades inte.");
+                return RedirectToAction("AllProjects");
+            }
+            // kontroll för att se om de redan är en medlem.
+            var exists = await context.ProjectMembers
+               .AnyAsync(pm => pm.MemberId == user.Id && pm.MProjectId == Pid);
 
+            if (exists)
+            {
+                ModelState.AddModelError("sender","Du är redan medlem i projektet.");
+                return RedirectToAction("AllProjects");
+            }
+
+            var membership = new ProjectMembers
+            {
+                MemberId = user.Id,
+                MProjectId = Pid
+            };
+            context.ProjectMembers.Add(membership);
+            await context.SaveChangesAsync();
+            return RedirectToAction("AllProjects");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> LeaveProject(int Pid)
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+            var membership = await context.ProjectMembers
+                .FirstOrDefaultAsync(pm => pm.MemberId == user.Id && pm.MProjectId == Pid);
+
+            if (membership == null)
+            {
+                ModelState.AddModelError("sender", "Du är inte medlem i projektet.");
+                return RedirectToAction("AllProjects");
+            }
+
+            context.ProjectMembers.Remove(membership);
+            await context.SaveChangesAsync();
+
+            return RedirectToAction("AllProjects");
+        }
 
 
     }

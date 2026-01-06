@@ -7,6 +7,7 @@
             @foreach (var project in Model.AllProjects)
             {
                 <div class="card mb-4 shadow-sm border-0 bg-light">
+                    <div asp-validation-summary="All" class="text-danger"></div>
                     <div class="row g-0">
                         <div class="col-1 bg-primary rounded-start d-none d-md-block" style="width: 6px;"></div>
                         <div class="col">
@@ -44,6 +45,45 @@
                                         </div>
                                     }
                                 </div>
+                                @{
+                                    var members = Model.ProjectMemberList
+                                    .Where(pm => pm.MProjectId == project.Id )
+                                    .Select(pm => pm.user)
+                                    .Where(u => u != null && (project.CreatorId == null || u.Id != project.CreatorId))
+                                    .ToList();
+                                }
+
+                                @if (members.Any())
+                                {
+                                    <div class="mt-3">
+                                        <h6 class="small text-muted mb-2">Medlemmar</h6>
+                                        <div class="d-flex flex-wrap align-items-center">
+                                            @foreach (var member in members)
+                                            {
+                                                if (member.Id != project.CreatorId)
+                                                {
+                                                    <div class="d-flex align-items-center me-3 mb-2">
+                                                        <div class="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 28px; height: 28px; font-size: 0.8rem;">
+                                                            @(member.FirstName?[0] ?? '?')@(member.LastName?[0] ?? '?')
+                                                        </div>
+                                                        <span class="small text-dark">@member.FirstName @member.LastName</span>
+                                                    </div>
+                                                }
+                                                
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <h6 class="small text-muted mb-2"> </h6>
+                                }
+
+                                <form asp-action="JoinProject" asp-route-id="@project" method="post" style="display:inline;">
+                                    <button type="submit" class="btn btn-primary">Gå med i project</button>
+                                </form>
+
+
                             </div>
                         </div>
                     </div>

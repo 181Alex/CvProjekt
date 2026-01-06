@@ -16,10 +16,11 @@ namespace CvProjekt.Models
         [StringLength(50, ErrorMessage = "Max 50 tecken")]
 		public string Language { get; set; }
 
-		public string? GithubLink { get; set; }
+        [RegularExpression(@"^https?://(www\.)?github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+(?:\.git)?/?$",
+			ErrorMessage = "Enter a valid GitHub repository URL (https://github.com/owner/repo).")]
+        public string? GithubLink { get; set; }
 
 		[Required(ErrorMessage = "Du måste skriva årtal")]
-        [StringLength(4, ErrorMessage = "Max 4 tecken")]
 		[RegularExpression(@"^\d{4}$", 
             ErrorMessage = "Årtalet måste innehålla fyra siffror")]
 		public int Year { get; set; }
