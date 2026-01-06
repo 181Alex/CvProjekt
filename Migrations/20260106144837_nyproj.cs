@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CvProjekt.Migrations
 {
     /// <inheritdoc />
-    public partial class mig : Migration
+    public partial class nyproj : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -293,15 +293,39 @@ namespace CvProjekt.Migrations
                     GithubLink = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Year = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    CreatorId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Projects", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Projects_AspNetUsers_UserId",
+                        name: "FK_Projects_AspNetUsers_CreatorId",
+                        column: x => x.CreatorId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProjectMembers",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProjectId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProjectMembers", x => new { x.UserId, x.ProjectId });
+                    table.ForeignKey(
+                        name: "FK_ProjectMembers_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ProjectMembers_Projects_ProjectId",
+                        column: x => x.ProjectId,
+                        principalTable: "Projects",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -380,12 +404,24 @@ namespace CvProjekt.Migrations
 
             migrationBuilder.InsertData(
                 table: "Projects",
-                columns: new[] { "Id", "Description", "GithubLink", "Language", "Title", "UserId", "Year" },
+                columns: new[] { "Id", "CreatorId", "Description", "GithubLink", "Language", "Title", "Year" },
                 values: new object[,]
                 {
-                    { 1, "Byggde en butik", "github.com/erik/shop", "C#", "E-handel", "user-1", 2023 },
-                    { 2, "Min hemsida", "github.com/anna/me", "React", "Portfolio", "user-2", 2024 },
-                    { 3, "AI budgetering", "github.com/sara/cash", "Python", "BudgetApp", "user-4", 2022 }
+                    { 1, "user-1", "Byggde en butik", "github.com/erik/shop", "C#", "E-handel", 2023 },
+                    { 2, "user-2", "Min hemsida", "github.com/anna/me", "React", "Portfolio", 2024 },
+                    { 3, "user-4", "AI budgetering", "github.com/sara/cash", "Python", "BudgetApp", 2022 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ProjectMembers",
+                columns: new[] { "ProjectId", "UserId" },
+                values: new object[,]
+                {
+                    { 1, "user-1" },
+                    { 1, "user-2" },
+                    { 2, "user-2" },
+                    { 1, "user-3" },
+                    { 3, "user-4" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -450,9 +486,14 @@ namespace CvProjekt.Migrations
                 column: "ToUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Projects_UserId",
+                name: "IX_ProjectMembers_ProjectId",
+                table: "ProjectMembers",
+                column: "ProjectId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Projects_CreatorId",
                 table: "Projects",
-                column: "UserId");
+                column: "CreatorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Qualifications_ResumeId",
@@ -490,7 +531,7 @@ namespace CvProjekt.Migrations
                 name: "Messages");
 
             migrationBuilder.DropTable(
-                name: "Projects");
+                name: "ProjectMembers");
 
             migrationBuilder.DropTable(
                 name: "Qualifications");
@@ -500,6 +541,9 @@ namespace CvProjekt.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Projects");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

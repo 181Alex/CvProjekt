@@ -1,7 +1,5 @@
 ﻿@model CvProjekt.Models.HomeViewModel
-@section Scripts {
-    <script src="~/js/home-editor.js" asp-append-version="true"></script>
-}
+
 
 <form asp-action="Index" method="get" class="mb-4">
     <div class="input-group">
@@ -104,74 +102,18 @@
                 <p class="card-text text-truncate">@project.Description</p>
                 <p class="small"><strong>Språk:</strong> @project.Language</p>
 
-                @if (project.User != null)
+                        @if (project.Creator != null)
                 {
-                <p class="text-muted x-small">Av: @project.User.FirstName @project.User.LastName</p>
+                            <p class="text-muted x-small">Av: @project.Creator.FirstName @project.Creator.LastName</p>
                 }
             </div>
         </div>
     </div>
         }
-
-        <button type="submit" class="btn btn-primary" id="SeeMoreBtn" onclick="seMoreNow()">Se mer</button>
+        <a asp-controller="Project" asp-action="AllProjects" class="btn btn-primary">Se mer</a>
     }
     else
     {
         <p>Inga projekt hittades.</p>
     }
     </div>
-
-
-    <div class="container py-4" id="AllProjectsBox">
-        <div class="row justify-content-center">
-            <div class="col-lg-10">
-                @foreach (var project in Model.AllProjects)
-                {
-                    <div class="card mb-4 shadow-sm border-0 bg-light">
-                        <div class="row g-0">
-                            <div class="col-1 bg-primary rounded-start d-none d-md-block" style="width: 6px;"></div>
-                            <div class="col">
-                                <div class="card-body p-4">
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <h3 class="h4 mb-0 fw-bold text-dark">@project.Title</h3>
-                                        <span class="badge rounded-pill bg-white text-primary border border-primary px-3">
-                                            @project.Year
-                                        </span>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <h6 class="text-uppercase text-muted fw-bold small mb-2">Beskrivning</h6>
-                                        <p class="card-text lh-lg text-secondary" style="font-size: 1.1rem;">
-                                            @project.Description
-                                        </p>
-                                    </div>
-
-                                    <div class="d-flex align-items-center justify-content-between mt-4 pt-3 border-top">
-                                        <div>
-                                            <span class="text-muted small">SPRÅK:</span>
-                                            <span class="ms-2 fw-semibold">@project.Language</span>
-                                        </div>
-
-                                        @if (project.User != null)
-                                        {
-                                            <div class="d-flex align-items-center">
-                                                <div class="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 32px; height: 32px; font-size: 0.8rem;">
-                                                    @(project.User.FirstName[0])@(project.User.LastName[0])
-                                                </div>
-                                                <span class="text-muted small">
-                                                    Skapat av <span class="fw-bold text-dark">@project.User.FirstName @project.User.LastName</span>
-                                                </span>
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
-
-            </div>
-        </div>
-        <button type="submit" class="btn btn-primary" id="SeeLessBtn" onclick="seLessNow()">Se mindre</button>
-    </div>
-    

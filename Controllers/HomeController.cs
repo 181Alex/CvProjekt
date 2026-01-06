@@ -39,12 +39,12 @@ namespace CvProjekt.Controllers
 
             
             var latestProjects = await _context.Projects
-                .Include(p => p.User)
+                .Include(p => p.Creator)
                 .OrderByDescending(p => p.Id) 
                 .Take(5)                      
                 .ToListAsync();
             var allProjects = await _context.Projects
-                .Include(p => p.User)
+                .Include(p => p.Creator)
                 .OrderByDescending(p => p.Id)
                 .ToListAsync();
 

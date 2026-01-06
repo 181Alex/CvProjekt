@@ -1,0 +1,55 @@
+﻿@model CvProjekt.Models.HomeViewModel
+
+
+<div class="container py-4" id="AllProjectsBox">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            @foreach (var project in Model.AllProjects)
+            {
+                <div class="card mb-4 shadow-sm border-0 bg-light">
+                    <div class="row g-0">
+                        <div class="col-1 bg-primary rounded-start d-none d-md-block" style="width: 6px;"></div>
+                        <div class="col">
+                            <div class="card-body p-4">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h3 class="h4 mb-0 fw-bold text-dark">@project.Title</h3>
+                                    <span class="badge rounded-pill bg-white text-primary border border-primary px-3">
+                                        @project.Year
+                                    </span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <h6 class="text-uppercase text-muted fw-bold small mb-2">Beskrivning</h6>
+                                    <p class="card-text lh-lg text-secondary" style="font-size: 1.1rem;">
+                                        @project.Description
+                                    </p>
+                                </div>
+
+                                <div class="d-flex align-items-center justify-content-between mt-4 pt-3 border-top">
+                                    <div>
+                                        <span class="text-muted small">SPRÅK:</span>
+                                        <span class="ms-2 fw-semibold">@project.Language</span>
+                                    </div>
+
+                                    @if (project.Creator != null)
+                                    {
+                                        <div class="d-flex align-items-center">
+                                            <div class="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 32px; height: 32px; font-size: 0.8rem;">
+                                                @(project.Creator.FirstName[0])@(project.Creator.LastName[0])
+                                            </div>
+                                            <span class="text-muted small">
+                                                Skapat av 
+                                                <span class="fw-bold text-dark">@project.Creator.FirstName @project.Creator.LastName</span>
+                                            </span>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

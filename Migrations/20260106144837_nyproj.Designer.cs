@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CvProjekt.Migrations
 {
     [DbContext(typeof(CvContext))]
-    [Migration("20260104134017_mig")]
-    partial class mig
+    [Migration("20260106144837_nyproj")]
+    partial class nyproj
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -193,6 +193,10 @@ namespace CvProjekt.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("CreatorId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -209,16 +213,12 @@ namespace CvProjekt.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("Year")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("CreatorId");
 
                     b.ToTable("Projects");
 
@@ -226,32 +226,74 @@ namespace CvProjekt.Migrations
                         new
                         {
                             Id = 1,
+                            CreatorId = "user-1",
                             Description = "Byggde en butik",
                             GithubLink = "github.com/erik/shop",
                             Language = "C#",
                             Title = "E-handel",
-                            UserId = "user-1",
                             Year = 2023
                         },
                         new
                         {
                             Id = 2,
+                            CreatorId = "user-2",
                             Description = "Min hemsida",
                             GithubLink = "github.com/anna/me",
                             Language = "React",
                             Title = "Portfolio",
-                            UserId = "user-2",
                             Year = 2024
                         },
                         new
                         {
                             Id = 3,
+                            CreatorId = "user-4",
                             Description = "AI budgetering",
                             GithubLink = "github.com/sara/cash",
                             Language = "Python",
                             Title = "BudgetApp",
-                            UserId = "user-4",
                             Year = 2022
+                        });
+                });
+
+            modelBuilder.Entity("CvProjekt.Models.ProjectMembers", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "ProjectId");
+
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("ProjectMembers");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "user-1",
+                            ProjectId = 1
+                        },
+                        new
+                        {
+                            UserId = "user-2",
+                            ProjectId = 2
+                        },
+                        new
+                        {
+                            UserId = "user-3",
+                            ProjectId = 1
+                        },
+                        new
+                        {
+                            UserId = "user-4",
+                            ProjectId = 3
+                        },
+                        new
+                        {
+                            UserId = "user-2",
+                            ProjectId = 1
                         });
                 });
 
@@ -827,13 +869,32 @@ namespace CvProjekt.Migrations
 
             modelBuilder.Entity("CvProjekt.Models.Project", b =>
                 {
-                    b.HasOne("CvProjekt.Models.User", "User")
+                    b.HasOne("CvProjekt.Models.User", "Creator")
                         .WithMany("Projects")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("CreatorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.Navigation("Creator");
+                });
+
+            modelBuilder.Entity("CvProjekt.Models.ProjectMembers", b =>
+                {
+                    b.HasOne("CvProjekt.Models.Project", "project")
+                        .WithMany()
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CvProjekt.Models.User", "user")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("project");
+
+                    b.Navigation("user");
                 });
 
             modelBuilder.Entity("CvProjekt.Models.Qualification", b =>
