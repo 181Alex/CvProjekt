@@ -2,40 +2,108 @@
 @{
     ViewData["Title"] = "Redigera Projekt";
 }
+@section Scripts {
+<script src="~/js/project-editor.js" asp-append-version="true"></script>
+}
 
+    @if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success text-center mx-5 mt-3">
+        @TempData["SuccessMessage"]
+    </div>
+}
 <h2>Redigera dina projekt</h2>
+<form asp-action="EditProjectInfo" method="post">
+    <input type="hidden" asp-for="Id" />
 <div class="container bg-light p-5">
     @if(Model != null)
     {
         var pList = Model.Projects.ToList();
 
         <h3>Dina skapade projekt:</h3>
-        @* <form asp-action="EditProjectInfo" method="post">
-                        <input type="hidden" asp-for="Id" />
-                        <input type="hidden" asp-for="Project.Id" /> *@
 
-            if(pList.Count > 0)
+            <div id="project-container">
+            @if(pList.Count > 0)
             {
                 @for(int i = 0; i < pList.Count; i++)
                 {
-                    @* <div class="project-container">
-                        <div class="card-body">
-                            <div class="d-flex flex-row justify-content-center align-items-center">
-                                <label class="form-label small">Titel</label>
-                                <input type="text" data-prop="Title" name="Projects[@i].Title" value="@pList[i].Name"
-                                 class="form-control" placeholder="Skolnamn..." />
+                        <div class="container bg-light border rounded p-3 mb-3 project-card">
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-4">
+                                    <label class="form-label small">Titel</label>
+                                    <input type="text" data-prop="Title" name="Projects[@i].Title" value="@pList[i].Title"
+                                    class="form-control" placeholder="Projektnamn..." />
+                                    <span asp-validation-for="Projects[@i].Title" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label small">Årtal</label>
+                                    <input type="text" data-prop="Year" name="Projects[@i].Year" value="@pList[i].Year"
+                                    class="form-control" placeholder="Årtal..." />
+                                    <span asp-validation-for="Projects[@i].Year" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-6">
+                                    <label class="form-label small">Språk</label>
+                                    <input type="text" data-prop="Language" name="Projects[@i].Language" value="@pList[i].Language"
+                                    class="form-control" placeholder="Språk..." />
+                                    <span asp-validation-for="Projects[@i].Language" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-6">
+                                    <label class="form-label small">Githublänk</label>
+                                    <input type="text" data-prop="GithubLink" name="Projects[@i].GithubLink" value="@pList[i].GithubLink"
+                                    class="form-control" placeholder="Githublänk..." />
+                                    <span asp-validation-for="Projects[@i].GithubLink" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-6">
+                                    <label class="form-label small">Beskrivning</label>
+                                    <textarea data-prop="Description" name="Projects[@i].Description" class="form-control" rows="2" placeholder="Beskrivning...">@pList[i].Description</textarea>
+                                    <span asp-validation-for="Projects[@i].Description" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="rowjustify-content-md-center">
+                                <div class="col-md-4">
+                                    <button type="button" class="btn btn-outline-danger"
+                                    onclick="prepareDeleteProj(this)">X</button>
+                                </div>
                             </div>
                         </div>
-                    </div> *@
                 }
 
             } else 
             {
                 <p>Inga projekt skapade</p>
             }
-        @* </form> *@
+            </div> 
+                <div class="d-flex justify-content-between mt-3">
+                    <button type="button" class="btn btn-secondary" onclick="addNewProjCard()">+ Lägg till projekt</button>
+                    <button type="submit" class="btn btn-success">Spara ändringar</button>
+                </div>
 
     } else {
         <p>Ingen information hittad</p>
     }
+</div>
+</form>
+
+<div class="modal fade" id="confirmDeletePopup" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Ta bort projekt?</h5>
+      </div>
+      <div class="modal-body">
+        <p>Är du säker på att du vill ta bort detta projekt från listan? 
+            Du kan inte ångra dig efter du har sparat alla ändringar</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Ta bort</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Avbryt</button>
+      </div>
+    </div>
+  </div>
 </div>

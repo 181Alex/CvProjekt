@@ -569,23 +569,81 @@ namespace CvProjekt.Controllers
 
         }
 
-                [HttpPost]
+        [HttpPost]
         public async Task<IActionResult> EditProjectInfo(User updatedUser)
         {
 
             var currentUser = await _context.Users
-                .Include(u => u.Resume)
-                .ThenInclude(r => r.WorkList)
+                .Include(u => u.Projects)
             .FirstOrDefaultAsync(u => u.Id == updatedUser.Id);
 
             if (currentUser == null)
             {       
                 return Content("Hittar ej användare i databas");
             }
+
+            var eduKey = ModelState.Keys.Where(k => k.StartsWith("Projects") 
+                                                && !k.EndsWith(".Creator")
+                                                && !k.EndsWith(".CreatorId"))
+                                                .ToList();
+            var allKeys = ModelState.Keys.ToList();
             
+            foreach (var key in allKeys)
+            {
+                if (!eduKey.Contains(key))
+                {
+                    ModelState.Remove(key);
+                }
+            }
+
+            if (!ModelState.IsValid)
+            {
+                
+                currentUser.Projects.Clear();
+
+                if(updatedUser.Projects != null)
+                {
+                    foreach(var p in updatedUser.Projects)
+                    {
+                            currentUser.Projects.Add(new Project{
+                                Title = p.Title,
+                                Language = p.Language,
+                                GithubLink = p.GithubLink,
+                                Year = p.Year,
+                                Description = p.Description,
+                                CreatorId = currentUser.Id
+                            });
+                    }
+                }    
+                
+                return View("EditProjects", currentUser);
+            } 
+
+            currentUser.Projects.Clear();
+
+            if(updatedUser.Projects != null)
+            {
+                foreach(var p in updatedUser.Projects)
+                {
+                    if (!string.IsNullOrWhiteSpace(p.Title) && !string.IsNullOrWhiteSpace(p.Language) && p.Year != null)
+                    {
+                        currentUser.Projects.Add(new Project{
+                            Title = p.Title,
+                            Language = p.Language,
+                            GithubLink = p.GithubLink,
+                            Year = p.Year,
+                            Description = p.Description,
+                            CreatorId = currentUser.Id
+                        });
+                    }
+                }
+            }
+
+            await _context.SaveChangesAsync();
+            
+            TempData["SuccessMessage"] = "Projekt sparat";
             return RedirectToAction("EditProjects");
 
         }
-
     }
 }
