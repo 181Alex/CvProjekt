@@ -23,21 +23,43 @@ namespace CvProjekt.Controllers
                 .Include(u => u.Resume).ThenInclude(r => r.Qualifications)
                 .Include(u => u.Resume).ThenInclude(r => r.WorkList)
                 .Include(u => u.Resume).ThenInclude(r => r.EducationList)
-                .Where(u => u.ResumeId != null && u.IsPrivate == false && u.IsActive == true)
+                .Where(u => u.ResumeId != null)
                 .OrderByDescending(u => u.ResumeId)
                 .AsSplitQuery()
                 .AsQueryable();
+            // om man inte är inloggad kan man inte se privata
+            if (!User.Identity?.IsAuthenticated == true)
+            {
+                usersQuery = usersQuery.Where(u => u.IsPrivate == false && u.IsActive == true);
+            }
+            else
+            {
+                usersQuery = usersQuery.Where(u => u.IsActive == true);
+            }
 
             var users = await usersQuery.ToListAsync();
 
-            var allProjects = await context.Projects
+            var projectsQuery = context.Projects
                 .Include(p => p.Creator)
+                .AsQueryable();
+            // samma som ovan
+            if (!User.Identity?.IsAuthenticated == true)
+            {
+                projectsQuery = projectsQuery
+                    .Where(p => p.Creator.IsPrivate == false && p.Creator.IsActive == true);
+            }
+            else
+            {
+                projectsQuery = projectsQuery.Where(p => p.Creator.IsActive == true);
+            }
+
+            var allProjects = await projectsQuery
                 .OrderByDescending(p => p.Id)
                 .ToListAsync();
 
             var membersList = await context.ProjectMembers
-                .Include(PM => PM.user)
-                .Include(PM => PM.project)
+                .Include(pm => pm.user)
+                .Include(pm => pm.project)
                 .ToListAsync();
 
             var model = new HomeViewModel
@@ -51,53 +73,55 @@ namespace CvProjekt.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> JoinProject(int Pid)
+        public async Task<IActionResult> JoinProject(int projectId)
         {
             var user= await _userManager.GetUserAsync(User);
 
-            var project = await context.Projects.FindAsync(Pid);
+            var project = await context.Projects.FindAsync(projectId);
             if (project == null)
             {
-                ModelState.AddModelError("sender","Projektet hittades inte.");
+                TempData["Info"] = "Projektet hittades inte.";
                 return RedirectToAction("AllProjects");
             }
             // kontroll för att se om de redan är en medlem.
             var exists = await context.ProjectMembers
-               .AnyAsync(pm => pm.MemberId == user.Id && pm.MProjectId == Pid);
+               .AnyAsync(pm => pm.MemberId == user.Id && pm.MProjectId == projectId);
 
             if (exists)
             {
-                ModelState.AddModelError("sender","Du är redan medlem i projektet.");
+                TempData["Info"] = "Du är redan medlem i projektet.";
                 return RedirectToAction("AllProjects");
             }
 
             var membership = new ProjectMembers
             {
                 MemberId = user.Id,
-                MProjectId = Pid
+                MProjectId = projectId
             };
             context.ProjectMembers.Add(membership);
             await context.SaveChangesAsync();
+            TempData["Success"] = "Du har gått med i projektet.";
             return RedirectToAction("AllProjects");
         }
 
         [HttpPost]
-        public async Task<IActionResult> LeaveProject(int Pid)
+        public async Task<IActionResult> LeaveProject(int projectId)
         {
             var user = await _userManager.GetUserAsync(User);
 
             var membership = await context.ProjectMembers
-                .FirstOrDefaultAsync(pm => pm.MemberId == user.Id && pm.MProjectId == Pid);
+                .FirstOrDefaultAsync(pm => pm.MemberId == user.Id && pm.MProjectId == projectId);
 
             if (membership == null)
             {
-                ModelState.AddModelError("sender", "Du är inte medlem i projektet.");
+                TempData["Info"] = "Du är inte medlem i projektet.";
                 return RedirectToAction("AllProjects");
             }
 
             context.ProjectMembers.Remove(membership);
             await context.SaveChangesAsync();
 
+            TempData["Success"] = "Du lämnade projektet.";
             return RedirectToAction("AllProjects");
         }
 

@@ -24,10 +24,19 @@ namespace CvProjekt.Controllers
                 .Include(u => u.Resume).ThenInclude(r => r.Qualifications)
                 .Include(u => u.Resume).ThenInclude(r => r.WorkList)
                 .Include(u => u.Resume).ThenInclude(r => r.EducationList)
-                .Where(u => u.ResumeId != null && u.IsPrivate==false && u.IsActive==true)
+                .Where(u => u.ResumeId != null)
                 .OrderByDescending(u => u.ResumeId) 
                 .AsSplitQuery()
                 .AsQueryable();
+            // så att man inte ser privata om man inte är inloggad samt att man itne ser inaktiva
+            if (!User.Identity?.IsAuthenticated == true)
+            {
+                usersQuery = usersQuery.Where(u => u.IsPrivate == false && u.IsActive == true);
+            }
+            else
+            {
+                usersQuery = usersQuery.Where(u => u.IsActive == true);
+            }
 
             if (!string.IsNullOrWhiteSpace(search))
             {
@@ -35,16 +44,29 @@ namespace CvProjekt.Controllers
                     u.FirstName.Contains(search) || u.LastName.Contains(search));
             }
 
-            var users = await usersQuery.Take(5).ToListAsync(); 
+            var users = await usersQuery.Take(5).ToListAsync();
 
-            
-            var latestProjects = await _context.Projects
+
+            var projectsQuery = _context.Projects
                 .Include(p => p.Creator)
+                .AsQueryable();
+            if (!User.Identity?.IsAuthenticated == true)
+            {
+                projectsQuery = projectsQuery
+                    .Where(p => p.Creator.IsPrivate == false && p.Creator.IsActive == true);
+            }
+            else
+            {
+                projectsQuery = projectsQuery.Where(p => p.Creator.IsActive == true);
+            }
+
+            var latestProjects = await projectsQuery
+                .Where(p => p.Creator.IsActive)
                 .OrderByDescending(p => p.Id) 
                 .Take(5)                      
                 .ToListAsync();
-            var allProjects = await _context.Projects
-                .Include(p => p.Creator)
+            var allProjects = await projectsQuery
+                .Where(p=>p.Creator.IsActive)
                 .OrderByDescending(p => p.Id)
                 .ToListAsync();
 
