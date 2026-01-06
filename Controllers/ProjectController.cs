@@ -36,8 +36,8 @@ namespace CvProjekt.Controllers
                 .ToListAsync();
 
             var membersList = await context.ProjectMembers
-                .Include(PM => PM.UserId)
-                .Include(PM => PM.ProjectId)
+                .Include(PM => PM.MemberId)
+                .Include(PM => PM.MProjectId)
                 .ToListAsync();
 
             var model = new HomeViewModel

@@ -4,12 +4,12 @@ namespace CvProjekt.Models
 {
     public class ProjectMembers
     {
-        public string UserId {  get; set; }
-        public int ProjectId { get; set; }
+        public string MemberId {  get; set; }
+        public int MProjectId { get; set; }
 
-        [ForeignKey(nameof(UserId))]
+        [ForeignKey(nameof(MemberId))]
         public User user { get; set; }
-        [ForeignKey(nameof(ProjectId))]
+        [ForeignKey(nameof(MProjectId))]
         public Project project { get; set; }
     }
 }

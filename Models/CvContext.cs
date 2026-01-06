@@ -73,18 +73,18 @@ namespace CvProjekt.Models
 
             //Relation för PROJEKT - Members (M:M via ProjectMembers): Om User eller Project raderas, radera medlemskapen
             modelBuilder.Entity<ProjectMembers>()
-                .HasKey(pm => new { pm.UserId, pm.ProjectId });
+                .HasKey(pm => new { pm.MemberId, pm.MProjectId });
 
             modelBuilder.Entity<ProjectMembers>()
                 .HasOne(pm => pm.user)
                 .WithMany()
-                .HasForeignKey(pm => pm.UserId)
+                .HasForeignKey(pm => pm.MemberId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<ProjectMembers>()
                 .HasOne(pm => pm.project)
                 .WithMany()
-                .HasForeignKey(pm => pm.ProjectId)
+                .HasForeignKey(pm => pm.MProjectId)
                 .OnDelete(DeleteBehavior.Cascade);
 
 
@@ -187,11 +187,11 @@ namespace CvProjekt.Models
                 }
             );
             modelBuilder.Entity<ProjectMembers>().HasData(
-                new ProjectMembers { UserId = u1, ProjectId = 1 },
-                new ProjectMembers { UserId = u2, ProjectId = 2 },
-                new ProjectMembers { UserId = u3, ProjectId = 1 },
-                new ProjectMembers { UserId = u4, ProjectId = 3 },
-                new ProjectMembers { UserId = u2, ProjectId = 1 }
+                new ProjectMembers { MemberId = u1, MProjectId = 1 },
+                new ProjectMembers { MemberId = u2, MProjectId = 2 },
+                new ProjectMembers { MemberId = u3, MProjectId = 1 },
+                new ProjectMembers { MemberId = u4, MProjectId = 3 },
+                new ProjectMembers { MemberId = u2, MProjectId = 1 }
             );
 
         }

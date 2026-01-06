@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CvProjekt.Migrations
 {
     [DbContext(typeof(CvContext))]
-    [Migration("20260106155208_nyprojkorr")]
-    partial class nyprojkorr
+    [Migration("20260106155914_nykorr")]
+    partial class nykorr
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -259,53 +259,53 @@ namespace CvProjekt.Migrations
 
             modelBuilder.Entity("CvProjekt.Models.ProjectMembers", b =>
                 {
+                    b.Property<string>("MemberId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("MProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ProjectId")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("ProjectId")
-                        .HasColumnType("int");
+                    b.HasKey("MemberId", "MProjectId");
 
-                    b.Property<int?>("ProjectId1")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId1")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("UserId", "ProjectId");
+                    b.HasIndex("MProjectId");
 
                     b.HasIndex("ProjectId");
 
-                    b.HasIndex("ProjectId1");
-
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("ProjectMembers");
 
                     b.HasData(
                         new
                         {
-                            UserId = "user-1",
-                            ProjectId = 1
+                            MemberId = "user-1",
+                            MProjectId = 1
                         },
                         new
                         {
-                            UserId = "user-2",
-                            ProjectId = 2
+                            MemberId = "user-2",
+                            MProjectId = 2
                         },
                         new
                         {
-                            UserId = "user-3",
-                            ProjectId = 1
+                            MemberId = "user-3",
+                            MProjectId = 1
                         },
                         new
                         {
-                            UserId = "user-4",
-                            ProjectId = 3
+                            MemberId = "user-4",
+                            MProjectId = 3
                         },
                         new
                         {
-                            UserId = "user-2",
-                            ProjectId = 1
+                            MemberId = "user-2",
+                            MProjectId = 1
                         });
                 });
 
@@ -894,23 +894,23 @@ namespace CvProjekt.Migrations
                 {
                     b.HasOne("CvProjekt.Models.Project", "project")
                         .WithMany()
-                        .HasForeignKey("ProjectId")
+                        .HasForeignKey("MProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CvProjekt.Models.User", "user")
+                        .WithMany()
+                        .HasForeignKey("MemberId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("CvProjekt.Models.Project", null)
                         .WithMany("ProjectMembers")
-                        .HasForeignKey("ProjectId1");
-
-                    b.HasOne("CvProjekt.Models.User", "user")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("ProjectId");
 
                     b.HasOne("CvProjekt.Models.User", null)
                         .WithMany("ProjectMembers")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId");
 
                     b.Navigation("project");
 
