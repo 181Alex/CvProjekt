@@ -32,8 +32,8 @@ namespace CvProjekt.Migrations
 
                     b.Property<string>("DegreeName")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Description")
                         .HasMaxLength(200)
@@ -47,8 +47,8 @@ namespace CvProjekt.Migrations
 
                     b.Property<string>("SchoolName")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("StartYear")
                         .HasColumnType("int");
@@ -195,22 +195,24 @@ namespace CvProjekt.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("GithubLink")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Language")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("Year")
+                        .HasMaxLength(4)
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -260,9 +262,19 @@ namespace CvProjekt.Migrations
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ProjectId1")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId1")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("UserId", "ProjectId");
 
                     b.HasIndex("ProjectId");
+
+                    b.HasIndex("ProjectId1");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("ProjectMembers");
 
@@ -634,8 +646,8 @@ namespace CvProjekt.Migrations
 
                     b.Property<string>("CompanyName")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Description")
                         .HasMaxLength(200)
@@ -646,8 +658,8 @@ namespace CvProjekt.Migrations
 
                     b.Property<string>("Position")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("ResumeId")
                         .HasColumnType("int");
@@ -883,11 +895,19 @@ namespace CvProjekt.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("CvProjekt.Models.Project", null)
+                        .WithMany("ProjectMembers")
+                        .HasForeignKey("ProjectId1");
+
                     b.HasOne("CvProjekt.Models.User", "user")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("CvProjekt.Models.User", null)
+                        .WithMany("ProjectMembers")
+                        .HasForeignKey("UserId1");
 
                     b.Navigation("project");
 
@@ -977,6 +997,11 @@ namespace CvProjekt.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("CvProjekt.Models.Project", b =>
+                {
+                    b.Navigation("ProjectMembers");
+                });
+
             modelBuilder.Entity("CvProjekt.Models.Resume", b =>
                 {
                     b.Navigation("EducationList");
@@ -992,6 +1017,8 @@ namespace CvProjekt.Migrations
             modelBuilder.Entity("CvProjekt.Models.User", b =>
                 {
                     b.Navigation("Messages");
+
+                    b.Navigation("ProjectMembers");
 
                     b.Navigation("Projects");
                 });

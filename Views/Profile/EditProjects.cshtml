@@ -1,0 +1,41 @@
+@model CvProjekt.Models.User
+@{
+    ViewData["Title"] = "Redigera Projekt";
+}
+
+<h2>Redigera dina projekt</h2>
+<div class="container bg-light p-5">
+    @if(Model != null)
+    {
+        var pList = Model.Projects.ToList();
+
+        <h3>Dina skapade projekt:</h3>
+        @* <form asp-action="EditProjectInfo" method="post">
+                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="Project.Id" /> *@
+
+            if(pList.Count > 0)
+            {
+                @for(int i = 0; i < pList.Count; i++)
+                {
+                    @* <div class="project-container">
+                        <div class="card-body">
+                            <div class="d-flex flex-row justify-content-center align-items-center">
+                                <label class="form-label small">Titel</label>
+                                <input type="text" data-prop="Title" name="Projects[@i].Title" value="@pList[i].Name"
+                                 class="form-control" placeholder="Skolnamn..." />
+                            </div>
+                        </div>
+                    </div> *@
+                }
+
+            } else 
+            {
+                <p>Inga projekt skapade</p>
+            }
+        @* </form> *@
+
+    } else {
+        <p>Ingen information hittad</p>
+    }
+</div>

@@ -8,11 +8,11 @@ namespace CvProjekt.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Du måste ange företagsnamn")]
-        [StringLength(200, ErrorMessage = "Max 200 tecken")]
+        [StringLength(50, ErrorMessage = "Max 50 tecken")]
         public string CompanyName { get; set; }
 
         [Required(ErrorMessage = "Du måste ange position")]
-        [StringLength(200, ErrorMessage = "Max 200 tecken")]
+        [StringLength(50, ErrorMessage = "Max 50 tecken")]
         public string Position { get; set; }
 
         [Required(ErrorMessage = "Du måste ange startdatum")]

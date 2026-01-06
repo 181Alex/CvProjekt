@@ -8,19 +8,30 @@ namespace CvProjekt.Models
 		[Key]
 		public int Id { get; set; }
 
+		[Required(ErrorMessage = "Du måste skriva titel")]
+        [StringLength(50, ErrorMessage = "Max 50 tecken")]
 		public string Title { get; set; }
 
+		[Required(ErrorMessage = "Du måste skriva språk")]
+        [StringLength(50, ErrorMessage = "Max 50 tecken")]
 		public string Language { get; set; }
 
-		public string GithubLink { get; set; }
+		public string? GithubLink { get; set; }
 
+		[Required(ErrorMessage = "Du måste skriva årtal")]
+        [StringLength(4, ErrorMessage = "Max 4 tecken")]
+		[RegularExpression(@"^\d{4}$", 
+            ErrorMessage = "Årtalet måste innehålla fyra siffror")]
 		public int Year { get; set; }
 
-		public string Description { get; set; }
+		[StringLength(200, ErrorMessage = "Max 200 tecken")]
+		public string? Description { get; set; }
 
 		public string CreatorId { get; set; }
         [ForeignKey(nameof(CreatorId))]
         public virtual User Creator { get; set; }
+
+		public virtual IEnumerable<ProjectMembers> ProjectMembers {get; set;} = new List<ProjectMembers>();
 
 
 	}
