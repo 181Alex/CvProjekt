@@ -35,10 +35,16 @@ namespace CvProjekt.Controllers
                 .OrderByDescending(p => p.Id)
                 .ToListAsync();
 
+            var membersList = await context.ProjectMembers
+                .Include(PM => PM.UserId)
+                .Include(PM => PM.ProjectId)
+                .ToListAsync();
+
             var model = new HomeViewModel
             {
                 Users = users,
-                AllProjects = allProjects
+                AllProjects = allProjects,
+                ProjectMemberList = membersList
             };
 
             return View(model);
