@@ -546,5 +546,104 @@ namespace CvProjekt.Controllers
 
         }
 
+        public async Task<IActionResult> EditProjects()
+        {
+            
+            var userId = _userManager.GetUserId(User);
+
+            var user = await _context.Users
+                        .Include(u => u.Projects)
+                        .Include(u => u.Resume)
+                            .ThenInclude(r => r.Qualifications)
+                        .Include(u => u.Resume)
+                            .ThenInclude(r => r.WorkList)
+                        .Include(u => u.Resume)
+                            .ThenInclude(r => r.EducationList)
+                        .FirstOrDefaultAsync(u => u.Id == userId);
+
+            if(user == null){
+                return Content($"Fel: Hittade ingen användare med ID '{userId}' i databasen. Har du kört database update?");
+            }
+
+            return View(user);
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditProjectInfo(User updatedUser)
+        {
+
+            var currentUser = await _context.Users
+                .Include(u => u.Projects)
+            .FirstOrDefaultAsync(u => u.Id == updatedUser.Id);
+
+            if (currentUser == null)
+            {       
+                return Content("Hittar ej användare i databas");
+            }
+
+            var eduKey = ModelState.Keys.Where(k => k.StartsWith("Projects") 
+                                                && !k.EndsWith(".Creator")
+                                                && !k.EndsWith(".CreatorId"))
+                                                .ToList();
+            var allKeys = ModelState.Keys.ToList();
+            
+            foreach (var key in allKeys)
+            {
+                if (!eduKey.Contains(key))
+                {
+                    ModelState.Remove(key);
+                }
+            }
+
+            if (!ModelState.IsValid)
+            {
+                
+                currentUser.Projects.Clear();
+
+                if(updatedUser.Projects != null)
+                {
+                    foreach(var p in updatedUser.Projects)
+                    {
+                            currentUser.Projects.Add(new Project{
+                                Title = p.Title,
+                                Language = p.Language,
+                                GithubLink = p.GithubLink,
+                                Year = p.Year,
+                                Description = p.Description,
+                                CreatorId = currentUser.Id
+                            });
+                    }
+                }    
+                
+                return View("EditProjects", currentUser);
+            } 
+
+            currentUser.Projects.Clear();
+
+            if(updatedUser.Projects != null)
+            {
+                foreach(var p in updatedUser.Projects)
+                {
+                    if (!string.IsNullOrWhiteSpace(p.Title) && !string.IsNullOrWhiteSpace(p.Language) && p.Year != null)
+                    {
+                        currentUser.Projects.Add(new Project{
+                            Title = p.Title,
+                            Language = p.Language,
+                            GithubLink = p.GithubLink,
+                            Year = p.Year,
+                            Description = p.Description,
+                            CreatorId = currentUser.Id
+                        });
+                    }
+                }
+            }
+
+            await _context.SaveChangesAsync();
+            
+            TempData["SuccessMessage"] = "Projekt sparat";
+            return RedirectToAction("EditProjects");
+
+        }
     }
 }

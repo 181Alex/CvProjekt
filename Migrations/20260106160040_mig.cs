@@ -105,8 +105,8 @@ namespace CvProjekt.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SchoolName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    DegreeName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    SchoolName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    DegreeName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     StartYear = table.Column<int>(type: "int", nullable: false),
                     EndYear = table.Column<int>(type: "int", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
@@ -149,8 +149,8 @@ namespace CvProjekt.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CompanyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Position = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    CompanyName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Position = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     StartDate = table.Column<DateOnly>(type: "date", nullable: false),
                     EndDate = table.Column<DateOnly>(type: "date", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
@@ -288,22 +288,58 @@ namespace CvProjekt.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Language = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    GithubLink = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Year = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Language = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    GithubLink = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Year = table.Column<int>(type: "int", maxLength: 4, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    CreatorId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Projects", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Projects_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Projects_AspNetUsers_CreatorId",
+                        column: x => x.CreatorId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProjectMembers",
+                columns: table => new
+                {
+                    MemberId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    MProjectId = table.Column<int>(type: "int", nullable: false),
+                    ProjectId = table.Column<int>(type: "int", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProjectMembers", x => new { x.MemberId, x.MProjectId });
+                    table.ForeignKey(
+                        name: "FK_ProjectMembers_AspNetUsers_MemberId",
+                        column: x => x.MemberId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ProjectMembers_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_ProjectMembers_Projects_MProjectId",
+                        column: x => x.MProjectId,
+                        principalTable: "Projects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProjectMembers_Projects_ProjectId",
+                        column: x => x.ProjectId,
+                        principalTable: "Projects",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.InsertData(
@@ -380,12 +416,24 @@ namespace CvProjekt.Migrations
 
             migrationBuilder.InsertData(
                 table: "Projects",
-                columns: new[] { "Id", "Description", "GithubLink", "Language", "Title", "UserId", "Year" },
+                columns: new[] { "Id", "CreatorId", "Description", "GithubLink", "Language", "Title", "Year" },
                 values: new object[,]
                 {
-                    { 1, "Byggde en butik", "github.com/erik/shop", "C#", "E-handel", "user-1", 2023 },
-                    { 2, "Min hemsida", "github.com/anna/me", "React", "Portfolio", "user-2", 2024 },
-                    { 3, "AI budgetering", "github.com/sara/cash", "Python", "BudgetApp", "user-4", 2022 }
+                    { 1, "user-1", "Byggde en butik", "github.com/erik/shop", "C#", "E-handel", 2023 },
+                    { 2, "user-2", "Min hemsida", "github.com/anna/me", "React", "Portfolio", 2024 },
+                    { 3, "user-4", "AI budgetering", "github.com/sara/cash", "Python", "BudgetApp", 2022 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ProjectMembers",
+                columns: new[] { "MProjectId", "MemberId", "ProjectId", "UserId" },
+                values: new object[,]
+                {
+                    { 1, "user-1", null, null },
+                    { 1, "user-2", null, null },
+                    { 2, "user-2", null, null },
+                    { 1, "user-3", null, null },
+                    { 3, "user-4", null, null }
                 });
 
             migrationBuilder.CreateIndex(
@@ -450,9 +498,24 @@ namespace CvProjekt.Migrations
                 column: "ToUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Projects_UserId",
-                table: "Projects",
+                name: "IX_ProjectMembers_MProjectId",
+                table: "ProjectMembers",
+                column: "MProjectId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProjectMembers_ProjectId",
+                table: "ProjectMembers",
+                column: "ProjectId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProjectMembers_UserId",
+                table: "ProjectMembers",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Projects_CreatorId",
+                table: "Projects",
+                column: "CreatorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Qualifications_ResumeId",
@@ -490,7 +553,7 @@ namespace CvProjekt.Migrations
                 name: "Messages");
 
             migrationBuilder.DropTable(
-                name: "Projects");
+                name: "ProjectMembers");
 
             migrationBuilder.DropTable(
                 name: "Qualifications");
@@ -500,6 +563,9 @@ namespace CvProjekt.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Projects");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

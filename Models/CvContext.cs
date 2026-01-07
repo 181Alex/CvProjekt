@@ -18,6 +18,7 @@ namespace CvProjekt.Models
         public DbSet<Message> Messages { get; set; }
         public DbSet<Work> Works { get; set; }
         public DbSet<Qualification> Qualifications {get; set;}
+        public DbSet<ProjectMembers> ProjectMembers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -32,9 +33,9 @@ namespace CvProjekt.Models
 
             //Relation för PROJEKT: Om en User raderas, radera även alla dennes projekt (Cascade)
             modelBuilder.Entity<Project>()
-                .HasOne(p => p.User)
+                .HasOne(p => p.Creator)
                 .WithMany(u => u.Projects)
-                .HasForeignKey(p => p.UserId)
+                .HasForeignKey(p => p.CreatorId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             //Relation för MEDDELANDEN (Mottagare): Om mottagaren raderas, radera meddelandet
@@ -70,13 +71,28 @@ namespace CvProjekt.Models
                 .HasForeignKey(q => q.ResumeId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            //Relation för PROJEKT - Members (M:M via ProjectMembers): Om User eller Project raderas, radera medlemskapen
+            modelBuilder.Entity<ProjectMembers>()
+                .HasKey(pm => new { pm.MemberId, pm.MProjectId });
+
+            modelBuilder.Entity<ProjectMembers>()
+                .HasOne(pm => pm.user)
+                .WithMany()
+                .HasForeignKey(pm => pm.MemberId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ProjectMembers>()
+                .HasOne(pm => pm.project)
+                .WithMany()
+                .HasForeignKey(pm => pm.MProjectId)
+                .OnDelete(DeleteBehavior.Cascade);
 
 
             // ==========================================
             // SEED DATA (STATISK DATA)
             // ==========================================
-            
-                string u1 = "user-1"; 
+
+            string u1 = "user-1"; 
                 string u2 = "user-2"; 
                 string u3 = "user-3"; 
                 string u4 = "user-4"; 
@@ -132,10 +148,11 @@ namespace CvProjekt.Models
                 );
 
                 modelBuilder.Entity<Project>().HasData(
-                    new Project { Id = 1, Title = "E-handel", Language = "C#", GithubLink = "github.com/erik/shop", Year = 2023, Description = "Byggde en butik", UserId = u1 },
-                    new Project { Id = 2, Title = "Portfolio", Language = "React", GithubLink = "github.com/anna/me", Year = 2024, Description = "Min hemsida", UserId = u2 },
-                    new Project { Id = 3, Title = "BudgetApp", Language = "Python", GithubLink = "github.com/sara/cash", Year = 2022, Description = "AI budgetering", UserId = u4 }
+                    new Project { Id = 1, Title = "E-handel", Language = "C#", GithubLink = "github.com/erik/shop", Year = 2023, Description = "Byggde en butik", CreatorId = u1 },
+                    new Project { Id = 2, Title = "Portfolio", Language = "React", GithubLink = "github.com/anna/me", Year = 2024, Description = "Min hemsida", CreatorId = u2 },
+                    new Project { Id = 3, Title = "BudgetApp", Language = "Python", GithubLink = "github.com/sara/cash", Year = 2022, Description = "AI budgetering", CreatorId  = u4 }
                 );
+
 
                 modelBuilder.Entity<Message>().HasData(
                 new Message 
@@ -168,7 +185,14 @@ namespace CvProjekt.Models
                     ToUserId = u5,
                     SenderName = "Cecilia Carlsson" // Eller vad u3 heter
                 }
-);
+            );
+            modelBuilder.Entity<ProjectMembers>().HasData(
+                new ProjectMembers { MemberId = u1, MProjectId = 1 },
+                new ProjectMembers { MemberId = u2, MProjectId = 2 },
+                new ProjectMembers { MemberId = u3, MProjectId = 1 },
+                new ProjectMembers { MemberId = u4, MProjectId = 3 },
+                new ProjectMembers { MemberId = u2, MProjectId = 1 }
+            );
 
         }
 

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CvProjekt.Migrations
 {
     [DbContext(typeof(CvContext))]
-    [Migration("20260104134017_mig")]
+    [Migration("20260106160040_mig")]
     partial class mig
     {
         /// <inheritdoc />
@@ -35,8 +35,8 @@ namespace CvProjekt.Migrations
 
                     b.Property<string>("DegreeName")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Description")
                         .HasMaxLength(200)
@@ -50,8 +50,8 @@ namespace CvProjekt.Migrations
 
                     b.Property<string>("SchoolName")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("StartYear")
                         .HasColumnType("int");
@@ -193,32 +193,34 @@ namespace CvProjekt.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Description")
+                    b.Property<string>("CreatorId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("GithubLink")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Language")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("Year")
+                        .HasMaxLength(4)
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("CreatorId");
 
                     b.ToTable("Projects");
 
@@ -226,32 +228,84 @@ namespace CvProjekt.Migrations
                         new
                         {
                             Id = 1,
+                            CreatorId = "user-1",
                             Description = "Byggde en butik",
                             GithubLink = "github.com/erik/shop",
                             Language = "C#",
                             Title = "E-handel",
-                            UserId = "user-1",
                             Year = 2023
                         },
                         new
                         {
                             Id = 2,
+                            CreatorId = "user-2",
                             Description = "Min hemsida",
                             GithubLink = "github.com/anna/me",
                             Language = "React",
                             Title = "Portfolio",
-                            UserId = "user-2",
                             Year = 2024
                         },
                         new
                         {
                             Id = 3,
+                            CreatorId = "user-4",
                             Description = "AI budgetering",
                             GithubLink = "github.com/sara/cash",
                             Language = "Python",
                             Title = "BudgetApp",
-                            UserId = "user-4",
                             Year = 2022
+                        });
+                });
+
+            modelBuilder.Entity("CvProjekt.Models.ProjectMembers", b =>
+                {
+                    b.Property<string>("MemberId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("MProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("MemberId", "MProjectId");
+
+                    b.HasIndex("MProjectId");
+
+                    b.HasIndex("ProjectId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ProjectMembers");
+
+                    b.HasData(
+                        new
+                        {
+                            MemberId = "user-1",
+                            MProjectId = 1
+                        },
+                        new
+                        {
+                            MemberId = "user-2",
+                            MProjectId = 2
+                        },
+                        new
+                        {
+                            MemberId = "user-3",
+                            MProjectId = 1
+                        },
+                        new
+                        {
+                            MemberId = "user-4",
+                            MProjectId = 3
+                        },
+                        new
+                        {
+                            MemberId = "user-2",
+                            MProjectId = 1
                         });
                 });
 
@@ -595,8 +649,8 @@ namespace CvProjekt.Migrations
 
                     b.Property<string>("CompanyName")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Description")
                         .HasMaxLength(200)
@@ -607,8 +661,8 @@ namespace CvProjekt.Migrations
 
                     b.Property<string>("Position")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("ResumeId")
                         .HasColumnType("int");
@@ -827,13 +881,40 @@ namespace CvProjekt.Migrations
 
             modelBuilder.Entity("CvProjekt.Models.Project", b =>
                 {
-                    b.HasOne("CvProjekt.Models.User", "User")
+                    b.HasOne("CvProjekt.Models.User", "Creator")
                         .WithMany("Projects")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("CreatorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.Navigation("Creator");
+                });
+
+            modelBuilder.Entity("CvProjekt.Models.ProjectMembers", b =>
+                {
+                    b.HasOne("CvProjekt.Models.Project", "project")
+                        .WithMany()
+                        .HasForeignKey("MProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CvProjekt.Models.User", "user")
+                        .WithMany()
+                        .HasForeignKey("MemberId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CvProjekt.Models.Project", null)
+                        .WithMany("ProjectMembers")
+                        .HasForeignKey("ProjectId");
+
+                    b.HasOne("CvProjekt.Models.User", null)
+                        .WithMany("ProjectMembers")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("project");
+
+                    b.Navigation("user");
                 });
 
             modelBuilder.Entity("CvProjekt.Models.Qualification", b =>
@@ -919,6 +1000,11 @@ namespace CvProjekt.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("CvProjekt.Models.Project", b =>
+                {
+                    b.Navigation("ProjectMembers");
+                });
+
             modelBuilder.Entity("CvProjekt.Models.Resume", b =>
                 {
                     b.Navigation("EducationList");
@@ -934,6 +1020,8 @@ namespace CvProjekt.Migrations
             modelBuilder.Entity("CvProjekt.Models.User", b =>
                 {
                     b.Navigation("Messages");
+
+                    b.Navigation("ProjectMembers");
 
                     b.Navigation("Projects");
                 });

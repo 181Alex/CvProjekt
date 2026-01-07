@@ -39,7 +39,9 @@ namespace CvProjekt.Models
         public string? ImgUrl {get; set;}
 
         public virtual ICollection<Message> Messages {get; set;} = new List<Message>();
-        public virtual ICollection<Project> Projects {get; set;} = new List<Project>();
+        public virtual List<Project> Projects {get; set;} = new List<Project>();
+
+        public virtual List<ProjectMembers> ProjectMembers {get; set;} = new List<ProjectMembers>();
 
         public int? ResumeId{get;set;}
 

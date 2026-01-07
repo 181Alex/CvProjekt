@@ -8,11 +8,11 @@ namespace CvProjekt.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Du måste skriva skolnamn")]
-        [StringLength(200, ErrorMessage = "Max 200 tecken")]
+        [StringLength(50, ErrorMessage = "Max 50 tecken")]
         public string SchoolName { get; set; }
 
         [Required(ErrorMessage = "Du måste skriva utbildningsnamn")]
-        [StringLength(200, ErrorMessage = "Max 200 tecken")]
+        [StringLength(50, ErrorMessage = "Max 50 tecken")]
         public string DegreeName { get; set; }
 
         [Required(ErrorMessage = "Du måste ange startår")]
