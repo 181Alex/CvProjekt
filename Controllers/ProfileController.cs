@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Xml.Serialization;
+using System.Linq;
 
 namespace CvProjekt.Controllers
 {
@@ -181,6 +182,8 @@ namespace CvProjekt.Controllers
 
             var user = await _context.Users
                 .Include(u => u.Projects)
+                    .ThenInclude(p => p.ProjectMembers)      
+                        .ThenInclude(pm => pm.user)          
                 .Include(u => u.Resume)
                     .ThenInclude(r => r.Qualifications)
                 .Include(u => u.Resume)
@@ -193,6 +196,20 @@ namespace CvProjekt.Controllers
             {
                 return Content($"Fel: Hittade ingen användare med ID '{userId}' i databasen. Har du kört database update?");
             }
+            var memberProjectIds = await _context.ProjectMembers
+                .Where(pm => pm.MemberId == userId)
+                .Select(pm => pm.MProjectId)
+                .Distinct()
+                .ToListAsync();
+
+            var memberProjects = await _context.Projects
+                .Where(p => memberProjectIds.Contains(p.Id))
+                .Include(p => p.Creator)
+                .Include(p => p.ProjectMembers)
+                    .ThenInclude(pm => pm.user)
+                .ToListAsync();
+
+            ViewBag.MemberProjects = memberProjects;
 
             return View(user);
         }

@@ -77,13 +77,13 @@ namespace CvProjekt.Models
 
             modelBuilder.Entity<ProjectMembers>()
                 .HasOne(pm => pm.user)
-                .WithMany()
+                .WithMany(u => u.ProjectMembers)
                 .HasForeignKey(pm => pm.MemberId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<ProjectMembers>()
                 .HasOne(pm => pm.project)
-                .WithMany()
+                .WithMany(p => p.ProjectMembers)
                 .HasForeignKey(pm => pm.MProjectId)
                 .OnDelete(DeleteBehavior.Cascade);
 
