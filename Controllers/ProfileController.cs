@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Xml.Serialization;
+using System.Linq;
 
 namespace CvProjekt.Controllers
 {
@@ -42,9 +43,15 @@ namespace CvProjekt.Controllers
                 .ThenInclude(r => r.Qualifications)
                 .Include(u => u.Resume)
                 .ThenInclude(r => r.EducationList)
+                .Include(u=>u.ProjectMembers)
+                .ThenInclude(pm => pm.project)
                 .Where(u => u.Id == user.Id)
                 .FirstOrDefaultAsync();
             if (userObject == null) { ModelState.AddModelError("SenderName", "User not found"); }
+            var memberProjectIds = userObject.ProjectMembers.Select(pm => pm.MProjectId).ToList();
+            var memberProjects = await _context.Projects
+                .Where(p => memberProjectIds.Contains(p.Id))
+                .ToListAsync();
             var exporten = new UserExportDto
             {
                 FirstName = userObject.FirstName,
@@ -52,6 +59,14 @@ namespace CvProjekt.Controllers
                 Email = userObject.Email,
                 Adress = userObject.Adress,
                 ImgUrl = userObject.ImgUrl,
+                ProjectMember=memberProjects.Select(mp=> new ProjectMembersDto
+                {
+                    Title = mp.Title,
+                    Language = mp.Language,
+                    Description = mp.Description,
+                    GithubLink = mp.GithubLink,
+                    Year = mp.Year
+                }).ToList(),
                 Projects = userObject.Projects.Select(p => new ProjectExportDto // som det står i exportmodels så skapar man en lista av projektexportdto, istälelt för lsita av project
                 {
                     Title = p.Title,
@@ -62,32 +77,35 @@ namespace CvProjekt.Controllers
 
                 }).ToList()
             };
-            exporten.Resume = new ResumeExportDto
+            if(userObject.Resume!=null)
             {
-                Qualifications = userObject.Resume.Qualifications.Select(q => new QualificationExportDto
+                exporten.Resume = new ResumeExportDto
                 {
-                    Name = q.Name
-                }).ToList(),
+                    Qualifications = userObject.Resume.Qualifications.Select(q => new QualificationExportDto
+                    {
+                        Name = q.Name
+                    }).ToList(),
 
-                WorkList = userObject.Resume.WorkList.Select(w => new WorkExportDto
-                {
-                    CompanyName = w.CompanyName,
-                    Position = w.Position,
-                    Description = w.Description,
-                    StartDate = w.StartDate.ToString("yyyy-MM-dd"), //detta är en datetime/timeonly i work kalssen, gör om till string så den kan skrivas ut lättare
-                    EndDate = w.EndDate.HasValue ? w.EndDate.Value.ToString("yyyy-MM-dd") : "Pågående" //om enddate är null skriv pågående ut istället.
-                }).ToList(),
+                    WorkList = userObject.Resume.WorkList.Select(w => new WorkExportDto
+                    {
+                        CompanyName = w.CompanyName,
+                        Position = w.Position,
+                        Description = w.Description,
+                        StartDate = w.StartDate.ToString("yyyy-MM-dd"), //detta är en datetime/timeonly i work kalssen, gör om till string så den kan skrivas ut lättare
+                        EndDate = w.EndDate.HasValue ? w.EndDate.Value.ToString("yyyy-MM-dd") : "Pågående" //om enddate är null skriv pågående ut istället.
+                    }).ToList(),
 
-                EducationList = userObject.Resume.EducationList.Select(e => new EducationExportDto
-                {
-                    SchoolName = e.SchoolName,
-                    DegreeName = e.DegreeName,
-                    StartYear = e.StartYear,
-                    EndYear = e.EndYear.HasValue ? e.EndYear.Value.ToString() : "Pågående",// som beskriver ovan
-                    Description = e.Description ?? ""
-                }).ToList()
+                    EducationList = userObject.Resume.EducationList.Select(e => new EducationExportDto
+                    {
+                        SchoolName = e.SchoolName,
+                        DegreeName = e.DegreeName,
+                        StartYear = e.StartYear,
+                        EndYear = e.EndYear.HasValue ? e.EndYear.Value.ToString() : "Pågående",// som beskriver ovan
+                        Description = e.Description ?? ""
+                    }).ToList()
 
-            };
+                };
+            }
             var serializer = new XmlSerializer (typeof(UserExportDto));
             using (var streaming = new MemoryStream())//memory stream används för att användaren ska kunna ladda ner informationen
             {
@@ -181,6 +199,8 @@ namespace CvProjekt.Controllers
 
             var user = await _context.Users
                 .Include(u => u.Projects)
+                    .ThenInclude(p => p.ProjectMembers)      
+                        .ThenInclude(pm => pm.user)          
                 .Include(u => u.Resume)
                     .ThenInclude(r => r.Qualifications)
                 .Include(u => u.Resume)
@@ -193,6 +213,20 @@ namespace CvProjekt.Controllers
             {
                 return Content($"Fel: Hittade ingen användare med ID '{userId}' i databasen. Har du kört database update?");
             }
+            var memberProjectIds = await _context.ProjectMembers
+                .Where(pm => pm.MemberId == userId)
+                .Select(pm => pm.MProjectId)
+                .Distinct()
+                .ToListAsync();
+
+            var memberProjects = await _context.Projects
+                .Where(p => memberProjectIds.Contains(p.Id))
+                .Include(p => p.Creator)
+                .Include(p => p.ProjectMembers)
+                    .ThenInclude(pm => pm.user)
+                .ToListAsync();
+
+            ViewBag.MemberProjects = memberProjects;
 
             return View(user);
         }

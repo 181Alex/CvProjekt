@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CvProjekt.Migrations
 {
     [DbContext(typeof(CvContext))]
-    [Migration("20260106160040_mig")]
-    partial class mig
+    [Migration("20260108094513_korrektProjekt")]
+    partial class korrektProjekt
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -215,7 +215,6 @@ namespace CvProjekt.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("Year")
-                        .HasMaxLength(4)
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -265,19 +264,9 @@ namespace CvProjekt.Migrations
                     b.Property<int>("MProjectId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ProjectId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("MemberId", "MProjectId");
 
                     b.HasIndex("MProjectId");
-
-                    b.HasIndex("ProjectId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("ProjectMembers");
 
@@ -893,24 +882,16 @@ namespace CvProjekt.Migrations
             modelBuilder.Entity("CvProjekt.Models.ProjectMembers", b =>
                 {
                     b.HasOne("CvProjekt.Models.Project", "project")
-                        .WithMany()
+                        .WithMany("ProjectMembers")
                         .HasForeignKey("MProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("CvProjekt.Models.User", "user")
-                        .WithMany()
+                        .WithMany("ProjectMembers")
                         .HasForeignKey("MemberId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("CvProjekt.Models.Project", null)
-                        .WithMany("ProjectMembers")
-                        .HasForeignKey("ProjectId");
-
-                    b.HasOne("CvProjekt.Models.User", null)
-                        .WithMany("ProjectMembers")
-                        .HasForeignKey("UserId");
 
                     b.Navigation("project");
 

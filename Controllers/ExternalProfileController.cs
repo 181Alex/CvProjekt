@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Xml.Serialization;
+using System.Linq;
 
 namespace CvProjekt.Controllers
 {
@@ -53,8 +54,39 @@ namespace CvProjekt.Controllers
                 // Felsäkert — om save misslyckas ska inte vyn krascha.
             }
 
+            // Hämta liknande profiler baserat på delade kompetenser (Qualifications)
+            List<User> similarProfiles = new List<User>();
+            var qualNames = user.Resume?.Qualifications?.Select(q => q.Name).Where(n => !string.IsNullOrWhiteSpace(n)).Distinct().ToList() ?? new List<string>();
+
+            if (qualNames.Any())
+            {
+                // Hitta andra användare som har minst en av dessa kompetenser
+                var candidates = await _context.Users
+                    .Include(u => u.Resume)
+                        .ThenInclude(r => r.Qualifications)
+                    .Include(u => u.Projects)
+                    .Where(u => u.Id != id && u.Resume != null && u.Resume.Qualifications.Any(q => qualNames.Contains(q.Name)))
+                    .ToListAsync();
+
+                // Rangordna efter antal delade kompetenser och ta max 6
+                similarProfiles = candidates
+                    .Select(c => new
+                    {
+                        User = c,
+                        SharedCount = c.Resume?.Qualifications?.Count(q => qualNames.Contains(q.Name)) ?? 0
+                    })
+                    .OrderByDescending(x => x.SharedCount)
+                    .ThenBy(x => x.User.FirstName)
+                    .Select(x => x.User)
+                    .Take(6)
+                    .ToList();
+            }
+
+            ViewBag.SimilarProfiles = similarProfiles;
+
             return View("Profile", user);
         }
+
         // GET: /ExternalProfile/DownloadData/{id}
         // Samma exportlogik som i ProfileController.DownloadData men för extern profil
         [HttpGet]

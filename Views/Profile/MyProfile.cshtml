@@ -14,7 +14,7 @@
 
 <div class="container bg-light p-5">
     <div class="position-relative d-flex justify-content-center align-items-center mb-4">
-    
+
         <h1 class="m-0">Min Profil</h1>
 
         <div class="position-absolute end-0">
@@ -22,8 +22,8 @@
         </div>
 
     </div>
-    @if (Model != null)
-    {
+@if (Model != null)
+{
         <h4 class="text-center" style="margin: 2rem auto;">Välkommen @Model.FirstName @Model.LastName</h4>
 
         <div class="container mb-3 p-5">
@@ -131,11 +131,28 @@
                                             <h6>&#40;@p.Year&#41;</h6>
                                         </div>
                                         <p>Språk: @p.Language</p>
-                                        @if(p.Description != null)
+                                        @if (p.Description != null)
                                         {
                                             <p>Beskrivning: @p.Description</p>
                                         }
-                                        @if(p.GithubLink != null)
+                                        @if (p.ProjectMembers != null)
+                                        {
+                                            foreach (var pm in p.ProjectMembers)
+                                            {
+                                                var members = p.ProjectMembers
+                                                .Where(pm => pm.MProjectId == p.Id)
+                                                .Select(pm => pm.user)
+                                                .Where(u => u != null && u.Id != p.CreatorId && u.IsActive == true)
+                                                .Distinct()
+                                                .ToList();
+                                                foreach (var mem in members)
+                                                {
+                                                    <p>Deltagare</p>
+                                                    <span class="small text-dark">@mem.FirstName @mem.LastName</span>
+                                                }
+                                            }
+                                        }
+                                        @if (p.GithubLink != null)
                                         {
                                             <a href="@p.GithubLink">Visa på Github</a>
                                         }
@@ -157,10 +174,63 @@
                 </div>
             </div>
         </div>
-    }
-    else
-    {
+}
+else
+{
         <h4>Ingen information hittad</h4>
-    }
+}
+    <div class="container mt-5 mb-3 mr-2 ml-2">
+        <h2 class="text-center">Projekt du deltar i</h2>
+        @{
+            var memberProjects = (List<CvProjekt.Models.Project>?)ViewBag.MemberProjects ?? new
+            List<CvProjekt.Models.Project>();
 
-</div>
+        }
+
+        @if (memberProjects.Any())
+        {
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                @foreach (var project in memberProjects)
+                {
+                    <div class="col">
+                        <div class="card h-100 border-success p-2 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold text-success">@project.Title (@project.Year)</h5>
+                                <p class="small text-muted">Av: @project.Creator.FirstName @project.Creator.LastName</p>
+                                <p>Språk: @project.Language</p>
+                                @if (project.Description != null)
+                                {
+                                    <p>Beskrivning: @project.Description</p>
+                                }
+                                @{
+                                    var participants = project.ProjectMembers
+                                    .Where(pm => pm.user != null && pm.MemberId != project.CreatorId)
+                                    .Select(pm => pm.user)
+                                    .Distinct()
+                                    .ToList();
+                                }
+                                @if (participants.Any())
+                                {
+                                    <h6 class="mt-3 small text-muted">Deltagare</h6>
+                                    <ul class="list-unstyled">
+                                        @foreach (var mem in participants)
+                                        {
+                                            <li class="small text-dark">@mem.FirstName @mem.LastName</li>
+                                        }
+                                    </ul>
+                                }
+                                @if (project.GithubLink != null)
+                                {
+                                    <a href="@project.GithubLink" target="_blank">Visa på Github</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p class="text-muted text-center">Du deltar inte i några projekt ännu.</p>
+        }
+    </div>
