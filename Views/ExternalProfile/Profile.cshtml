@@ -2,73 +2,63 @@
 
 @{
     ViewData["Title"] = "Extern Profil";
+    var similar = ViewBag.SimilarProfiles as List<CvProjekt.Models.User> ?? new List<CvProjekt.Models.User>();
 }
 
-<div class="container bg-light p-4">
+<div class="container bg-light p-5">
     @if (Model == null)
     {
-        <div class="alert alert-warning">Ingen användare att visa.</div>
+        <h4>Ingen information hittad</h4>
     }
     else
     {
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2 class="mb-0">Profil för @Model.FirstName @Model.LastName</h2>
-            <div>
-                <a asp-controller="ExternalProfile" asp-action="DownloadData" asp-route-id="@Model.Id" class="btn btn-outline-secondary">
-                    Exportera profil (XML)
-                </a>
-            </div>
-        </div>
+        <h4 class="text-center" style="margin: 2rem auto;">Profil för @Model.FirstName @Model.LastName</h4>
 
-        <div class="row mb-4">
-            <div class="col-md-3 text-center">
-                @if (!string.IsNullOrEmpty(Model.ImgUrl))
+        <div class="container mb-3 p-5">
+            <div class="container mt-3 mb-3 p-5 bg-white shadow-sm d-flex flex-column align-items-center">
+                @* Profilbild *@
+                @if (!string.IsNullOrWhiteSpace(Model.ImgUrl))
                 {
-                    <img src="@Model.ImgUrl" alt="Profilbild" class="img-fluid rounded-circle" style="width:200px;height:200px;object-fit:cover;" />
-                }
-                else
-                {
-                    <div class="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center" style="width:200px;height:200px;">
-                        <span>@Model.FirstName?.Substring(0,1)@Model.LastName?.Substring(0,1)</span>
+                    <div class="ratio ratio-1x1 rounded-circle overflow-hidden" style="width: 25%; margin: 2rem 1rem;">
+                        <img src="@Model.ImgUrl" alt="Profilbild" class="img-fluid object-fit-cover" />
                     </div>
                 }
-                <p class="mt-2"><strong>@Model.FirstName @Model.LastName</strong></p>
-                <p>@Model.Email</p>
-                <p>@Model.Adress</p>
-                <p class="text-muted">Besök: @Model.ProfileVisits</p>
-            </div>
 
-            <div class="col-md-9">
-                <div class="mb-3">
-                    <h4>Kompetenser</h4>
-                    @if (Model.Resume?.Qualifications != null && Model.Resume.Qualifications.Any())
+                <div class="container mt-3 mb-3 text-center">
+                    <h3 class="mb-3">@Model.FirstName @Model.LastName</h3>
+                    <h4>Kontakt:</h4>
+                    <h6>@Model.Email</h6>
+                    <h6>@Model.Adress</h6>
+                </div>
+
+                <div class="container w-100">
+                    <h4>Mina kompetenser:</h4>
+                    @if (Model.Resume != null && Model.Resume.Qualifications != null && Model.Resume.Qualifications.Any())
                     {
                         <ul class="list-inline">
                             @foreach (var q in Model.Resume.Qualifications)
                             {
-                                <li class="list-inline-item badge bg-info text-dark me-1 p-2">@q.Name</li>
+                                <li class="list-inline-item border border-info p-1 mb-2">@q.Name</li>
                             }
                         </ul>
                     }
                     else
                     {
-                        <p><em>Inga kompetenser angivna.</em></p>
+                        <p class="text-muted"><em>Inga kompetenser angivna.</em></p>
                     }
                 </div>
 
-                <div class="mb-3">
-                    <h4>Utbildning</h4>
-                    @if (Model.Resume?.EducationList != null && Model.Resume.EducationList.Any())
+                <div class="container w-100 mt-3">
+                    <h4>Utbildning:</h4>
+                    @if (Model.Resume != null && Model.Resume.EducationList != null && Model.Resume.EducationList.Any())
                     {
                         <ul class="list-unstyled">
                             @foreach (var e in Model.Resume.EducationList)
                             {
                                 <li class="mb-2">
-                                    <strong>@e.SchoolName</strong> — @e.DegreeName
-                                    <div class="text-muted">
-                                        (@e.StartYear - @(e.EndYear != null ? e.EndYear.ToString() : "Nu"))
-                                    </div>
-                                    @if (!string.IsNullOrEmpty(e.Description))
+                                    <strong>@e.SchoolName</strong> - @e.DegreeName
+                                    <div class="text-muted">(@e.StartYear - @(e.EndYear != null ? e.EndYear.ToString() : "Nu"))</div>
+                                    @if (!string.IsNullOrWhiteSpace(e.Description))
                                     {
                                         <div>@e.Description</div>
                                     }
@@ -78,21 +68,21 @@
                     }
                     else
                     {
-                        <p><em>Ingen utbildning angiven.</em></p>
+                        <p class="text-muted"><em>Ingen utbildning angiven.</em></p>
                     }
                 </div>
 
-                <div class="mb-3">
-                    <h4>Arbetslivserfarenhet</h4>
-                    @if (Model.Resume?.WorkList != null && Model.Resume.WorkList.Any())
+                <div class="container w-100 mt-3">
+                    <h4>Arbetslivserfarenhet:</h4>
+                    @if (Model.Resume != null && Model.Resume.WorkList != null && Model.Resume.WorkList.Any())
                     {
                         <ul class="list-unstyled">
                             @foreach (var w in Model.Resume.WorkList)
                             {
                                 <li class="mb-2">
-                                    <strong>@w.Position</strong> — @w.CompanyName
-                                    <div class="text-muted">@w.StartDate.ToString("yyyy") - @(w.EndDate.HasValue ? w.EndDate.Value.ToString("yyyy") : "Nu")</div>
-                                    @if (!string.IsNullOrEmpty(w.Description))
+                                    <strong>@w.CompanyName</strong> - @w.Position
+                                    <div class="text-muted">(@w.StartDate.ToString("yyyy/MM/dd") - @(w.EndDate != null ? w.EndDate?.ToString("yyyy/MM/dd") : "Nu"))</div>
+                                    @if (!string.IsNullOrWhiteSpace(w.Description))
                                     {
                                         <div>@w.Description</div>
                                     }
@@ -102,16 +92,47 @@
                     }
                     else
                     {
-                        <p><em>Ingen arbetslivserfarenhet angiven.</em></p>
+                        <p class="text-muted"><em>Ingen arbetslivserfarenhet angiven.</em></p>
                     }
+                </div>
+
+                <div class="d-flex justify-content-center mt-3">
+                    <a asp-controller="ExternalProfile" asp-action="DownloadData" asp-route-id="@Model.Id" class="btn btn-outline-secondary me-2">Exportera profil (XML)</a>
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Tillbaka</a>
+                </div>
+
+                @* Kontaktformulär: postar till MessageController.SendMessage *@
+                <div class="w-100 mt-4">
+                    <h4 class="mb-3 text-center">Kontakta @Model.FirstName</h4>
+
+                    <form asp-controller="Message" asp-action="SendMessage" method="post" class="row g-3">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="ToUserId" value="@Model.Id" />
+
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <div class="col-md-6">
+                                <label for="SenderName" class="form-label">Ditt namn</label>
+                                <input type="text" name="SenderName" class="form-control" id="SenderName" placeholder="Ditt namn" />
+                            </div>
+                        }
+
+                        <div class="col-12">
+                            <label for="Text" class="form-label">Meddelande</label>
+                            <textarea name="Text" class="form-control" id="Text" rows="4" placeholder="Skriv ditt meddelande här..." required></textarea>
+                        </div>
+
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn btn-primary">Skicka meddelande</button>
+                        </div>
+                    </form>
+                    <small class="text-muted d-block text-center mt-2">Du kan inte se svar här — meddelanden hanteras i din inkorg.</small>
                 </div>
             </div>
         </div>
 
-        <hr />
-
-        <div class="mb-4">
-            <h3>Projekt</h3>
+        <div class="container">
+            <h4 class="mb-3">Projekt</h4>
             @if (Model.Projects != null && Model.Projects.Any())
             {
                 <div class="row">
@@ -123,7 +144,7 @@
                                     <h5 class="card-title">@p.Title (@p.Year)</h5>
                                     <h6 class="card-subtitle mb-2 text-muted">@p.Language</h6>
                                     <p class="card-text">@p.Description</p>
-                                    @if (!string.IsNullOrEmpty(p.GithubLink))
+                                    @if (!string.IsNullOrWhiteSpace(p.GithubLink))
                                     {
                                         var link = p.GithubLink.StartsWith("http", System.StringComparison.OrdinalIgnoreCase) ? p.GithubLink : "https://" + p.GithubLink;
                                         <a href="@link" target="_blank" class="card-link">GitHub</a>
@@ -136,36 +157,54 @@
             }
             else
             {
-                <p><em>Inga projekt publicerade.</em></p>
+                <p class="text-muted"><em>Inga projekt publicerade.</em></p>
             }
         </div>
 
-        <hr />
-
-        <div class="mb-4">
-            <h3>Kontakta @Model.FirstName</h3>
-
-            <form asp-controller="Message" asp-action="SendMessage" method="post" class="row g-3">
-                @Html.AntiForgeryToken()
-                <input type="hidden" name="ToUserId" value="@Model.Id" />
-
-                @if (!User.Identity.IsAuthenticated)
-                {
-                    <div class="col-md-6">
-                        <label for="SenderName" class="form-label">Ditt namn</label>
-                        <input type="text" name="SenderName" class="form-control" id="SenderName" placeholder="Ditt namn" />
-                    </div>
-                }
-
-                <div class="col-12">
-                    <label for="Text" class="form-label">Meddelande</label>
-                    <textarea name="Text" class="form-control" id="Text" rows="5" placeholder="Skriv ditt meddelande här..." required></textarea>
+        @* Liknande profiler *@
+        @if (similar.Any())
+        {
+            <hr class="my-4" />
+            <div class="container">
+                <h4 class="mb-3">Liknande profiler</h4>
+                <div class="row">
+                    @foreach (var s in similar)
+                    {
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100">
+                                <div class="card-body d-flex">
+                                    <div class="me-3" style="width:64px;height:64px;flex-shrink:0;">
+                                        @if (!string.IsNullOrWhiteSpace(s.ImgUrl))
+                                        {
+                                            <img src="@s.ImgUrl" alt="Avatar" class="rounded-circle" style="width:64px;height:64px;object-fit:cover;" />
+                                        }
+                                        else
+                                        {
+                                            <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center" style="width:64px;height:64px;">
+                                                @((s.FirstName ?? "?").Substring(0,1))@((s.LastName ?? "?").Substring(0,1))
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1">@s.FirstName @s.LastName</h6>
+                                        <p class="small text-muted mb-1">
+                                            @if (s.Resume?.Qualifications != null && s.Resume.Qualifications.Any())
+                                            {
+                                                @string.Join(", ", s.Resume.Qualifications.Select(q => q.Name).Take(5))
+                                            }
+                                            else
+                                            {
+                                                <em>Inga kompetenser listade</em>
+                                            }
+                                        </p>
+                                        <a asp-controller="ExternalProfile" asp-action="Profile" asp-route-id="@s.Id" class="btn btn-sm btn-outline-primary">Visa profil</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </div>
-
-                <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Skicka meddelande</button>
-                </div>
-            </form>
-        </div>
+            </div>
+        }
     }
 </div>
