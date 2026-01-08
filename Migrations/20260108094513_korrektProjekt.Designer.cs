@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CvProjekt.Migrations
 {
     [DbContext(typeof(CvContext))]
-    [Migration("20260107183028_korrektProjekt")]
+    [Migration("20260108094513_korrektProjekt")]
     partial class korrektProjekt
     {
         /// <inheritdoc />

@@ -19,6 +19,7 @@ namespace CvProjekt.Models
         [XmlArrayItem("Project")]
         public List<ProjectExportDto> Projects { get; set; } = new List<ProjectExportDto>();
         public ResumeExportDto Resume { get; set; }
+        public List<ProjectMembersDto> ProjectMember { get; set; } = new List<ProjectMembersDto>();
     }
     public class ProjectExportDto
     {
@@ -65,5 +66,14 @@ namespace CvProjekt.Models
         public int StartYear { get; set; }
         public string EndYear { get; set; }//samma som ovan
         public string Description { get; set; }
+    }
+
+    public class ProjectMembersDto
+    {
+        public string Title { get; set; }
+        public string Language { get; set; }
+        public string Description { get; set; }
+        public string GithubLink { get; set; }
+        public int Year { get; set; }
     }
 }
