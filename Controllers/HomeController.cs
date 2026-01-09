@@ -39,9 +39,31 @@ namespace CvProjekt.Controllers
 
             if (!string.IsNullOrWhiteSpace(search))
             {
-                usersQuery = usersQuery.Where(u =>
-                    u.FirstName.Contains(search) || u.LastName.Contains(search));
+                var searchWords = search.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+                foreach (var word in searchWords)
+                {
+                    var tempWord = word;
+                    usersQuery = usersQuery.Where(u =>
+                        u.FirstName.Contains(tempWord) ||
+                        u.LastName.Contains(tempWord) ||
+                        u.UserName.Contains(tempWord) ||
+                        u.Resume.Qualifications.Any(q => q.Name.Contains(tempWord))
+                    );
+                }
+
+                if (!User.Identity?.IsAuthenticated == true)
+                {
+                    usersQuery = usersQuery.Where(u => u.IsPrivate == false && u.IsActive == true);
+                }
+                else
+                {
+
+                    usersQuery = usersQuery.Where(u => u.IsActive == true);
+                }
             }
+
+
 
             // ÄNDRING: Döpte om från 'users' till 'latestUsers' för att matcha din ViewModel
             var latestUsers = await usersQuery.Take(5).ToListAsync();
