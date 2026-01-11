@@ -23,7 +23,7 @@ namespace CvProjekt.Controllers
             _context = context;
             _userManager = user;
         }   
-
+        //gå till settings
         [HttpGet]
         public async Task<IActionResult> Settings()
         {
@@ -47,11 +47,15 @@ namespace CvProjekt.Controllers
                 .ThenInclude(pm => pm.project)
                 .Where(u => u.Id == user.Id)
                 .FirstOrDefaultAsync();
-            if (userObject == null) { ModelState.AddModelError("SenderName", "User not found"); }
+
+            if (userObject == null) { ModelState.AddModelError("All", "User not found"); }
+            //tar fram vilka projekt man deltar i och deras Id
             var memberProjectIds = userObject.ProjectMembers.Select(pm => pm.MProjectId).ToList();
             var memberProjects = await _context.Projects
                 .Where(p => memberProjectIds.Contains(p.Id))
                 .ToListAsync();
+            //Skapar det vi faktiskt ska exportera, dvs användaren och allt till den som cv osv.
+            //allt detta ska ske i kalss form export/dto så att inga connctions mellan kalsserna görs.
             var exporten = new UserExportDto
             {
                 FirstName = userObject.FirstName,
@@ -109,14 +113,14 @@ namespace CvProjekt.Controllers
             var serializer = new XmlSerializer (typeof(UserExportDto));
             using (var streaming = new MemoryStream())//memory stream används för att användaren ska kunna ladda ner informationen
             {
-                serializer.Serialize (streaming, exporten); //serialiserar allt
+                serializer.Serialize (streaming, exporten); //serialiserar 
                 //returnerar med hjälpa av metoden file.
                 // först streaming vilket är själva datan, sen står det bilken srta data (XML)
                 //$"profil.... är helt enkelöt vad filen ska heta, kommer se ut exempelvis profil_anna_anderson.xml
                 return File(streaming.ToArray(), "application/xml", $"profil_{userObject.FirstName}_{userObject.LastName}.xml");
             }
         }
-
+        //några enkla metoder för att gå privat och avaktiver konto.
         [HttpPost]
         public async Task<IActionResult> Avaktivera()
         {
@@ -159,7 +163,7 @@ namespace CvProjekt.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("MyProfile");
         }
-
+        //skickar till byt lösenords vyn
         [HttpGet]
         public async Task<IActionResult> ChangePassword()
         {
@@ -184,7 +188,7 @@ namespace CvProjekt.Controllers
             {
                 foreach (var error in result.Errors)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    ModelState.AddModelError("All", error.Description);
                 }
                 return View("ChangePassword", model);
             }
