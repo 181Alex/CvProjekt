@@ -221,8 +221,15 @@ else
                                 }
                                 @if (project.GithubLink != null)
                                 {
+                                    <div style="margin-bottom: 1rem;">
                                     <a href="@project.GithubLink" target="_blank">Visa på Github</a>
+                                    </div>
                                 }
+                                <form asp-controller="Project" asp-action="LeaveProject" method="post" asp-route-source="Profile" class="d-inline">
+                                    <input type="hidden" name="projectId" value="@project.Id" />
+                                    <button type="submit" class="btn btn-outline-danger">Lämna projekt</button>
+                                </form>
+                                
                             </div>
                         </div>
                     </div>

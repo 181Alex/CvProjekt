@@ -105,7 +105,7 @@ namespace CvProjekt.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> LeaveProject(int projectId)
+        public async Task<IActionResult> LeaveProject(int projectId, string source)
         {
             var user = await _userManager.GetUserAsync(User);
 
@@ -121,6 +121,10 @@ namespace CvProjekt.Controllers
             context.ProjectMembers.Remove(membership);
             await context.SaveChangesAsync();
 
+            if (source == "Profile")
+            {
+                return RedirectToAction("MyProfile", "Profile");
+            }
             TempData["Success"] = "Du lämnade projektet.";
             return RedirectToAction("AllProjects");
         }

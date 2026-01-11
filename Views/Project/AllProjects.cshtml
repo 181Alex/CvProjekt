@@ -131,7 +131,7 @@
                                     }
                                     else
                                     {
-                                        <form asp-action="JoinProject" method="post" class="d-inline">
+                                        <form asp-action="JoinProject" method="post" class="d-inline" asp-route-source="AllProjects">
                                             <input type="hidden" name="projectId" value="@project.Id" />
                                             <button type="submit" class="btn btn-primary">Gå med i projekt</button>
                                         </form>
