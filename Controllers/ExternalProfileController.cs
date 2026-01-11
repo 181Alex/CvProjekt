@@ -42,7 +42,7 @@ namespace CvProjekt.Controllers
                 return NotFound($"Hittar ingen användare med id '{id}'.");
             }
 
-            // Öka profilbesök (valfritt)
+            // Öka profilbesök 
             try
             {
                 user.ProfileVisits++;
