@@ -33,38 +33,53 @@ public class MessageController : Controller
     }
     
     [HttpPost]
+    [AllowAnonymous]
     public async Task<IActionResult> SendMessage(Message mess)
     {
     mess.Date = DateTime.Now;
     mess.Read = false;
-    
-    var nowUser = await _userManager.GetUserAsync(User);
+    ModelState.Remove("ToUser");
+    ModelState.Remove("FromUser");
+    ModelState.Remove("FromUserId");
+
+        var nowUser = await _userManager.GetUserAsync(User);
+        // om man är inloggad så sätts sendername till inloggades namn och all info därtill
         if (nowUser != null)
         {
             mess.FromUserId = nowUser.Id;
             mess.SenderName = $"{nowUser.FirstName} {nowUser.LastName}";
+            mess.FromUser = nowUser;
             ModelState.Remove("SenderName");
         }
         else
         {
             mess.FromUserId = null;
+            mess.FromUser = null;
             if (string.IsNullOrWhiteSpace(mess.SenderName))
-                {
-                    ModelState.AddModelError("SenderName", "Du måste ange ditt namn för att skicka meddelande.");
-                }
+            {
+                    ModelState.AddModelError("SenderName", "Du måste ange ditt namn för att skicka meddelande.");    
+                    ModelState.Remove("FromUser");
+                    ModelState.Remove("FromUserId");
+            }
         }
-    ModelState.Remove("ToUser");
-    ModelState.Remove("FromUser");
-    ModelState.Remove("FromUserId");
+    var ToUserNow = await context.Users.FindAsync(mess.ToUserId);
+        mess.ToUserId = ToUserNow.Id;
+        mess.ToUser= ToUserNow; 
+
     if (ModelState.IsValid)
     {
         context.Messages.Add(mess);
         await context.SaveChangesAsync();
+            if (nowUser != null)
+            {
+                return RedirectToAction("SeeMessages");
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+    }
         return RedirectToAction("SeeMessages");
-        }
-
-    mess.ToUser = context.Users.Find(mess.ToUserId);
-    return View("SendMessages", mess);
     }
 
 
