@@ -129,7 +129,7 @@ namespace CvProjekt.Controllers
             await _userManager.UpdateAsync(user);
             _context.Update(user);
             await _context.SaveChangesAsync();
-            return RedirectToAction("MyProfile");
+            return RedirectToAction("Settings");
         }
 
         [HttpPost]
@@ -140,7 +140,7 @@ namespace CvProjekt.Controllers
             await _userManager.UpdateAsync(user);
             _context.Update(user);
             await _context.SaveChangesAsync();
-            return RedirectToAction("MyProfile");
+            return RedirectToAction("Settings");
         }
         [HttpPost]
         public async Task<IActionResult> GoPublic()
@@ -150,7 +150,7 @@ namespace CvProjekt.Controllers
             await _userManager.UpdateAsync(user);
             _context.Update(user);
             await _context.SaveChangesAsync();
-            return RedirectToAction("MyProfile");
+            return RedirectToAction("Settings");
         }
 
         [HttpPost]
@@ -161,7 +161,7 @@ namespace CvProjekt.Controllers
             await _userManager.UpdateAsync(user);
             _context.Update(user);
             await _context.SaveChangesAsync();
-            return RedirectToAction("MyProfile");
+            return RedirectToAction("Settings");
         }
         //skickar till byt lösenords vyn
         [HttpGet]
