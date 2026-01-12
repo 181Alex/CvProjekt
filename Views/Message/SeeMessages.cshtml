@@ -10,10 +10,8 @@
 {
     @foreach(var mess in Model)
     {
-        <div class="bg-light rounded-3 p-4 mb-3">
-            <form asp-action="ReadMessage" asp-route-id="@mess.Id" method="post" style="display:inline;">
-                <button type="submit" class="btn btn-primary">Markera som läst</button>
-            </form>
+        <div class="bg-light rounded-3 p-4 mb-3 shadow">
+            
             
             <h3>Från: 
                 @if (mess.FromUser != null)
@@ -22,11 +20,11 @@
                 }
                 else
                 {
-                    <span style="color:gray; font-style:italic;">@mess.SenderName</span>
+                    <span style="font-style:italic;">@mess.SenderName</span>
                 }
             </h3>
 
-            <div class="align-content-center bg-dark-subtle p-4">
+            <div class="align-content-center p-4 mb-3 rounded" style="background-color: var(--bs-gray-200)">
                 <p>@mess.Text</p>
                 <p>@mess.Date.ToString("yyyy-MM-dd HH:mm")</p>
             </div>
@@ -37,7 +35,10 @@
             }
             else 
             {
-                 <span class="badge bg-warning">Oläst</span>
+                <span class="badge bg-warning">Oläst</span>
+                <form asp-action="ReadMessage" asp-route-id="@mess.Id" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-primary btn-sm">Markera som läst</button>
+                </form>
             }
             <a asp-action="DeleteMessage" asp-route-id="@mess.Id" class="btn btn-danger btn-sm">
                 Radera
@@ -47,5 +48,5 @@
 }
 else
 {
-    <h2>Inga meddelanden hittade</h2>
+    <p>Inga meddelanden hittade</p>
 }
