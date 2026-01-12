@@ -19,21 +19,21 @@
         <div class="col-lg-10">
             @foreach (var project in Model.AllProjects)
             {
-                 
-                    var currentUserId = User.Identity?.IsAuthenticated == true
-                        ? User.FindFirstValue(ClaimTypes.NameIdentifier)
-                        : null;
 
-                    var isCreator = currentUserId != null && project.CreatorId == currentUserId;
-                    var isMember = currentUserId != null && Model.ProjectMemberList
-                        .Any(pm => pm.MemberId == currentUserId && pm.MProjectId == project.Id);
-                    var members = Model.ProjectMemberList
-                        .Where(pm => pm.MProjectId == project.Id)
-                        .Select(pm => pm.user)
-                        .Where(u => u != null && u.Id != project.CreatorId && u.IsActive==true)
-                        .Distinct()
-                        .ToList();
-                
+                var currentUserId = User.Identity?.IsAuthenticated == true
+                ? User.FindFirstValue(ClaimTypes.NameIdentifier)
+                : null;
+
+                var isCreator = currentUserId != null && project.CreatorId == currentUserId;
+                var isMember = currentUserId != null && Model.ProjectMemberList
+                .Any(pm => pm.MemberId == currentUserId && pm.MProjectId == project.Id);
+                var members = Model.ProjectMemberList
+                .Where(pm => pm.MProjectId == project.Id)
+                .Select(pm => pm.user)
+                .Where(u => u != null && u.Id != project.CreatorId && u.IsActive == true)
+                .Distinct()
+                .ToList();
+
                 <div class="card mb-4 shadow-sm border-0 bg-light">
                     <div asp-validation-summary="All" class="text-danger"></div>
                     <div class="row g-0">
@@ -69,12 +69,14 @@
                                         else
                                         {
                                             <div class="d-flex align-items-center">
-                                                <div class="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 32px; height: 32px; font-size: 0.8rem;">
+                                                <div class="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center me-2"
+                                                    style="width: 32px; height: 32px; font-size: 0.8rem;">
                                                     @(project.Creator.FirstName[0])@(project.Creator.LastName[0])
                                                 </div>
                                                 <span class="text-muted small">
                                                     Skapat av
-                                                    <span class="fw-bold text-dark">@project.Creator.FirstName @project.Creator.LastName</span>
+                                                    <span class="fw-bold text-dark">@project.Creator.FirstName
+                                                        @project.Creator.LastName</span>
                                                 </span>
                                             </div>
                                         }
@@ -97,7 +99,8 @@
                                                     else
                                                     {
                                                         <div class="d-flex align-items-center me-3 mb-2">
-                                                            <div class="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 28px; height: 28px; font-size: 0.8rem;">
+                                                            <div class="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center me-2"
+                                                                style="width: 28px; height: 28px; font-size: 0.8rem;">
                                                                 @(member.FirstName?[0] ?? '?')@(member.LastName?[0] ?? '?')
                                                             </div>
                                                             <span class="small text-dark">@member.FirstName @member.LastName</span>
@@ -131,7 +134,8 @@
                                     }
                                     else
                                     {
-                                        <form asp-action="JoinProject" method="post" class="d-inline" asp-route-source="AllProjects">
+                                        <form asp-action="JoinProject" method="post" class="d-inline"
+                                            asp-route-source="AllProjects">
                                             <input type="hidden" name="projectId" value="@project.Id" />
                                             <button type="submit" class="btn btn-primary">Gå med i projekt</button>
                                         </form>
@@ -147,4 +151,3 @@
         </div>
     </div>
 </div>
-

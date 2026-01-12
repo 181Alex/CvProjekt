@@ -57,7 +57,8 @@
                             {
                                 <li class="mb-2">
                                     <strong>@e.SchoolName</strong> - @e.DegreeName
-                                    <div class="text-muted">(@e.StartYear - @(e.EndYear != null ? e.EndYear.ToString() : "Nu"))</div>
+                                    <div class="text-muted">(@e.StartYear - @(e.EndYear != null ? e.EndYear.ToString() : "Nu"))
+                                    </div>
                                     @if (!string.IsNullOrWhiteSpace(e.Description))
                                     {
                                         <div>@e.Description</div>
@@ -81,7 +82,8 @@
                             {
                                 <li class="mb-2">
                                     <strong>@w.CompanyName</strong> - @w.Position
-                                    <div class="text-muted">(@w.StartDate.ToString("yyyy/MM/dd") - @(w.EndDate != null ? w.EndDate?.ToString("yyyy/MM/dd") : "Nu"))</div>
+                                    <div class="text-muted">(@w.StartDate.ToString("yyyy/MM/dd") - @(w.EndDate != null ?
+                                                                    w.EndDate?.ToString("yyyy/MM/dd") : "Nu"))</div>
                                     @if (!string.IsNullOrWhiteSpace(w.Description))
                                     {
                                         <div>@w.Description</div>
@@ -97,7 +99,8 @@
                 </div>
 
                 <div class="d-flex justify-content-center mt-3">
-                    <a asp-controller="ExternalProfile" asp-action="DownloadData" asp-route-id="@Model.Id" class="btn btn-outline-secondary me-2">Exportera profil (XML)</a>
+                    <a asp-controller="ExternalProfile" asp-action="DownloadData" asp-route-id="@Model.Id"
+                        class="btn btn-outline-secondary me-2">Exportera profil (XML)</a>
                     <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Tillbaka</a>
                 </div>
 
@@ -113,20 +116,23 @@
                         {
                             <div class="col-md-6">
                                 <label for="SenderName" class="form-label">Ditt namn</label>
-                                <input type="text" name="SenderName" class="form-control" id="SenderName" placeholder="Ditt namn" />
+                                <input type="text" name="SenderName" class="form-control" id="SenderName"
+                                    placeholder="Ditt namn" />
                             </div>
                         }
 
                         <div class="col-12">
                             <label for="Text" class="form-label">Meddelande</label>
-                            <textarea name="Text" class="form-control" id="Text" rows="4" placeholder="Skriv ditt meddelande här..." required></textarea>
+                            <textarea name="Text" class="form-control" id="Text" rows="4"
+                            placeholder="Skriv ditt meddelande här..." required></textarea>
                         </div>
 
                         <div class="col-12 text-center">
                             <button type="submit" class="btn btn-primary">Skicka meddelande</button>
                         </div>
                     </form>
-                    <small class="text-muted d-block text-center mt-2">Du kan inte se svar här — meddelanden hanteras i din inkorg.</small>
+                    <small class="text-muted d-block text-center mt-2">Du kan inte se svar här — meddelanden hanteras i din
+                        inkorg.</small>
                 </div>
             </div>
         </div>
@@ -146,7 +152,8 @@
                                     <p class="card-text">@p.Description</p>
                                     @if (!string.IsNullOrWhiteSpace(p.GithubLink))
                                     {
-                                        var link = p.GithubLink.StartsWith("http", System.StringComparison.OrdinalIgnoreCase) ? p.GithubLink : "https://" + p.GithubLink;
+                                        var link = p.GithubLink.StartsWith("http", System.StringComparison.OrdinalIgnoreCase) ?
+                                        p.GithubLink : "https://" + p.GithubLink;
                                         <a href="@link" target="_blank" class="card-link">GitHub</a>
                                     }
                                 </div>
@@ -176,12 +183,14 @@
                                     <div class="me-3" style="width:64px;height:64px;flex-shrink:0;">
                                         @if (!string.IsNullOrWhiteSpace(s.ImgUrl))
                                         {
-                                            <img src="@s.ImgUrl" alt="Avatar" class="rounded-circle" style="width:64px;height:64px;object-fit:cover;" />
+                                            <img src="@s.ImgUrl" alt="Avatar" class="rounded-circle"
+                                                style="width:64px;height:64px;object-fit:cover;" />
                                         }
                                         else
                                         {
-                                            <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center" style="width:64px;height:64px;">
-                                                @((s.FirstName ?? "?").Substring(0,1))@((s.LastName ?? "?").Substring(0,1))
+                                            <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center"
+                                                style="width:64px;height:64px;">
+                                                @((s.FirstName ?? "?").Substring(0, 1))@((s.LastName ?? "?").Substring(0, 1))
                                             </div>
                                         }
                                     </div>
@@ -197,7 +206,8 @@
                                                 <em>Inga kompetenser listade</em>
                                             }
                                         </p>
-                                        <a asp-controller="ExternalProfile" asp-action="Profile" asp-route-id="@s.Id" class="btn btn-sm btn-outline-primary">Visa profil</a>
+                                        <a asp-controller="ExternalProfile" asp-action="Profile" asp-route-id="@s.Id"
+                                            class="btn btn-sm btn-outline-primary">Visa profil</a>
                                     </div>
                                 </div>
                             </div>
