@@ -1,220 +1,376 @@
-﻿@model CvProjekt.Models.User
+﻿﻿@model CvProjekt.Models.User
 
 @{
     ViewData["Title"] = "Extern Profil";
     var similar = ViewBag.SimilarProfiles as List<CvProjekt.Models.User> ?? new List<CvProjekt.Models.User>();
 }
 
-<div class="container bg-light p-5">
-    @if (Model == null)
-    {
-        <h4>Ingen information hittad</h4>
+<style>
+    .profile-wrap {
+        max-width: 1100px;
+        margin: 2rem auto;
+        padding: 1.25rem;
     }
-    else
-    {
-        <h4 class="text-center" style="margin: 2rem auto;">Profil för @Model.FirstName @Model.LastName</h4>
 
-        <div class="container mb-3 p-5">
-            <div class="container mt-3 mb-3 p-5 bg-white shadow-sm d-flex flex-column align-items-center">
-                @* Profilbild *@
+    .profile-card {
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 1.75rem;
+        box-shadow: 0 8px 24px rgba(2,6,23,0.06);
+    }
+
+    .hero {
+        display: flex;
+        gap: 1.25rem;
+        align-items: center;
+        flex-wrap: wrap;
+        border-bottom: 1px solid #eef6ff;
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .avatar {
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(180deg,#e9f2ff,#dbeeff);
+        color: #08306b;
+        font-weight: 700;
+        font-size: 2rem;
+        flex-shrink: 0;
+    }
+
+    .hero-info h3 {
+        margin: 0;
+        color: #062a4e;
+        font-weight: 700;
+    }
+
+    .hero-info p {
+        margin: 0.25rem 0;
+        color: #556779;
+    }
+
+    .info-grid {
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: 1rem;
+    }
+
+    .section {
+        margin-top: 1rem;
+    }
+
+    .competence-badge {
+        display: inline-block;
+        background: rgba(13,110,253,0.08);
+        color: #0b5ed7;
+        padding: 0.3rem 0.55rem;
+        margin: 0.25rem 0.25rem 0 0;
+        border-radius: 999px;
+        font-size: 0.85rem;
+        border: 1px solid rgba(13,110,253,0.12);
+    }
+
+    .btn-brand {
+        background: linear-gradient(180deg,#0d6efd,#0b5ed7);
+        color: #fff;
+        border: none;
+        padding: 0.45rem 0.75rem;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .btn-outline-brand {
+        background: transparent;
+        color: #0b5ed7;
+        border: 1px solid rgba(11,94,215,0.18);
+        padding: 0.35rem 0.6rem;
+        border-radius: 8px;
+        text-decoration: none;
+    }
+
+    .projects .card {
+        border: 1px solid #eef6ff;
+        border-radius: 10px;
+    }
+
+    .similar-card .card-body {
+        display: flex;
+        gap: 0.75rem;
+        align-items: center;
+    }
+
+    /* Media query för att göra layouten responsiv om skärmen är liten */
+    @@media (max-width: 768px) {
+        .info-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="profile-wrap">
+    <div class="profile-card">
+        @if (Model == null)
+        {
+        <h4>Ingen information hittad</h4>
+        }
+        else
+        {
+        <div class="hero">
+            <div class="avatar" aria-hidden="true">
                 @if (!string.IsNullOrWhiteSpace(Model.ImgUrl))
-                {
-                    <div class="ratio ratio-1x1 rounded-circle overflow-hidden" style="width: 25%; margin: 2rem 1rem;">
-                        <img src="@Model.ImgUrl" alt="Profilbild" class="img-fluid object-fit-cover" />
+                    {
+                <img src="@Model.ImgUrl" alt="Profilbild" style="width:100%;height:100%;object-fit:cover;" />
+                    }
+                    else
+                    {
+                @((Model.FirstName ?? "?").Substring(0, 1).ToUpper() + (Model.LastName ?? "?").Substring(0, 1).ToUpper())
+                    }
+            </div>
+
+            <div class="hero-info">
+                <h3>Profil för @Model.FirstName @Model.LastName</h3>
+                <p class="small text-muted">@Model.Email</p>
+                <p class="small text-muted">@Model.Adress</p>
+            </div>
+
+            <div style="margin-left:auto; display:flex; gap:0.5rem; align-items:center;">
+                <a asp-controller="ExternalProfile" asp-action="DownloadData" asp-route-id="@Model.Id"
+                   class="btn-outline-brand">Exportera (XML)</a>
+                <a asp-controller="Home" asp-action="Index" class="btn-brand">Tillbaka</a>
+            </div>
+        </div>
+
+        <div class="info-grid">
+            <div>
+                <div class="section">
+                    <h5>Mina kompetenser</h5>
+                    @if (Model.Resume != null && Model.Resume.Qualifications != null && Model.Resume.Qualifications.Any())
+                        {
+                    <div>
+                        @foreach (var q in Model.Resume.Qualifications)
+                                {
+                        <span class="competence-badge">@q.Name</span>
+                                }
                     </div>
+                        }
+                        else
+                        {
+                    <p class="text-muted"><em>Inga kompetenser angivna.</em></p>
+                        }
+                </div>
+
+                <div class="section">
+                    <h5>Utbildning</h5>
+                    @if (Model.Resume != null && Model.Resume.EducationList != null && Model.Resume.EducationList.Any())
+                        {
+                    <ul class="list-unstyled">
+                        @foreach (var e in Model.Resume.EducationList)
+                                {
+                        <li class="mb-3">
+                            <strong>@e.SchoolName</strong> — @e.DegreeName
+                            <div class="text-muted">(@e.StartYear - @(e.EndYear != null ? e.EndYear.ToString() : "Nu"))</div>
+                            @if (!string.IsNullOrWhiteSpace(e.Description))
+                                        {
+                            <div>@e.Description</div>
+                                        }
+                        </li>
+                                }
+                    </ul>
+                        }
+                        else
+                        {
+                    <p class="text-muted"><em>Ingen utbildning angiven.</em></p>
+                        }
+                </div>
+
+                <div class="section">
+                    <h5>Arbetslivserfarenhet</h5>
+                    @if (Model.Resume != null && Model.Resume.WorkList != null && Model.Resume.WorkList.Any())
+                        {
+                    <ul class="list-unstyled">
+                        @foreach (var w in Model.Resume.WorkList)
+                                {
+                        <li class="mb-3">
+                            <strong>@w.CompanyName</strong> — @w.Position
+                            <div class="text-muted">(@w.StartDate.ToString("yyyy/MM/dd") - @(w.EndDate != null ? w.EndDate?.ToString("yyyy/MM/dd") : "Nu"))</div>
+                            @if (!string.IsNullOrWhiteSpace(w.Description))
+                                        {
+                            <div>@w.Description</div>
+                                        }
+                        </li>
+                                }
+                    </ul>
+                        }
+                        else
+                        {
+                    <p class="text-muted"><em>Ingen arbetslivserfarenhet angiven.</em></p>
+                        }
+                </div>
+
+                @{
+                        // Filtrera ut projekt där användaren INTE är skaparen (CreatorId != Model.Id)
+                        var participatingProjects = Model.ProjectMembers?
+                            .Where(pm => pm.project != null && pm.project.CreatorId != Model.Id)
+                            .Select(pm => pm.project)
+                            .ToList();
                 }
 
-                <div class="container mt-3 mb-3 text-center">
-                    <h3 class="mb-3">@Model.FirstName @Model.LastName</h3>
-                    <h4>Kontakt:</h4>
-                    <h6>@Model.Email</h6>
-                    <h6>@Model.Adress</h6>
+                @if (participatingProjects != null && participatingProjects.Any())
+                    {
+                <div class="section mt-4">
+                    <h5 class="mb-3">Deltar även i projekt</h5>
+                    <div class="row">
+                        @foreach (var p in participatingProjects)
+                                {
+                                    // col-md-4 ger 3 kolumner per rad (12/4 = 3)
+                        <div class="col-md-4 mb-3 d-flex align-items-stretch">
+                            <div class="card w-100">
+                                <div class="card-body">
+                                    <h6 class="card-title mb-1">
+                                        @p.Title
+                                        <span class="text-muted small">(@p.Year)</span>
+                                    </h6>
+                                    <p class="card-subtitle mb-2 text-muted small">@p.Language</p>
+
+                                    <p class="card-text small">
+                                        @if(p.Description != null && p.Description.Length > 60)
+                                                    {
+                                        @p.Description.Substring(0, 60)<text>...</text>
+                                                    }
+                                                    else
+                                                    {
+                                        @p.Description
+                                                    }
+                                    </p>
+
+                                    @if (!string.IsNullOrWhiteSpace(p.GithubLink))
+                                                {
+                                                    var link = p.GithubLink.StartsWith("http", System.StringComparison.OrdinalIgnoreCase)
+                                                        ? p.GithubLink
+                                                        : "https://" + p.GithubLink;
+                                    <a href="@link" target="_blank" class="btn-outline-brand btn-sm mt-auto">GitHub</a>
+                                                }
+                                </div>
+                            </div>
+                        </div>
+                                }
+                    </div>
                 </div>
-
-                <div class="container w-100">
-                    <h4>Mina kompetenser:</h4>
-                    @if (Model.Resume != null && Model.Resume.Qualifications != null && Model.Resume.Qualifications.Any())
-                    {
-                        <ul class="list-inline">
-                            @foreach (var q in Model.Resume.Qualifications)
-                            {
-                                <li class="list-inline-item border border-info p-1 mb-2">@q.Name</li>
-                            }
-                        </ul>
                     }
-                    else
-                    {
-                        <p class="text-muted"><em>Inga kompetenser angivna.</em></p>
-                    }
-                </div>
-
-                <div class="container w-100 mt-3">
-                    <h4>Utbildning:</h4>
-                    @if (Model.Resume != null && Model.Resume.EducationList != null && Model.Resume.EducationList.Any())
-                    {
-                        <ul class="list-unstyled">
-                            @foreach (var e in Model.Resume.EducationList)
-                            {
-                                <li class="mb-2">
-                                    <strong>@e.SchoolName</strong> - @e.DegreeName
-                                    <div class="text-muted">(@e.StartYear - @(e.EndYear != null ? e.EndYear.ToString() : "Nu"))
-                                    </div>
-                                    @if (!string.IsNullOrWhiteSpace(e.Description))
-                                    {
-                                        <div>@e.Description</div>
-                                    }
-                                </li>
-                            }
-                        </ul>
-                    }
-                    else
-                    {
-                        <p class="text-muted"><em>Ingen utbildning angiven.</em></p>
-                    }
-                </div>
-
-                <div class="container w-100 mt-3">
-                    <h4>Arbetslivserfarenhet:</h4>
-                    @if (Model.Resume != null && Model.Resume.WorkList != null && Model.Resume.WorkList.Any())
-                    {
-                        <ul class="list-unstyled">
-                            @foreach (var w in Model.Resume.WorkList)
-                            {
-                                <li class="mb-2">
-                                    <strong>@w.CompanyName</strong> - @w.Position
-                                    <div class="text-muted">(@w.StartDate.ToString("yyyy/MM/dd") - @(w.EndDate != null ?
-                                                                    w.EndDate?.ToString("yyyy/MM/dd") : "Nu"))</div>
-                                    @if (!string.IsNullOrWhiteSpace(w.Description))
-                                    {
-                                        <div>@w.Description</div>
-                                    }
-                                </li>
-                            }
-                        </ul>
-                    }
-                    else
-                    {
-                        <p class="text-muted"><em>Ingen arbetslivserfarenhet angiven.</em></p>
-                    }
-                </div>
-
-                <div class="d-flex justify-content-center mt-3">
-                    <a asp-controller="ExternalProfile" asp-action="DownloadData" asp-route-id="@Model.Id"
-                        class="btn btn-outline-secondary me-2">Exportera profil (XML)</a>
-                    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Tillbaka</a>
-                </div>
-
-                @* Kontaktformulär: postar till MessageController.SendMessage *@
-                <div class="w-100 mt-4">
-                    <h4 class="mb-3 text-center">Kontakta @Model.FirstName</h4>
-
+                <div class="section mt-3">
+                    <h5>Kontakta @Model.FirstName</h5>
                     <form asp-controller="Message" asp-action="SendMessage" method="post" class="row g-3">
                         @Html.AntiForgeryToken()
                         <input type="hidden" name="ToUserId" value="@Model.Id" />
 
                         @if (!User.Identity.IsAuthenticated)
-                        {
-                            <div class="col-md-6">
-                                <label for="SenderName" class="form-label">Ditt namn</label>
-                                <input type="text" name="SenderName" class="form-control" id="SenderName"
-                                    placeholder="Ditt namn" />
-                            </div>
-                        }
+                            {
+                        <div class="col-md-6">
+                            <label for="SenderName" class="form-label">Ditt namn</label>
+                            <input type="text" name="SenderName" class="form-control" id="SenderName" placeholder="Ditt namn" />
+                        </div>
+                            }
 
                         <div class="col-12">
                             <label for="Text" class="form-label">Meddelande</label>
-                            <textarea name="Text" class="form-control" id="Text" rows="4"
-                            placeholder="Skriv ditt meddelande här..." required></textarea>
+                            <textarea name="Text" class="form-control" id="Text" rows="4" placeholder="Skriv ditt meddelande här..." required></textarea>
                         </div>
 
-                        <div class="col-12 text-center">
-                            <button type="submit" class="btn btn-primary">Skicka meddelande</button>
+                        <div class="col-12">
+                            <button type="submit" class="btn-brand">Skicka meddelande</button>
+                            <small class="text-muted d-block mt-2">Du kan inte se svar här — meddelanden hanteras i din inkorg.</small>
                         </div>
                     </form>
-                    <small class="text-muted d-block text-center mt-2">Du kan inte se svar här — meddelanden hanteras i din
-                        inkorg.</small>
                 </div>
             </div>
-        </div>
 
-        <div class="container">
-            <h4 class="mb-3">Projekt</h4>
-            @if (Model.Projects != null && Model.Projects.Any())
-            {
-                <div class="row">
-                    @foreach (var p in Model.Projects)
-                    {
-                        <div class="col-md-4 mb-3">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <h5 class="card-title">@p.Title (@p.Year)</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">@p.Language</h6>
-                                    <p class="card-text">@p.Description</p>
-                                    @if (!string.IsNullOrWhiteSpace(p.GithubLink))
-                                    {
-                                        var link = p.GithubLink.StartsWith("http", System.StringComparison.OrdinalIgnoreCase) ?
-                                        p.GithubLink : "https://" + p.GithubLink;
-                                        <a href="@link" target="_blank" class="card-link">GitHub</a>
-                                    }
-                                </div>
+            <aside>
+                <div class="section">
+                    <h5 class="mb-3">Projekt (Ägare)</h5>
+                    @if (Model.Projects != null && Model.Projects.Any())
+                        {
+                    <div class="projects">
+                        @foreach (var p in Model.Projects)
+                                {
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h6 class="card-title mb-1">@p.Title <span class="text-muted">(@p.Year)</span></h6>
+                                <p class="card-subtitle mb-2 text-muted">@p.Language</p>
+                                <p class="card-text">@p.Description</p>
+                                @if (!string.IsNullOrWhiteSpace(p.GithubLink))
+                                            {
+                                                var link = p.GithubLink.StartsWith("http", System.StringComparison.OrdinalIgnoreCase)
+                                                ? p.GithubLink
+                                                : "https://" + p.GithubLink;
+                                <a href="@link" target="_blank" class="btn-outline-brand">GitHub</a>
+                                            }
                             </div>
                         </div>
-                    }
+                                }
+                    </div>
+                        }
+                        else
+                        {
+                    <p class="text-muted"><em>Inga projekt publicerade.</em></p>
+                        }
                 </div>
-            }
-            else
-            {
-                <p class="text-muted"><em>Inga projekt publicerade.</em></p>
-            }
+
+            </aside>
         </div>
 
         @* Liknande profiler *@
         @if (similar.Any())
-        {
-            <hr class="my-4" />
-            <div class="container">
-                <h4 class="mb-3">Liknande profiler</h4>
-                <div class="row">
-                    @foreach (var s in similar)
-                    {
-                        <div class="col-md-4 mb-3">
-                            <div class="card h-100">
-                                <div class="card-body d-flex">
-                                    <div class="me-3" style="width:64px;height:64px;flex-shrink:0;">
-                                        @if (!string.IsNullOrWhiteSpace(s.ImgUrl))
-                                        {
-                                            <img src="@s.ImgUrl" alt="Avatar" class="rounded-circle"
-                                                style="width:64px;height:64px;object-fit:cover;" />
-                                        }
-                                        else
-                                        {
-                                            <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center"
-                                                style="width:64px;height:64px;">
-                                                @((s.FirstName ?? "?").Substring(0, 1))@((s.LastName ?? "?").Substring(0, 1))
-                                            </div>
-                                        }
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <h6 class="mb-1">@s.FirstName @s.LastName</h6>
-                                        <p class="small text-muted mb-1">
-                                            @if (s.Resume?.Qualifications != null && s.Resume.Qualifications.Any())
+            {
+        <hr class="my-4" />
+        <div class="section">
+            <h5>Liknande profiler</h5>
+            <div class="row">
+                @foreach (var s in similar)
+                        {
+                <div class="col-md-4 mb-3">
+                    <div class="card similar-card h-100">
+                        <div class="card-body">
+                            <div style="width:56px;height:56px;flex-shrink:0;">
+                                @if (!string.IsNullOrWhiteSpace(s.ImgUrl))
                                             {
-                                                @string.Join(", ", s.Resume.Qualifications.Select(q => q.Name).Take(5))
+                                <img src="@s.ImgUrl" alt="Avatar" class="rounded-circle" style="width:56px;height:56px;object-fit:cover;" />
                                             }
                                             else
                                             {
-                                                <em>Inga kompetenser listade</em>
-                                            }
-                                        </p>
-                                        <a asp-controller="ExternalProfile" asp-action="Profile" asp-route-id="@s.Id"
-                                            class="btn btn-sm btn-outline-primary">Visa profil</a>
-                                    </div>
+                                <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center" style="width:56px;height:56px;">
+                                    @((s.FirstName ?? "?").Substring(0, 1))@((s.LastName ?? "?").Substring(0, 1))
                                 </div>
+                                            }
+                            </div>
+                            <div class="flex-grow-1">
+                                <h6 class="mb-1">@s.FirstName @s.LastName</h6>
+                                <p class="small text-muted mb-1">
+                                    @if (s.Resume?.Qualifications != null && s.Resume.Qualifications.Any())
+                                                {
+                                    @string.Join(", ", s.Resume.Qualifications.Select(q => q.Name).Take(5))
+                                                }
+                                                else
+                                                {
+                                    <em>Inga kompetenser listade</em>
+                                                }
+                                </p>
+                                <a asp-controller="ExternalProfile" asp-action="Profile" asp-route-id="@s.Id" class="btn-outline-brand btn-sm">Visa profil</a>
                             </div>
                         </div>
-                    }
+                    </div>
                 </div>
+                        }
             </div>
+        </div>
+            }
         }
-    }
+    </div>
 </div>
