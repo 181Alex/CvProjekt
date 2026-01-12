@@ -19,6 +19,7 @@ namespace CvProjekt.Controllers
         [HttpGet]
         public async Task<IActionResult> AllProjects()
         {
+            //plockar ut alla användare och deras info
             var usersQuery = context.Users
                 .Include(u => u.Resume).ThenInclude(r => r.Qualifications)
                 .Include(u => u.Resume).ThenInclude(r => r.WorkList)
@@ -52,7 +53,7 @@ namespace CvProjekt.Controllers
             {
                 projectsQuery = projectsQuery.Where(p => p.Creator.IsActive == true);
             }
-
+            // plockar ut alla project samt alla projekt medlemmar
             var allProjects = await projectsQuery
                 .OrderByDescending(p => p.Id)
                 .ToListAsync();
@@ -62,6 +63,7 @@ namespace CvProjekt.Controllers
                 .Include(pm => pm.project)
                 .ToListAsync();
 
+            //lägger in medlemmarna, alla projekt och projektmedlemmarna i viewmodellen
             var model = new HomeViewModel
             {
                 Users = users,
@@ -98,6 +100,7 @@ namespace CvProjekt.Controllers
                 MemberId = user.Id,
                 MProjectId = projectId
             };
+            //själva databas ändringen
             context.ProjectMembers.Add(membership);
             await context.SaveChangesAsync();
             TempData["Success"] = "Du har gått med i projektet.";
@@ -117,7 +120,7 @@ namespace CvProjekt.Controllers
                 TempData["Info"] = "Du är inte medlem i projektet.";
                 return RedirectToAction("AllProjects");
             }
-
+            //själva databas ändringen
             context.ProjectMembers.Remove(membership);
             await context.SaveChangesAsync();
 

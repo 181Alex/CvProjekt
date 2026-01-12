@@ -7,35 +7,67 @@
 <div class="container mb-3 p-5">
     <H3> Epostadress @Model.Email </H3>
     <br />
-    <a asp-controller="Profile" asp-action="ChangePassword" class="btn btn-primary">Byt Lösenord</a>
-    @if (@Model.IsActive == true)
-    {
-        <form asp-controller="Profile" asp-action="Avaktivera" method="post" class="d-inline">
-            <button type="submit" class="btn btn-primary">Avaktivera konto</button>
-        </form>
-    }
-    else
-    {
-        <form asp-controller="Profile" asp-action="Aktivera" method="post" class="d-inline">
-            <button type="submit" class="btn btn-primary">Aktivera konto</button>
-        </form>
-    }
-    @if (@Model.IsPrivate == true)
-    {
-        <form asp-controller="Profile" asp-action="GoPublic" method="post" class="d-inline">
-            <button type="submit" class="btn btn-primary">Gör kontot publikt</button>
-        </form>
-    }
-    else
-    {
-        <form asp-controller="Profile" asp-action="GoPrivate" method="post" class="d-inline">
-            <button type="submit" class="btn btn-primary">Gör kontot privat</button>
-        </form>
-    }
-    <form asp-controller="Profile" asp-action="DownloadData" method="Get" class="d-inline">
-        <button type="submit" class="btn btn-primary">Exportera data</button>
-    </form>
-
+    <div class="card mb-4 shadow-sm border-0 bg-light" style="width: 50%;">
+        <div class="card-body p-4">
+            
+            @if (@Model.IsActive == true)
+            {
+                <div class="form-group row mb-3">
+                    <div class="col-4">
+                        <label>Kontostatus: aktiv</label>
+                    </div>
+                    <div class="col-4">
+                        <form asp-controller="Profile" asp-action="Avaktivera" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-primary">Avaktivera konto</button>
+                        </form>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="form-group row mb-3">
+                    <div class="col-4">
+                    <label>Kontostatus: inaktiv </label>
+                    </div>
+                    <div class="col-4">
+                    <form asp-controller="Profile" asp-action="Aktivera" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-primary">Aktivera konto</button>
+                    </form>
+                    </div>
+                </div>
+            }
+            @if (@Model.IsPrivate == true)
+            {
+                <div class="form-group row mb-3">
+                    <div class="col-4">
+                    <label>Synlighet: privat</label>
+                    </div>
+                    <div class="col-4">
+                    <form asp-controller="Profile" asp-action="GoPublic" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-primary">Gör kontot publikt</button>
+                    </form>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="form-group row mb-3">
+                    <div class="col-4">
+                    <label>Synlighet: publikt</label>
+                    </div>
+                    <div class="col-4">
+                    <form asp-controller="Profile" asp-action="GoPrivate" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-primary">Gör kontot privat</button>
+                    </form>
+                    </div>
+                </div>
+            }
+            <form asp-controller="Profile" asp-action="DownloadData" method="Get" class="d-inline">
+                <button type="submit" class="btn btn-primary">Exportera data</button>
+            </form>
+            <a asp-controller="Profile" asp-action="ChangePassword" class="btn btn-primary">Byt Lösenord</a>
+        </div>
+    </div>
 </div>
 
 
