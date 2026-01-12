@@ -58,9 +58,10 @@ public class MessageController : Controller
             if (string.IsNullOrWhiteSpace(mess.SenderName))
             {
                     ModelState.AddModelError("SenderName", "Du måste ange ditt namn för att skicka meddelande.");    
-                    ModelState.Remove("FromUser");
-                    ModelState.Remove("FromUserId");
+                    
             }
+            ModelState.Remove("FromUser");
+            ModelState.Remove("FromUserId");
         }
     var ToUserNow = await context.Users.FindAsync(mess.ToUserId);
         mess.ToUserId = ToUserNow.Id;
