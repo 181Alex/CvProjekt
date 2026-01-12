@@ -9,7 +9,7 @@
     <br />
     <div class="card mb-4 shadow-sm border-0 bg-light" style="width: 50%;">
         <div class="card-body p-4">
-            
+
             @if (@Model.IsActive == true)
             {
                 <div class="form-group row mb-3">
@@ -27,12 +27,12 @@
             {
                 <div class="form-group row mb-3">
                     <div class="col-4">
-                    <label>Kontostatus: inaktiv </label>
+                        <label>Kontostatus: inaktiv </label>
                     </div>
                     <div class="col-4">
-                    <form asp-controller="Profile" asp-action="Aktivera" method="post" class="d-inline">
-                        <button type="submit" class="btn btn-primary">Aktivera konto</button>
-                    </form>
+                        <form asp-controller="Profile" asp-action="Aktivera" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-primary">Aktivera konto</button>
+                        </form>
                     </div>
                 </div>
             }
@@ -40,12 +40,12 @@
             {
                 <div class="form-group row mb-3">
                     <div class="col-4">
-                    <label>Synlighet: privat</label>
+                        <label>Synlighet: privat</label>
                     </div>
                     <div class="col-4">
-                    <form asp-controller="Profile" asp-action="GoPublic" method="post" class="d-inline">
-                        <button type="submit" class="btn btn-primary">Gör kontot publikt</button>
-                    </form>
+                        <form asp-controller="Profile" asp-action="GoPublic" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-primary">Gör kontot publikt</button>
+                        </form>
                     </div>
                 </div>
             }
@@ -53,12 +53,12 @@
             {
                 <div class="form-group row mb-3">
                     <div class="col-4">
-                    <label>Synlighet: publikt</label>
+                        <label>Synlighet: publikt</label>
                     </div>
                     <div class="col-4">
-                    <form asp-controller="Profile" asp-action="GoPrivate" method="post" class="d-inline">
-                        <button type="submit" class="btn btn-primary">Gör kontot privat</button>
-                    </form>
+                        <form asp-controller="Profile" asp-action="GoPrivate" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-primary">Gör kontot privat</button>
+                        </form>
                     </div>
                 </div>
             }
@@ -66,18 +66,8 @@
                 <button type="submit" class="btn btn-primary">Exportera data</button>
             </form>
             <a asp-controller="Profile" asp-action="ChangePassword" class="btn btn-primary">Byt Lösenord</a>
-            
+
         </div>
     </div>
     <a asp-controller="Profile" asp-action="MyProfile" class="btn btn-primary">Tillbaka</a>
 </div>
-
-
-
-
-
-
-
-
-
-
