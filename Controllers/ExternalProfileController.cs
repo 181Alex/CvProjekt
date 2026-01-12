@@ -24,11 +24,15 @@ namespace CvProjekt.Controllers
         {
             if (string.IsNullOrWhiteSpace(id))
             {
-                return BadRequest("Ingen anv�ndar-id angivet.");
+                return BadRequest("Ingen användar-id angivet.");
             }
 
             var user = await _context.Users
-                .Include(u => u.Projects)
+                .Include(u => u.Projects) 
+                                          
+                .Include(u => u.ProjectMembers)
+                    .ThenInclude(pm => pm.project) 
+                                                   
                 .Include(u => u.Resume)
                     .ThenInclude(r => r.Qualifications)
                 .Include(u => u.Resume)
@@ -39,10 +43,10 @@ namespace CvProjekt.Controllers
 
             if (user == null)
             {
-                return NotFound($"Hittar ingen anv�ndare med id '{id}'.");
+                return NotFound($"Hittar ingen användare med id '{id}'.");
             }
 
-            // �ka profilbes�k 
+            // Öka profilbesök 
             try
             {
                 user.ProfileVisits++;
@@ -51,16 +55,16 @@ namespace CvProjekt.Controllers
             }
             catch
             {
-                // Fels�kert � om save misslyckas ska inte vyn krascha.
+                // Felsäkert – om save misslyckas ska inte vyn krascha.
             }
 
-            // H�mta liknande profiler baserat p� delade kompetenser (Qualifications)
+            // Hämta liknande profiler baserat på delade kompetenser (Qualifications)
             List<User> similarProfiles = new List<User>();
             var qualNames = user.Resume?.Qualifications?.Select(q => q.Name.Replace(" ", "").ToLower()).Where(n => !string.IsNullOrWhiteSpace(n)).Distinct().ToList() ?? new List<string>();
 
             if (qualNames.Any())
             {
-                // Hitta andra anv�ndare som har minst en av dessa kompetenser
+                // Hitta andra användare som har minst en av dessa kompetenser
                 var candidates = await _context.Users
                     .Include(u => u.Resume)
                         .ThenInclude(r => r.Qualifications)
@@ -88,13 +92,12 @@ namespace CvProjekt.Controllers
         }
 
         // GET: /ExternalProfile/DownloadData/{id}
-        // Samma exportlogik som i ProfileController.DownloadData men f�r extern profil
         [HttpGet]
         public async Task<IActionResult> DownloadData(string id)
         {
             if (string.IsNullOrWhiteSpace(id))
             {
-                return BadRequest("Ingen anv�ndar-id angivet.");
+                return BadRequest("Ingen användar-id angivet.");
             }
 
             var userObject = await _context.Users
@@ -110,7 +113,7 @@ namespace CvProjekt.Controllers
 
             if (userObject == null)
             {
-                return NotFound("Anv�ndaren hittades inte.");
+                return NotFound("Användaren hittades inte.");
             }
             var exporten = new UserExportDto
             {
@@ -142,7 +145,7 @@ namespace CvProjekt.Controllers
                     Position = w.Position,
                     Description = w.Description,
                     StartDate = w.StartDate.ToString("yyyy-MM-dd"),
-                    EndDate = w.EndDate.HasValue ? w.EndDate.Value.ToString("yyyy-MM-dd") : "P�g�ende"
+                    EndDate = w.EndDate.HasValue ? w.EndDate.Value.ToString("yyyy-MM-dd") : "Pågående"
                 }).ToList() ?? new System.Collections.Generic.List<WorkExportDto>(),
 
                 EducationList = userObject.Resume?.EducationList?.Select(e => new EducationExportDto
@@ -150,7 +153,7 @@ namespace CvProjekt.Controllers
                     SchoolName = e.SchoolName,
                     DegreeName = e.DegreeName,
                     StartYear = e.StartYear,
-                    EndYear = e.EndYear.HasValue ? e.EndYear.Value.ToString() : "P�g�ende",
+                    EndYear = e.EndYear.HasValue ? e.EndYear.Value.ToString() : "Pågående",
                     Description = e.Description ?? ""
                 }).ToList() ?? new System.Collections.Generic.List<EducationExportDto>()
             };

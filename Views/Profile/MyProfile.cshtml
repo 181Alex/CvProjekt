@@ -2,189 +2,220 @@
 
 @{
     ViewData["Title"] = "Min Profil";
+
+    // Hjälpmetod för att lösa bild-URL: använder Url.Content för lokala sökvägar,
+    // lämnar externa länkar (http/https) orörda och ger default-avatar om tom.
+    string ResolveImg(string? url)
+    {
+        if (string.IsNullOrWhiteSpace(url))
+        {
+            return Url.Content("~/images/default-avatar.png");
+        }
+
+        return url.StartsWith("http", System.StringComparison.OrdinalIgnoreCase)
+            ? url
+            : Url.Content(url);
+    }
 }
-<div class="container mt-3 mb-3 p-3 bg-light border rounded text-center" style="max-width: 250px;">
-    <h5 class="mb-2">📊 Statistik</h5>
-    <p class="mb-0">
-        Profilbesök:
-        <strong>@Model.ProfileVisits</strong>
-    </p>
-</div>
 
+<style>
+    .profile-wrap { max-width:1100px; margin:1.5rem auto; }
+    .stat-card { max-width:250px; margin:0 auto 1rem; padding:1rem; background:#f8f9fa; border-radius:8px; border:1px solid #e9eef8; }
+    .profile-card { background:#fff; padding:1.5rem; border-radius:12px; box-shadow:0 8px 20px rgba(2,6,23,0.05); }
+    .hero { display:flex; gap:1rem; align-items:center; flex-wrap:wrap; border-bottom:1px solid #eef6ff; padding-bottom:1rem; margin-bottom:1rem; }
+    .avatar { width:120px; height:120px; border-radius:50%; overflow:hidden; display:flex; align-items:center; justify-content:center; background:linear-gradient(180deg,#e9f2ff,#dbeeff); color:#08306b; font-weight:700; font-size:2rem; flex-shrink:0; }
+    .hero-info h1, .hero-info h3 { margin:0; color:#062a4e; font-weight:700; }
+    .hero-info p { margin:0.25rem 0; color:#556779; }
+    .info-grid { display:grid; grid-template-columns:1fr 340px; gap:1rem; }
+    .section { margin-top:1rem; }
+    .competence-badge { display:inline-block; background:rgba(13,110,253,0.08); color:#0b5ed7; padding:0.3rem 0.55rem; margin:0.25rem 0.25rem 0 0; border-radius:999px; font-size:0.85rem; border:1px solid rgba(13,110,253,0.12); }
+    .btn-brand { background:linear-gradient(180deg,#0d6efd,#0b5ed7); color:#fff; border:none; padding:0.45rem 0.75rem; border-radius:8px; font-weight:600; text-decoration:none; display:inline-block; }
+    .btn-outline-danger { border-radius:8px; }
+    .projects .card { border:1px solid #eef6ff; border-radius:10px; }
+</style>
 
-<div class="container bg-light p-5">
-    <div class="position-relative d-flex justify-content-center align-items-center mb-4">
+<div class="profile-wrap">
+    <div class="stat-card text-center">
+        <h5 class="mb-2">📊 Statistik</h5>
+        <p class="mb-0">Profilbesök: <strong>@Model?.ProfileVisits</strong></p>
+    </div>
 
-        <h1 class="m-0">Min Profil</h1>
-
-        <div class="position-absolute end-0">
-            <a asp-controller="Profile" asp-action="Settings" class="btn btn-primary">Inställningar</a>
+    <div class="profile-card">
+        <div class="position-relative d-flex justify-content-center align-items-center mb-4">
+            <h1 class="m-0">Min Profil</h1>
+            <div class="position-absolute end-0">
+                <a asp-controller="Profile" asp-action="Settings" class="btn-brand">Inställningar</a>
+            </div>
         </div>
 
-    </div>
-@if (Model != null)
-{
-        <h4 class="text-center" style="margin: 2rem auto;">Välkommen @Model.FirstName @Model.LastName</h4>
-
-        <div class="container mb-3 p-5">
-            <div class="container mt-3 mb-3 p-5 bg-white shadow-sm">
-                @if (Model.ImgUrl != null)
-                {
-                    <div class="ratio ratio-1x1 rounded-circle overflow-hidden" style="width: 25%; margin: 2rem 1rem;">
-                        <img src="@Model.ImgUrl" alt="Profilbild" class="img-fluid object-fit-cover">
-                    </div>
-                }
-
-                <div class="container mt-3 mb-3">
-                    <h3 class="mb-3">@Model.FirstName @Model.LastName</h3>
-                    <h4>Kontakt:</h4>
-                    <h6>@Model.Email</h6>
-                    <h6>@Model.Adress</h6>
-                </div>
-
-                <div class="container">
-
-                    <h4>Mina kompetenser:</h4>
-                    @if (Model.Resume != null && Model.Resume.Qualifications != null)
+        @if (Model != null)
+        {
+            <div class="hero">
+                <div class="avatar" aria-hidden="true">
+                    @if (!string.IsNullOrWhiteSpace(Model.ImgUrl))
                     {
-                        <ul class="list-inline">
-
-                            @foreach (var q in Model.Resume.Qualifications)
-                            {
-                                <li class="list-inline-item border border-info p-1 mb-2">@q.Name</li>
-                            }
-                        </ul>
+                        <img src="@ResolveImg(Model.ImgUrl)" alt="Profilbild" style="width:100%;height:100%;object-fit:cover;" />
+                    }
+                    else
+                    {
+                        @((Model.FirstName ?? "?").Substring(0,1).ToUpper() + (Model.LastName ?? "?").Substring(0,1).ToUpper())
                     }
                 </div>
 
-                <div class="container">
-                    <h4>Utbildning:</h4>
-                    @if (Model.Resume != null && Model.Resume.EducationList != null)
-                    {
-                        <ul class="list-unstyled">
-                            @foreach (var e in Model.Resume.EducationList)
-                            {
-                                <div class="d-flex flex-row justify-content-start">
-                                    <li>@e.SchoolName -&#160;</li>
-                                    <li>@e.DegreeName &#160;</li>
-                                    <li>&#40;@e.StartYear -&#160;</li>
-                                    @if (e.EndYear != null)
-                                    {
-                                        <li>@e.EndYear&#41;</li>
-                                    }
-                                    else
-                                    {
-                                        <li>Nu&#41;</li>
-                                    }
-                                </div>
-                                <li>@e.Description</li>
-
-                            }
-                        </ul>
-                    }
-
-                </div>
-
-                <div class="container">
-                    <h4>Arbetslivserfarenhet:</h4>
-                    @if (Model.Resume != null && Model.Resume.WorkList != null)
-                    {
-                        <ul class="list-unstyled">
-                            @foreach (var w in Model.Resume.WorkList)
-                            {
-                                <div class="d-flex flex-row justify-content-start">
-                                    <li>@w.CompanyName -&#160;</li>
-                                    <li>@w.Position &#160;</li>
-                                    <li>&#40;@w.StartDate.ToString("yyyy/MM/dd") -&#160;</li>
-                                    @if (w.EndDate != null)
-                                    {
-                                        <li>@w.EndDate?.ToString("yyyy/MM/dd")&#41;</li>
-                                    }
-                                    else
-                                    {
-                                        <li>Nu&#41;</li>
-                                    }
-                                </div>
-                                <li>@w.Description</li>
-
-                            }
-                        </ul>
-                    }
-                </div>
-                <div class="d-flex flex-row justify-content-center">
-                    <a asp-controller="Profile" asp-action="EditResume" class="btn btn-primary">Redigera CV</a>
+                <div class="hero-info">
+                    <h3> @Model.FirstName @Model.LastName</h3>
+                    <p class="small text-muted">@Model.Email</p>
+                    <p class="small text-muted">@Model.Adress</p>
                 </div>
             </div>
-            <div class="container mt-5 mb-3 mr-2 ml-2">
-                <h2 class="text-center">Dina skapade projekt:</h2>
-                @if (Model.Projects != null && Model.Projects.Count > 0)
-                {
 
-                    <div class="row row-cols-1 row-cols-md-2 g-4">
-                        <div class="col">
-                            <div class="card h-100 border-info p-2 shadow-sm">
+            <div class="info-grid">
+                <div>
+                    <div class="section">
+                        <h4>Mina kompetenser</h4>
+                        @if (Model.Resume != null && Model.Resume.Qualifications != null && Model.Resume.Qualifications.Any())
+                        {
+                            <div>
+                                @foreach (var q in Model.Resume.Qualifications)
+                                {
+                                    <span class="competence-badge">@q.Name</span>
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <p class="text-muted"><em>Inga kompetenser angivna.</em></p>
+                        }
+                    </div>
+
+                    <div class="section">
+                        <h4>Utbildning</h4>
+                        @if (Model.Resume != null && Model.Resume.EducationList != null && Model.Resume.EducationList.Any())
+                        {
+                            <ul class="list-unstyled">
+                                @foreach (var e in Model.Resume.EducationList)
+                                {
+                                    <li class="mb-2">
+                                        <strong>@e.SchoolName</strong> — @e.DegreeName
+                                        <div class="text-muted">(@e.StartYear - @(e.EndYear != null ? e.EndYear.ToString() : "Nu"))</div>
+                                        @if (!string.IsNullOrWhiteSpace(e.Description))
+                                        {
+                                            <div>@e.Description</div>
+                                        }
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <p class="text-muted"><em>Ingen utbildning angiven.</em></p>
+                        }
+                    </div>
+
+                    <div class="section">
+                        <h4>Arbetslivserfarenhet</h4>
+                        @if (Model.Resume != null && Model.Resume.WorkList != null && Model.Resume.WorkList.Any())
+                        {
+                            <ul class="list-unstyled">
+                                @foreach (var w in Model.Resume.WorkList)
+                                {
+                                    <li class="mb-3">
+                                        <strong>@w.CompanyName</strong> — @w.Position
+                                        <div class="text-muted">(@w.StartDate.ToString("yyyy/MM/dd") - @(w.EndDate != null ? w.EndDate?.ToString("yyyy/MM/dd") : "Nu"))</div>
+                                        @if (!string.IsNullOrWhiteSpace(w.Description))
+                                        {
+                                            <div>@w.Description</div>
+                                        }
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <p class="text-muted"><em>Ingen arbetslivserfarenhet angiven.</em></p>
+                        }
+                    </div>
+
+                    <div class="section mt-3 text-center">
+                        <a asp-controller="Profile" asp-action="EditResume" class="btn-brand">Redigera CV</a>
+                    </div>
+                </div>
+
+                <aside>
+                    <div class="section">
+                        <h4 class="mb-3">Dina skapade projekt</h4>
+                        @if (Model.Projects != null && Model.Projects.Count > 0)
+                        {
+                            <div class="projects">
                                 @foreach (var p in Model.Projects)
                                 {
-                                    <div class="card-body">
-                                        <div class="d-flex flex-row justify-content-center align-items-center">
-                                            <h5 class="card-title fw-bold text-info">@p.Title &#160</h5>
-                                            <h6>&#40;@p.Year&#41;</h6>
-                                        </div>
-                                        <p>Språk: @p.Language</p>
-                                        @if (p.Description != null)
-                                        {
-                                            <p>Beskrivning: @p.Description</p>
-                                        }
-                                        @if (p.ProjectMembers != null)
-                                        {
-                                            foreach (var pm in p.ProjectMembers)
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h5 class="card-title fw-bold text-info">@p.Title</h5>
+                                                <small class="text-muted">(@p.Year)</small>
+                                            </div>
+                                            <p class="small text-muted">Språk: @p.Language</p>
+                                            @if (!string.IsNullOrWhiteSpace(p.Description))
                                             {
-                                                var members = p.ProjectMembers
-                                                .Where(pm => pm.MProjectId == p.Id)
-                                                .Select(pm => pm.user)
-                                                .Where(u => u != null && u.Id != p.CreatorId && u.IsActive == true)
-                                                .Distinct()
-                                                .ToList();
-                                                foreach (var mem in members)
+                                                <p>@p.Description</p>
+                                            }
+
+                                            @if (p.ProjectMembers != null)
+                                            {
+                                                
+                                                    var members = p.ProjectMembers
+                                                        .Where(pm => pm.MProjectId == p.Id)
+                                                        .Select(pm => pm.user)
+                                                        .Where(u => u != null && u.Id != p.CreatorId && u.IsActive == true)
+                                                        .Distinct()
+                                                        .ToList();
+                                                
+                                                @if (members.Any())
                                                 {
-                                                    <p>Deltagare</p>
-                                                    <span class="small text-dark">@mem.FirstName @mem.LastName</span>
+                                                    <h6 class="mt-2 small text-muted">Deltagare</h6>
+                                                    <ul class="list-unstyled">
+                                                        @foreach (var mem in members)
+                                                        {
+                                                            <li class="small text-dark">@mem.FirstName @mem.LastName</li>
+                                                        }
+                                                    </ul>
                                                 }
                                             }
-                                        }
-                                        @if (p.GithubLink != null)
-                                        {
-                                            <a href="@p.GithubLink">Visa på Github</a>
-                                        }
+
+                                            @if (!string.IsNullOrWhiteSpace(p.GithubLink))
+                                            {
+                                                var link = p.GithubLink.StartsWith("http", System.StringComparison.OrdinalIgnoreCase) ? p.GithubLink : "https://" + p.GithubLink;
+                                                <a href="@link" target="_blank" class="btn-brand">Visa på GitHub</a>
+                                            }
+                                        </div>
                                     </div>
                                 }
                             </div>
+                        }
+                        else
+                        {
+                            <p class="text-muted"><em>Inga projekt tillagda</em></p>
+                        }
 
+                        <div class="mt-3 text-center">
+                            <a asp-controller="Profile" asp-action="EditProjects" class="btn-brand">Redigera Projekt</a>
                         </div>
                     </div>
-                }
-                else
-                {
-                    <div class="d-flex flex-column justify-content-center">
-                        <h4>Inga projekt tillagda</h4>
-                    </div>
-                }
-                <div class="d-flex flex-row justify-content-center mt-4">
-                    <a asp-controller="Profile" asp-action="EditProjects" class="btn btn-primary">Redigera Projekt</a>
-                </div>
+                </aside>
             </div>
-        </div>
-}
-else
-{
-        <h4>Ingen information hittad</h4>
-}
-    <div class="container mt-5 mb-3 mr-2 ml-2">
-        <h2 class="text-center">Projekt du deltar i</h2>
-        @{
-            var memberProjects = (List<CvProjekt.Models.Project>?)ViewBag.MemberProjects ?? new
-            List<CvProjekt.Models.Project>();
+        }
+        else
+        {
+            <h4>Ingen information hittad</h4>
+        }
+    </div>
 
+    <div class="container mt-5">
+        <h2 class="text-center">Projekt du deltar i</h2>
+
+        @{
+            var memberProjects = (List<CvProjekt.Models.Project>?)ViewBag.MemberProjects ?? new List<CvProjekt.Models.Project>();
         }
 
         @if (memberProjects.Any())
@@ -198,16 +229,17 @@ else
                                 <h5 class="card-title fw-bold text-success">@project.Title (@project.Year)</h5>
                                 <p class="small text-muted">Av: @project.Creator.FirstName @project.Creator.LastName</p>
                                 <p>Språk: @project.Language</p>
-                                @if (project.Description != null)
+                                @if (!string.IsNullOrWhiteSpace(project.Description))
                                 {
                                     <p>Beskrivning: @project.Description</p>
                                 }
+
                                 @{
                                     var participants = project.ProjectMembers
-                                    .Where(pm => pm.user != null && pm.MemberId != project.CreatorId)
-                                    .Select(pm => pm.user)
-                                    .Distinct()
-                                    .ToList();
+                                        .Where(pm => pm.user != null && pm.MemberId != project.CreatorId)
+                                        .Select(pm => pm.user)
+                                        .Distinct()
+                                        .ToList();
                                 }
                                 @if (participants.Any())
                                 {
@@ -219,17 +251,18 @@ else
                                         }
                                     </ul>
                                 }
-                                @if (project.GithubLink != null)
+
+                                @if (!string.IsNullOrWhiteSpace(project.GithubLink))
                                 {
-                                    <div style="margin-bottom: 1rem;">
-                                    <a href="@project.GithubLink" target="_blank">Visa på Github</a>
+                                    <div style="margin-bottom:1rem;">
+                                        <a href="@project.GithubLink" target="_blank">Visa på Github</a>
                                     </div>
                                 }
+
                                 <form asp-controller="Project" asp-action="LeaveProject" method="post" asp-route-source="Profile" class="d-inline">
                                     <input type="hidden" name="projectId" value="@project.Id" />
                                     <button type="submit" class="btn btn-outline-danger">Lämna projekt</button>
                                 </form>
-                                
                             </div>
                         </div>
                     </div>
@@ -241,3 +274,4 @@ else
             <p class="text-muted text-center">Du deltar inte i några projekt ännu.</p>
         }
     </div>
+</div>
