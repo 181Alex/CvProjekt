@@ -14,75 +14,74 @@
 <div class="row" id="LatestProfilesBox">
     @foreach (var user in Model.Users)
     {
-        <div class="col-md-12 mb-4">
-            <div class="card shadow-sm">
-                <div class="card-body">
+    <div class="col-md-12 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
 
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h4 class="card-title text-primary mb-0">@user.FirstName @user.LastName</h4>
-                        <a asp-controller="ExternalProfile" asp-action="Profile" asp-route-id="@user.Id"
-                            class="btn btn-outline-primary btn-sm">Visa profil</a>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="card-title text-primary mb-0">@user.FirstName @user.LastName</h4>
+                    <a asp-controller="ExternalProfile" asp-action="Profile" asp-route-id="@user.Id" class="btn btn-outline-primary btn-sm">Visa profil</a>
+                </div>
+
+                @if (user.Resume != null)
+                    {
+                <div class="row mt-3">
+
+                    <div class="col-md-4">
+                        <h5>Kompetenser</h5>
+                        @if (user.Resume.Qualifications != null && user.Resume.Qualifications.Any())
+                                {
+                        <p class="small text-dark">
+                            @string.Join(", ", user.Resume.Qualifications.Select(q => q.Name))
+                        </p>
+                                }
+                                else
+                                {
+                        <p class="text-muted small">Inga kompetenser listade.</p>
+                                }
                     </div>
 
-                    @if (user.Resume != null)
-                    {
-                        <div class="row mt-3">
 
-                            <div class="col-md-4">
-                                <h5>Kompetenser</h5>
-                                @if (user.Resume.Qualifications != null && user.Resume.Qualifications.Any())
+                    <div class="col-md-4 border-start">
+                        <h5>Senaste arbete</h5>
+                        @if (user.Resume.WorkList != null && user.Resume.WorkList.Any())
                                 {
-                                    <p class="small text-dark">
-                                        @string.Join(", ", user.Resume.Qualifications.Select(q => q.Name))
-                                    </p>
-                                }
-                                else
-                                {
-                                    <p class="text-muted small">Inga kompetenser listade.</p>
-                                }
-                            </div>
-
-
-                            <div class="col-md-4 border-start">
-                                <h5>Senaste arbete</h5>
-                                @if (user.Resume.WorkList != null && user.Resume.WorkList.Any())
-                                {
-                                    <ul class="list-unstyled small">
-                                        @foreach (var work in user.Resume.WorkList.OrderByDescending(w => w.Id).Take(2))
+                        <ul class="list-unstyled small">
+                            @foreach (var work in user.Resume.WorkList.OrderByDescending(w => w.Id).Take(2))
                                         {
-                                            <li><strong>@work.CompanyName</strong><br />@work.Position</li>
+                            <li><strong>@work.CompanyName</strong><br />@work.Position</li>
                                         }
-                                    </ul>
+                        </ul>
                                 }
                                 else
                                 {
-                                    <p class="text-muted small">Ingen erfarenhet angiven.</p>
+                        <p class="text-muted small">Ingen erfarenhet angiven.</p>
                                 }
-                            </div>
+                    </div>
 
 
-                            <div class="col-md-4 border-start">
-                                <h5>Utbildning</h5>
-                                @if (user.Resume.EducationList != null && user.Resume.EducationList.Any())
+                    <div class="col-md-4 border-start">
+                        <h5>Utbildning</h5>
+                        @if (user.Resume.EducationList != null && user.Resume.EducationList.Any())
                                 {
-                                    <ul class="list-unstyled small">
-                                        @foreach (var edu in user.Resume.EducationList.OrderByDescending(e => e.Id).Take(2))
+                        <ul class="list-unstyled small">
+                            @foreach (var edu in user.Resume.EducationList.OrderByDescending(e => e.Id).Take(2))
                                         {
-                                            <li><strong>@edu.SchoolName</strong><br />@edu.DegreeName</li>
+                            <li><strong>@edu.SchoolName</strong><br />@edu.DegreeName</li>
                                         }
-                                    </ul>
+                        </ul>
                                 }
                                 else
                                 {
-                                    <p class="text-muted small">Ingen utbildning angiven.</p>
+                        <p class="text-muted small">Ingen utbildning angiven.</p>
                                 }
-                            </div>
-                        </div>
-                    }
-
+                    </div>
                 </div>
+                    }
+                    
             </div>
         </div>
+    </div>
     }
 
     <div class="col-12 text-center mt-3">
@@ -93,78 +92,77 @@
 <div class="row" id="AllProfilesBox" style="display:none;">
     @foreach (var user in Model.AllUsers)
     {
-        <div class="col-md-12 mb-4">
-            <div class="card shadow-sm">
-                <div class="card-body">
+    <div class="col-md-12 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
 
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h4 class="card-title text-primary mb-0">@user.FirstName @user.LastName</h4>
-                        <a asp-controller="ExternalProfile" asp-action="Profile" asp-route-id="@user.Id"
-                            class="btn btn-outline-primary btn-sm">Visa profil</a>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="card-title text-primary mb-0">@user.FirstName @user.LastName</h4>
+                    <a asp-controller="ExternalProfile" asp-action="Profile" asp-route-id="@user.Id" class="btn btn-outline-primary btn-sm">Visa profil</a>
+                </div>
+
+                @if (user.Resume != null)
+                    {
+                <div class="row mt-3">
+
+                    <div class="col-md-4">
+                        <h5>Kompetenser</h5>
+                        @if (user.Resume.Qualifications != null && user.Resume.Qualifications.Any())
+                                {
+                        <p class="small text-dark">
+                            @string.Join(", ", user.Resume.Qualifications.Select(q => q.Name))
+                        </p>
+                                }
+                                else
+                                {
+                        <p class="text-muted small">Inga kompetenser listade.</p>
+                                }
                     </div>
 
-                    @if (user.Resume != null)
-                    {
-                        <div class="row mt-3">
 
-                            <div class="col-md-4">
-                                <h5>Kompetenser</h5>
-                                @if (user.Resume.Qualifications != null && user.Resume.Qualifications.Any())
+                    <div class="col-md-4 border-start">
+                        <h5>Senaste arbete</h5>
+                        @if (user.Resume.WorkList != null && user.Resume.WorkList.Any())
                                 {
-                                    <p class="small text-dark">
-                                        @string.Join(", ", user.Resume.Qualifications.Select(q => q.Name))
-                                    </p>
-                                }
-                                else
-                                {
-                                    <p class="text-muted small">Inga kompetenser listade.</p>
-                                }
-                            </div>
-
-
-                            <div class="col-md-4 border-start">
-                                <h5>Senaste arbete</h5>
-                                @if (user.Resume.WorkList != null && user.Resume.WorkList.Any())
-                                {
-                                    <ul class="list-unstyled small">
-                                        @foreach (var work in user.Resume.WorkList.OrderByDescending(w => w.Id).Take(2))
+                        <ul class="list-unstyled small">
+                            @foreach (var work in user.Resume.WorkList.OrderByDescending(w => w.Id).Take(2))
                                         {
-                                            <li><strong>@work.CompanyName</strong><br />@work.Position</li>
+                            <li><strong>@work.CompanyName</strong><br />@work.Position</li>
                                         }
-                                    </ul>
+                        </ul>
                                 }
                                 else
                                 {
-                                    <p class="text-muted small">Ingen erfarenhet angiven.</p>
+                        <p class="text-muted small">Ingen erfarenhet angiven.</p>
                                 }
-                            </div>
+                    </div>
 
 
-                            <div class="col-md-4 border-start">
-                                <h5>Utbildning</h5>
-                                @if (user.Resume.EducationList != null && user.Resume.EducationList.Any())
+                    <div class="col-md-4 border-start">
+                        <h5>Utbildning</h5>
+                        @if (user.Resume.EducationList != null && user.Resume.EducationList.Any())
                                 {
-                                    <ul class="list-unstyled small">
-                                        @foreach (var edu in user.Resume.EducationList.OrderByDescending(e => e.Id).Take(2))
+                        <ul class="list-unstyled small">
+                            @foreach (var edu in user.Resume.EducationList.OrderByDescending(e => e.Id).Take(2))
                                         {
-                                            <li><strong>@edu.SchoolName</strong><br />@edu.DegreeName</li>
+                            <li><strong>@edu.SchoolName</strong><br />@edu.DegreeName</li>
                                         }
-                                    </ul>
+                        </ul>
                                 }
                                 else
                                 {
-                                    <p class="text-muted small">Ingen utbildning angiven.</p>
+                        <p class="text-muted small">Ingen utbildning angiven.</p>
                                 }
-                            </div>
-                        </div>
+                    </div>
+                </div>
                     }
                     else
                     {
-                        <p class="text-muted mt-2">Denna användare har inte publicerat sitt CV än.</p>
+                <p class="text-muted mt-2">Denna användare har inte publicerat sitt CV än.</p>
                     }
-                </div>
             </div>
         </div>
+    </div>
     }
 
     <div class="col-12 text-center mt-3">
@@ -178,24 +176,58 @@
 <div class="row" id="LatestProjectsBox">
     @if (Model.LatestProjects.Any())
     {
-        @foreach (var project in Model.LatestProjects)
+    @foreach (var project in Model.LatestProjects)
         {
             <div class="col-md-4 mb-3">
-                <div class="card h-100 border-primary">
-                    <div class="card-body">
-                        <h5 class="card-title">@project.Title (@project.Year)</h5>
-                        <p class="card-text text-truncate">@project.Description</p>
-                        <p class="small"><strong>Språk:</strong> @project.Language</p>
+                <div class="card h-100 shadow-sm border-0 bg-light">
+                    <div class="row g-0 h-100">
+                        <div class="col-1 rounded-start d-none d-md-block" style="width: 6px;"></div>
 
-                        @if (project.Creator != null)
-                        {
-                            <p class="text-muted x-small">Av: @project.Creator.FirstName @project.Creator.LastName</p>
-                        }
+                        <div class="col">
+                            <div class="card-body p-4 d-flex flex-column h-100">
+
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h3 class="h4 mb-0 fw-bold text-dark">@project.Title</h3>
+                                    <span class="badge rounded-pill bg-white text-primary border border-primary px-3">
+                                        @project.Year
+                                    </span>
+                                </div>
+
+                                <div class="mb-3 flex-grow-1">
+                                    <h6 class="text-uppercase text-muted fw-bold small mb-2">Beskrivning</h6>
+                                    <p class="card-text lh-lg text-secondary" style="font-size: 1.1rem;">
+                                        @project.Description
+                                    </p>
+                                </div>
+
+                                <div class="d-flex align-items-center justify-content-between mt-4 pt-3 border-top">
+
+                                    <div>
+                                        <span class="text-muted small text-uppercase">Språk:</span>
+                                        <span class="ms-2 fw-semibold">@project.Language</span>
+                                    </div>
+
+                                    @if (project.Creator != null)
+                                    {
+                                        <div class="d-flex align-items-center">
+                                            <div class="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center me-2"
+                                                 style="width: 32px; height: 32px; font-size: 0.8rem;">
+                                                @(project.Creator.FirstName?.FirstOrDefault())@(project.Creator.LastName?.FirstOrDefault())
+                                            </div>
+                                            <span class="text-muted small">
+                                                Av: <span class="fw-bold text-dark">@project.Creator.FirstName @project.Creator.LastName</span>
+                                            </span>
+                                        </div>
+                                    }
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         }
-        <a asp-controller="Project" asp-action="AllProjects" class="btn btn-primary">Se mer</a>
+    <a asp-controller="Project" asp-action="AllProjects" class="btn btn-primary">Se mer</a>
     }
     else
     {
