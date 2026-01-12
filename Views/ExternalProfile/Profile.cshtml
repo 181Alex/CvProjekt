@@ -239,7 +239,18 @@
                                         <span class="text-muted small">(@p.Year)</span>
                                     </h6>
                                     <p class="card-subtitle mb-2 text-muted small">@p.Language</p>
-
+                                                <p class="card-text small">
+                                                    @if (p.Description != null && p.Description.Length > 60)
+                                                    {
+                                                        @p.Description.Substring(0, 60)
+                                        
+                                                        <text>...</text>
+                                                    }
+                                                    else
+                                                    {
+                                                        @p.Description
+                                                    }
+                                                </p>
                 @* Kontaktformulär: postar till MessageController.SendMessage *@
                 <div class="w-100 mt-4">
                     <div asp-validation-summary="All" class="text-danger"></div>
