@@ -38,7 +38,8 @@ public class MessageController : Controller
     {
     mess.Date = DateTime.Now;
     mess.Read = false;
-    ModelState.Remove("ToUser");
+        // tar bort dessa från modelstate då det annars felar pga anonym användare. 
+        ModelState.Remove("ToUser");
     ModelState.Remove("FromUser");
     ModelState.Remove("FromUserId");
 
@@ -57,7 +58,7 @@ public class MessageController : Controller
             mess.FromUser = null;
             if (string.IsNullOrWhiteSpace(mess.SenderName))
             {
-                    ModelState.AddModelError("SenderName", "Du måste ange ditt namn för att skicka meddelande.");    
+                    ModelState.AddModelError("", "Du måste ange ditt namn för att skicka meddelande.");    
                     
             }
             ModelState.Remove("FromUser");
