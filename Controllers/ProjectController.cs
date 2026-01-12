@@ -78,14 +78,14 @@ namespace CvProjekt.Controllers
         public async Task<IActionResult> JoinProject(int projectId)
         {
             var user= await _userManager.GetUserAsync(User);
-            // hämtar projektet att joina
+
             var project = await context.Projects.FindAsync(projectId);
             if (project == null)
             {
                 TempData["Info"] = "Projektet hittades inte.";
                 return RedirectToAction("AllProjects");
             }
-            // kontroll för att se om de redan är en medlem. finns dessutom en i html
+            // kontroll för att se om de redan är en medlem.
             var exists = await context.ProjectMembers
                .AnyAsync(pm => pm.MemberId == user.Id && pm.MProjectId == projectId);
 

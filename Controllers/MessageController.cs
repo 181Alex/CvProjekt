@@ -23,7 +23,6 @@ public class MessageController : Controller
     [HttpGet]
     public IActionResult SendMessages(string receiverId)
     {
-        // 
     var receiver = context.Users.FirstOrDefault(u => u.Id == receiverId);
     var model = new Message
     {
@@ -37,10 +36,8 @@ public class MessageController : Controller
     [AllowAnonymous]
     public async Task<IActionResult> SendMessage(Message mess)
     {
-        // två standardvärden, sätts direkt
     mess.Date = DateTime.Now;
     mess.Read = false;
-        // tar bort dessa från modelstate då det annars felar pga anonym användare. 
     ModelState.Remove("ToUser");
     ModelState.Remove("FromUser");
     ModelState.Remove("FromUserId");
@@ -56,12 +53,11 @@ public class MessageController : Controller
         }
         else
         {
-            //ingen från användare (anonym)
             mess.FromUserId = null;
             mess.FromUser = null;
             if (string.IsNullOrWhiteSpace(mess.SenderName))
             {
-                    ModelState.AddModelError("", "Du måste ange ditt namn för att skicka meddelande.");    
+                    ModelState.AddModelError("SenderName", "Du måste ange ditt namn för att skicka meddelande.");    
                     
             }
             ModelState.Remove("FromUser");
@@ -109,7 +105,6 @@ public class MessageController : Controller
     [HttpPost]
     public async Task<IActionResult> ReadMessage(int id)
     {
-        //markerar som läst
         var mess = await context.Messages.FindAsync(id);
         if (mess != null)
         {
@@ -123,7 +118,6 @@ public class MessageController : Controller
     [HttpGet]
     public async Task<IActionResult> DeleteMessage(int id)
     {
-        //skickar användaren till radera vyn
         var message = await context.Messages
             .Include(m => m.FromUser)
             .FirstOrDefaultAsync(m => m.Id == id);
@@ -137,7 +131,6 @@ public class MessageController : Controller
     [HttpPost, ActionName("DeleteMessage")]
     public async Task<IActionResult> DeleteMessageConfirmed(int id)
     {
-        //raderar användaren
         var message = await context.Messages.FindAsync(id);
         
         var currentUser = await _userManager.GetUserAsync(User);

@@ -33,12 +33,8 @@ namespace CvProjekt.Controllers
         [HttpGet]
         public async Task<IActionResult> DownloadData()
         {
-            // i metoden har vi använt oss av en exportkalss utan referenser som refererar
-            // till varandra (ex user har flera projekt och projekt har user, har crashat då)
-            //dessutom kan vi göra om variabler till exempelvis string i fallet av datum
             var user = await _userManager.GetUserAsync(User);
             //tar fram användaren och alla dessa erfarenheter osv. VIktigt är att denna är seperat från resume till en blrjan!!!
-            //tar då också med alla relationer, så exempeklvis alla projekt
             var userObject = await _context.Users
                 .Include (u=>u.Projects)
                 .Include(u => u.Resume)
@@ -59,7 +55,6 @@ namespace CvProjekt.Controllers
                 .Where(p => memberProjectIds.Contains(p.Id))
                 .ToListAsync();
             //Skapar det vi faktiskt ska exportera, dvs användaren och allt till den som cv osv.
-            // detta görs genom ett helt nytt "clean" objekt utan några referenser 
             //allt detta ska ske i kalss form export/dto så att inga connctions mellan kalsserna görs.
             var exporten = new UserExportDto
             {
@@ -179,7 +174,6 @@ namespace CvProjekt.Controllers
         [HttpPost]
         public async Task<IActionResult> ChangePasswordNow(ChangePasswordViewModel model)
         {
-            //här byts faktiskta lösenordet.
             if (!ModelState.IsValid)
             {
                 return View("ChangePassword", model);

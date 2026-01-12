@@ -19,8 +19,7 @@
         <div class="col-lg-10">
             @foreach (var project in Model.AllProjects)
             {
-                // allt detta är kontroller för att se om man är skapare, medlem, eller inte. Var lättare att göra här än att 
-                //göra i controllern. 
+
                 var currentUserId = User.Identity?.IsAuthenticated == true
                 ? User.FindFirstValue(ClaimTypes.NameIdentifier)
                 : null;

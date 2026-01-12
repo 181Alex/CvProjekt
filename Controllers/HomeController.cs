@@ -68,7 +68,7 @@ namespace CvProjekt.Controllers
             // ÄNDRING: Döpte om från 'users' till 'latestUsers' för att matcha din ViewModel
             var latestUsers = await usersQuery.Take(5).ToListAsync();
 
-            // ÄNDRING: Lade till denna rad eftersom den saknades i den pullade koden men krävs av ViewModel
+            // ÄNDRING: Lade till denna rad eftersom den saknades i den pullade koden men krävs av din ViewModel
             var allUsers = await usersQuery.ToListAsync();
 
 
