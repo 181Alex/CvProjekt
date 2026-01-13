@@ -194,7 +194,7 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "DAL",
+              "Title": "DAL.csproj",
               "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\DAL\\DAL.csproj",
               "RelativeDocumentMoniker": "DAL\\DAL.csproj",
               "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\DAL\\DAL.csproj",
@@ -207,7 +207,7 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "CvProjekt",
+              "Title": "CvProjekt.csproj",
               "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\CvProjekt\\CvProjekt.csproj",
               "RelativeDocumentMoniker": "CvProjekt\\CvProjekt.csproj",
               "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\CvProjekt\\CvProjekt.csproj",
