@@ -19,24 +19,30 @@ namespace CvProjekt.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(string search)
         {
+            // Grundfråga för att hämta användare och inkludera all data i deras CV (Resume)
+            // Include och ThenInclude används för att hämta relaterad data som kompetenser, jobb och utbildning
             var usersQuery = _context.Users
                 .Include(u => u.Resume).ThenInclude(r => r.Qualifications)
                 .Include(u => u.Resume).ThenInclude(r => r.WorkList)
                 .Include(u => u.Resume).ThenInclude(r => r.EducationList)
-                .Where(u => u.ResumeId != null)
+                .Where(u => u.ResumeId != null) // Endast användare som faktiskt har skapat ett CV visas
                 .OrderByDescending(u => u.ResumeId)
-                .AsSplitQuery()
+                .AsSplitQuery() // Optimerar frågan när många tabeller inkluderas
                 .AsQueryable();
 
+            // Säkerhetsfilter: 
+            // Om besökaren inte är inloggad visas endast offentliga profiler (IsPrivate == false)
             if (!User.Identity?.IsAuthenticated == true)
             {
                 usersQuery = usersQuery.Where(u => u.IsPrivate == false && u.IsActive == true);
             }
             else
             {
+                // Inloggade användare kan se alla aktiva användare, även de med privata profiler
                 usersQuery = usersQuery.Where(u => u.IsActive == true);
             }
 
+            // Hanterar sökfunktionen
             if (!string.IsNullOrWhiteSpace(search))
             {
                 var searchWords = search.Split(' ', StringSplitOptions.RemoveEmptyEntries);
@@ -44,6 +50,7 @@ namespace CvProjekt.Controllers
                 foreach (var word in searchWords)
                 {
                     var tempWord = word;
+                    // Söker i förnamn, efternamn, användarnamn eller kompetenser i CV:t
                     usersQuery = usersQuery.Where(u =>
                         u.FirstName.Contains(tempWord) ||
                         u.LastName.Contains(tempWord) ||
@@ -51,27 +58,14 @@ namespace CvProjekt.Controllers
                         u.Resume.Qualifications.Any(q => q.Name.Contains(tempWord))
                     );
                 }
-
-                if (!User.Identity?.IsAuthenticated == true)
-                {
-                    usersQuery = usersQuery.Where(u => u.IsPrivate == false && u.IsActive == true);
-                }
-                else
-                {
-
-                    usersQuery = usersQuery.Where(u => u.IsActive == true);
-                }
             }
 
-
-
-            // ÄNDRING: Döpte om från 'users' till 'latestUsers' för att matcha din ViewModel
+            // Hämtar de 5 senaste användarna för en "senaste"-lista
             var latestUsers = await usersQuery.Take(5).ToListAsync();
-
-            // ÄNDRING: Lade till denna rad eftersom den saknades i den pullade koden men krävs av din ViewModel
+            // Hämtar alla matchande användare för den fullständiga listan
             var allUsers = await usersQuery.ToListAsync();
 
-
+            // Samma logik appliceras på projekt (inkludera skapare och filtrera efter privat-status)
             var projectsQuery = _context.Projects
                 .Include(p => p.Creator)
                 .AsQueryable();
@@ -107,7 +101,5 @@ namespace CvProjekt.Controllers
 
             return View(model);
         }
-
-        
     }
 }
