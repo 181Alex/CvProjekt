@@ -1,0 +1,776 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1B07D55B-46D4-20A3-C432-F3F50716498C}|CvProjekt\\CvProjekt.csproj|c:\\users\\alex2\\documents\\github\\cvprojekt\\cvprojekt\\cvprojekt.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{1B07D55B-46D4-20A3-C432-F3F50716498C}|CvProjekt\\CvProjekt.csproj|solutionrelative:cvprojekt\\cvprojekt.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12357D34-2A02-1ECD-BC6C-D84ADDC1A72E}|DAL\\DAL.csproj|c:\\users\\alex2\\documents\\github\\cvprojekt\\dal\\dal.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{12357D34-2A02-1ECD-BC6C-D84ADDC1A72E}|DAL\\DAL.csproj|solutionrelative:dal\\dal.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Models\\obj\\Debug\\net9.0\\Models.AssemblyInfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Models\\obj\\Debug\\net9.0\\Models.AssemblyInfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\obj\\Debug\\net9.0\\CvProjekt.AssemblyInfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:obj\\Debug\\net9.0\\CvProjekt.AssemblyInfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|c:\\users\\alex2\\documents\\github\\dal\\migrations\\20260113154705_nybast.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|c:\\users\\alex2\\documents\\github\\models\\work.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|c:\\users\\alex2\\documents\\github\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|c:\\users\\alex2\\documents\\github\\models\\projectmembers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|c:\\users\\alex2\\documents\\github\\models\\resume.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|c:\\users\\alex2\\documents\\github\\models\\qualifications.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|c:\\users\\alex2\\documents\\github\\models\\project.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|c:\\users\\alex2\\documents\\github\\models\\message.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|c:\\users\\alex2\\documents\\github\\models\\exportmodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|c:\\users\\alex2\\documents\\github\\dal\\migrations\\cvcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|c:\\users\\alex2\\documents\\github\\dal\\migrations\\20260113154705_nybast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|c:\\users\\alex2\\documents\\github\\models\\education.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|c:\\users\\alex2\\documents\\github\\dal\\cvcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\_ViewImports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Views\\_ViewImports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\ExternalProfile\\Profile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Views\\ExternalProfile\\Profile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Home\\Index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Views\\Home\\Index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Home\\Privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Views\\Home\\Privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Profile\\EditResume.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Views\\Profile\\EditResume.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Shared\\_ValidationScriptsPartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Views\\Shared\\_ValidationScriptsPartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Shared\\_Layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Views\\Shared\\_Layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\_ViewStart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Views\\_ViewStart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Account\\Login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Views\\Account\\Login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Message\\SeeMessages.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Views\\Message\\SeeMessages.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Profile\\ChangePassword.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Views\\Profile\\ChangePassword.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Profile\\EditProjects.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Views\\Profile\\EditProjects.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Profile\\Settings.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Views\\Profile\\Settings.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Profile\\MyProfile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Views\\Profile\\MyProfile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Project\\AllProjects.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Views\\Project\\AllProjects.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Shared\\Error.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Views\\Shared\\Error.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Message\\DeleteMessage.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Views\\Message\\DeleteMessage.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Account\\Register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Views\\Account\\Register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\ViewComponents\\UnreadMessagesViewComponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ViewComponents\\UnreadMessagesViewComponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\ViewModels\\RegisterViewModel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ViewModels\\RegisterViewModel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\ViewModels\\LoginViewModel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ViewModels\\LoginViewModel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\ViewModels\\HomeViewModel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ViewModels\\HomeViewModel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Controllers\\AccountController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Controllers\\AccountController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\ViewModels\\ErrorViewModel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ViewModels\\ErrorViewModel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\ViewModels\\ChangePasswordViewModel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ViewModels\\ChangePasswordViewModel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Controllers\\ProjectController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Controllers\\ProjectController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Controllers\\ProfileController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Controllers\\ProfileController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Controllers\\MessageController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Controllers\\MessageController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Controllers\\HomeController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Controllers\\HomeController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Controllers\\ExternalProfileController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Controllers\\ExternalProfileController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DAL",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\DAL\\DAL.csproj",
+              "RelativeDocumentMoniker": "DAL\\DAL.csproj",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\DAL\\DAL.csproj",
+              "RelativeToolTip": "DAL\\DAL.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-01-13T18:03:01.687Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CvProjekt",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\CvProjekt\\CvProjekt.csproj",
+              "RelativeDocumentMoniker": "CvProjekt\\CvProjekt.csproj",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\CvProjekt\\CvProjekt.csproj",
+              "RelativeToolTip": "CvProjekt\\CvProjekt.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-01-13T18:02:31.829Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Models.AssemblyInfo.cs",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Models\\obj\\Debug\\net9.0\\Models.AssemblyInfo.cs",
+              "RelativeDocumentMoniker": "Models\\obj\\Debug\\net9.0\\Models.AssemblyInfo.cs",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Models\\obj\\Debug\\net9.0\\Models.AssemblyInfo.cs",
+              "RelativeToolTip": "Models\\obj\\Debug\\net9.0\\Models.AssemblyInfo.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-13T17:51:57.732Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CvProjekt.AssemblyInfo.cs",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\obj\\Debug\\net9.0\\CvProjekt.AssemblyInfo.cs",
+              "RelativeDocumentMoniker": "obj\\Debug\\net9.0\\CvProjekt.AssemblyInfo.cs",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\obj\\Debug\\net9.0\\CvProjekt.AssemblyInfo.cs",
+              "RelativeToolTip": "obj\\Debug\\net9.0\\CvProjekt.AssemblyInfo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-13T17:46:40.854Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "_ViewImports.cshtml",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\_ViewImports.cshtml",
+              "RelativeDocumentMoniker": "Views\\_ViewImports.cshtml",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\_ViewImports.cshtml",
+              "RelativeToolTip": "Views\\_ViewImports.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-13T17:27:40.282Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Profile.cshtml",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\ExternalProfile\\Profile.cshtml",
+              "RelativeDocumentMoniker": "Views\\ExternalProfile\\Profile.cshtml",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\ExternalProfile\\Profile.cshtml",
+              "RelativeToolTip": "Views\\ExternalProfile\\Profile.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAABLAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-13T17:27:03.238Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-13T17:26:54.847Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Privacy.cshtml",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Home\\Privacy.cshtml",
+              "RelativeDocumentMoniker": "Views\\Home\\Privacy.cshtml",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Home\\Privacy.cshtml",
+              "RelativeToolTip": "Views\\Home\\Privacy.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-13T17:26:53.651Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "EditResume.cshtml",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Profile\\EditResume.cshtml",
+              "RelativeDocumentMoniker": "Views\\Profile\\EditResume.cshtml",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Profile\\EditResume.cshtml",
+              "RelativeToolTip": "Views\\Profile\\EditResume.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-13T17:26:43.862Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "_ValidationScriptsPartial.cshtml",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+              "RelativeToolTip": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-13T17:26:37.574Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-13T17:26:31.772Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "_ViewStart.cshtml",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\_ViewStart.cshtml",
+              "RelativeDocumentMoniker": "Views\\_ViewStart.cshtml",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\_ViewStart.cshtml",
+              "RelativeToolTip": "Views\\_ViewStart.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-13T17:26:26.112Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Account\\Login.cshtml",
+              "RelativeDocumentMoniker": "Views\\Account\\Login.cshtml",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Account\\Login.cshtml",
+              "RelativeToolTip": "Views\\Account\\Login.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-13T17:26:18.246Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "SeeMessages.cshtml",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Message\\SeeMessages.cshtml",
+              "RelativeDocumentMoniker": "Views\\Message\\SeeMessages.cshtml",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Message\\SeeMessages.cshtml",
+              "RelativeToolTip": "Views\\Message\\SeeMessages.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-13T17:25:22.824Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "ChangePassword.cshtml",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Profile\\ChangePassword.cshtml",
+              "RelativeDocumentMoniker": "Views\\Profile\\ChangePassword.cshtml",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Profile\\ChangePassword.cshtml",
+              "RelativeToolTip": "Views\\Profile\\ChangePassword.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-13T17:25:14.037Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "EditProjects.cshtml",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Profile\\EditProjects.cshtml",
+              "RelativeDocumentMoniker": "Views\\Profile\\EditProjects.cshtml",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Profile\\EditProjects.cshtml",
+              "RelativeToolTip": "Views\\Profile\\EditProjects.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-13T17:25:08.633Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "Settings.cshtml",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Profile\\Settings.cshtml",
+              "RelativeDocumentMoniker": "Views\\Profile\\Settings.cshtml",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Profile\\Settings.cshtml",
+              "RelativeToolTip": "Views\\Profile\\Settings.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-13T17:24:42.689Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "MyProfile.cshtml",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Profile\\MyProfile.cshtml",
+              "RelativeDocumentMoniker": "Views\\Profile\\MyProfile.cshtml",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Profile\\MyProfile.cshtml",
+              "RelativeToolTip": "Views\\Profile\\MyProfile.cshtml",
+              "ViewState": "AgIAAAMBAAAAAAAAAAAiwCEBAABbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-13T17:24:22.127Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "AllProjects.cshtml",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Project\\AllProjects.cshtml",
+              "RelativeDocumentMoniker": "Views\\Project\\AllProjects.cshtml",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Project\\AllProjects.cshtml",
+              "RelativeToolTip": "Views\\Project\\AllProjects.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-13T17:24:06.424Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "Error.cshtml",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Shared\\Error.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\Error.cshtml",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Shared\\Error.cshtml",
+              "RelativeToolTip": "Views\\Shared\\Error.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-13T17:23:38.609Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "DeleteMessage.cshtml",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Message\\DeleteMessage.cshtml",
+              "RelativeDocumentMoniker": "Views\\Message\\DeleteMessage.cshtml",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Message\\DeleteMessage.cshtml",
+              "RelativeToolTip": "Views\\Message\\DeleteMessage.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-13T17:22:56.106Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "Register.cshtml",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Account\\Register.cshtml",
+              "RelativeDocumentMoniker": "Views\\Account\\Register.cshtml",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Views\\Account\\Register.cshtml",
+              "RelativeToolTip": "Views\\Account\\Register.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-13T17:21:45.293Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "UnreadMessagesViewComponent.cs",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\ViewComponents\\UnreadMessagesViewComponent.cs",
+              "RelativeDocumentMoniker": "ViewComponents\\UnreadMessagesViewComponent.cs",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\ViewComponents\\UnreadMessagesViewComponent.cs",
+              "RelativeToolTip": "ViewComponents\\UnreadMessagesViewComponent.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-13T17:20:56.351Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-13T17:18:19.56Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "RegisterViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\ViewModels\\RegisterViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModels\\RegisterViewModel.cs",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\ViewModels\\RegisterViewModel.cs",
+              "RelativeToolTip": "ViewModels\\RegisterViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-13T17:18:45.564Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "LoginViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\ViewModels\\LoginViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModels\\LoginViewModel.cs",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\ViewModels\\LoginViewModel.cs",
+              "RelativeToolTip": "ViewModels\\LoginViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-13T17:18:39.972Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "HomeViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\ViewModels\\HomeViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModels\\HomeViewModel.cs",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\ViewModels\\HomeViewModel.cs",
+              "RelativeToolTip": "ViewModels\\HomeViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-13T17:18:25.49Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AccountController.cs",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "Controllers\\AccountController.cs",
+              "ViewState": "AgIAACYAAAAAAAAAAAAIwAQAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-13T17:16:31.909Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "20260113154705_nybast.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\DAL\\Migrations\\20260113154705_nybast.Designer.cs",
+              "RelativeDocumentMoniker": "DAL\\Migrations\\20260113154705_nybast.Designer.cs",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\DAL\\Migrations\\20260113154705_nybast.Designer.cs",
+              "RelativeToolTip": "DAL\\Migrations\\20260113154705_nybast.Designer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-13T17:14:25.227Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "ErrorViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\ViewModels\\ErrorViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModels\\ErrorViewModel.cs",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\ViewModels\\ErrorViewModel.cs",
+              "RelativeToolTip": "ViewModels\\ErrorViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-13T17:05:25.608Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
+              "Title": "ChangePasswordViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\ViewModels\\ChangePasswordViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModels\\ChangePasswordViewModel.cs",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\ViewModels\\ChangePasswordViewModel.cs",
+              "RelativeToolTip": "ViewModels\\ChangePasswordViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-13T17:05:24.158Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 43,
+              "Title": "ProjectController.cs",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Controllers\\ProjectController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ProjectController.cs",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Controllers\\ProjectController.cs",
+              "RelativeToolTip": "Controllers\\ProjectController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-13T17:05:16.85Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 44,
+              "Title": "ProfileController.cs",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Controllers\\ProfileController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ProfileController.cs",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Controllers\\ProfileController.cs",
+              "RelativeToolTip": "Controllers\\ProfileController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-13T17:04:50.023Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 45,
+              "Title": "MessageController.cs",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Controllers\\MessageController.cs",
+              "RelativeDocumentMoniker": "Controllers\\MessageController.cs",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Controllers\\MessageController.cs",
+              "RelativeToolTip": "Controllers\\MessageController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-13T17:04:46.059Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 46,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "Controllers\\HomeController.cs",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "Controllers\\HomeController.cs",
+              "ViewState": "AgIAACUAAAAAAAAAAAAYwEEAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-13T17:04:42.378Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Work.cs",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Models\\Work.cs",
+              "RelativeDocumentMoniker": "Models\\Work.cs",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Models\\Work.cs",
+              "RelativeToolTip": "Models\\Work.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-13T17:03:45.255Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Models\\User.cs",
+              "RelativeDocumentMoniker": "Models\\User.cs",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Models\\User.cs",
+              "RelativeToolTip": "Models\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-13T17:03:35.861Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ProjectMembers.cs",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Models\\ProjectMembers.cs",
+              "RelativeDocumentMoniker": "Models\\ProjectMembers.cs",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Models\\ProjectMembers.cs",
+              "RelativeToolTip": "Models\\ProjectMembers.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-13T17:03:29.03Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Resume.cs",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Models\\Resume.cs",
+              "RelativeDocumentMoniker": "Models\\Resume.cs",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Models\\Resume.cs",
+              "RelativeToolTip": "Models\\Resume.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-13T17:03:25.085Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Qualifications.cs",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Models\\Qualifications.cs",
+              "RelativeDocumentMoniker": "Models\\Qualifications.cs",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Models\\Qualifications.cs",
+              "RelativeToolTip": "Models\\Qualifications.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-13T17:03:17.756Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Project.cs",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Models\\Project.cs",
+              "RelativeDocumentMoniker": "Models\\Project.cs",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Models\\Project.cs",
+              "RelativeToolTip": "Models\\Project.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-13T17:03:11.109Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Message.cs",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Models\\Message.cs",
+              "RelativeDocumentMoniker": "Models\\Message.cs",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Models\\Message.cs",
+              "RelativeToolTip": "Models\\Message.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-13T17:03:05.772Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ExportModels.cs",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Models\\ExportModels.cs",
+              "RelativeDocumentMoniker": "Models\\ExportModels.cs",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Models\\ExportModels.cs",
+              "RelativeToolTip": "Models\\ExportModels.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-13T17:02:39.385Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "CvContextModelSnapshot.cs",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\DAL\\Migrations\\CvContextModelSnapshot.cs",
+              "RelativeDocumentMoniker": "DAL\\Migrations\\CvContextModelSnapshot.cs",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\DAL\\Migrations\\CvContextModelSnapshot.cs",
+              "RelativeToolTip": "DAL\\Migrations\\CvContextModelSnapshot.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-13T17:02:23.878Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "20260113154705_nybast.cs",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\DAL\\Migrations\\20260113154705_nybast.cs",
+              "RelativeDocumentMoniker": "DAL\\Migrations\\20260113154705_nybast.cs",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\DAL\\Migrations\\20260113154705_nybast.cs",
+              "RelativeToolTip": "DAL\\Migrations\\20260113154705_nybast.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-13T17:02:10.22Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Education.cs",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Models\\Education.cs",
+              "RelativeDocumentMoniker": "Models\\Education.cs",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Models\\Education.cs",
+              "RelativeToolTip": "Models\\Education.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-13T17:01:36.204Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 47,
+              "Title": "ExternalProfileController.cs",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Controllers\\ExternalProfileController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ExternalProfileController.cs",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\Controllers\\ExternalProfileController.cs",
+              "RelativeToolTip": "Controllers\\ExternalProfileController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-13T16:56:12.523Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "CvContext.cs",
+              "DocumentMoniker": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\DAL\\CvContext.cs",
+              "RelativeDocumentMoniker": "DAL\\CvContext.cs",
+              "ToolTip": "C:\\Users\\alex2\\Documents\\GitHub\\CvProjekt\\DAL\\CvContext.cs",
+              "RelativeToolTip": "DAL\\CvContext.cs",
+              "ViewState": "AgIAADEAAAAAAAAAAAAYwAMAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-13T16:54:39.559Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
