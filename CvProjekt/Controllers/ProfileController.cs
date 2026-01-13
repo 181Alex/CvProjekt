@@ -350,12 +350,6 @@ namespace CvProjekt.Controllers
                 currentUser.ImgUrl = "/uploads/" + fileName;
             }
 
-            //om cv är tomt skapas nytt
-            if (currentUser.Resume == null)
-            {
-                currentUser.Resume = new Resume();
-            }
-
             //uppdaterar information på den nuvaranda till den nya informationen
             currentUser.FirstName = updatedUser.FirstName;
             currentUser.LastName = updatedUser.LastName;
