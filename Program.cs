@@ -1,4 +1,5 @@
- using CvProjekt.Models;
+using Models;
+using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 

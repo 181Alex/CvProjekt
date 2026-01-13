@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace CvProjekt.Models
+namespace CvProjekt.ViewModels
 {
     public class ChangePasswordViewModel
     {

@@ -1,4 +1,4 @@
-namespace CvProjekt.Models
+namespace CvProjekt.ViewModels
 {
     public class ErrorViewModel
     {

@@ -1,4 +1,5 @@
-namespace CvProjekt.Models
+using Models;
+namespace CvProjekt.ViewModels
 {
     public class HomeViewModel
     {

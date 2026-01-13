@@ -1,7 +1,7 @@
 using Microsoft.JSInterop.Infrastructure;
 using System.ComponentModel.DataAnnotations;
 
-namespace CvProjekt.Models
+namespace CvProjekt.ViewModels
 {
     public class RegisterViewModel
     {

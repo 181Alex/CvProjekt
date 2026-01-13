@@ -1,4 +1,4 @@
-@model CvProjekt.Models.User
+@model Models.User
 
 @{
     ViewData["Title"] = "Min Profil";
@@ -287,7 +287,7 @@
         <h2 class="text-center">Projekt du deltar i</h2>
 
         @{
-            var memberProjects = (List<CvProjekt.Models.Project>?)ViewBag.MemberProjects ?? new List<CvProjekt.Models.Project>();
+            var memberProjects = (List<Models.Project>?)ViewBag.MemberProjects ?? new List<Models.Project>();
         }
 
         @if (memberProjects.Any())

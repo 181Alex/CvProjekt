@@ -1,4 +1,4 @@
-using CvProjekt.Models;
+using CvProjekt.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +8,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Xml.Serialization;
 using System.Linq;
+using DAL;
+using Models;
 
 namespace CvProjekt.Controllers
 {

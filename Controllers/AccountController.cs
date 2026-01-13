@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using CvProjekt.Models;
+using Models;
+using CvProjekt.ViewModels;
 using Microsoft.AspNetCore.Identity;
+using DAL;
 
 namespace CvProjekt.Controllers
 {
