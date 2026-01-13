@@ -1,3 +1,5 @@
 /.vs
 /DAL/obj
 /Models/obj
+/DAL/bin
+/Models/bin
