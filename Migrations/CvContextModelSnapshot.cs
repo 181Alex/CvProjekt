@@ -433,8 +433,7 @@ namespace CvProjekt.Migrations
                         .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("ImgUrl")
-                        .HasMaxLength(400)
-                        .HasColumnType("nvarchar(400)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");

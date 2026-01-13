@@ -17,11 +17,13 @@ namespace CvProjekt.Controllers
         private readonly CvContext _context;
 
         private readonly UserManager<User> _userManager;
+        private readonly IWebHostEnvironment _hostEnvironment;
 
-        public ProfileController(CvContext context, UserManager<User> user)
+        public ProfileController(CvContext context, UserManager<User> user, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
             _userManager = user;
+            _hostEnvironment = hostEnvironment;
         }
         //gå till settings
         [HttpGet]
@@ -299,9 +301,8 @@ namespace CvProjekt.Controllers
 
         [HttpPost]
 
-        public async Task<IActionResult> EditResumeInfo(User updatedUser)
+        public async Task<IActionResult> EditResumeInfo(User updatedUser, IFormFile image)
         {
-
             if (!ModelState.IsValid)
             {
 
@@ -315,6 +316,31 @@ namespace CvProjekt.Controllers
                 return Content("Hittar ej användare i databas");
             }
 
+
+            if (image != null)
+            {
+                
+                //vart filen ska skickas
+                string uploadDir = Path.Combine(_hostEnvironment.WebRootPath, "uploads");
+                //om upload mapp inte finns skapas det
+                if (!Directory.Exists(uploadDir))
+                {
+                    Directory.CreateDirectory(uploadDir);
+                }
+                //vad filen ska kallas
+                string fileName = Guid.NewGuid().ToString() + "_" + image.FileName;
+                //exakt slutplats, dvs mapp namnet plus filnamnet
+                string filePath = Path.Combine(uploadDir, fileName);
+                //här sparas faktiskt bilden så att den sen kan visas
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await image.CopyToAsync(fileStream);
+                }
+
+                currentUser.ImgUrl = "/uploads/" + fileName;
+            }
+
+
             if (currentUser.Resume == null)
             {
                 currentUser.Resume = new Resume();
@@ -324,7 +350,6 @@ namespace CvProjekt.Controllers
             currentUser.LastName = updatedUser.LastName;
             currentUser.Adress = updatedUser.Adress;
             currentUser.Email = updatedUser.Email;
-            currentUser.ImgUrl = updatedUser.ImgUrl;
 
             _context.Update(currentUser);
             await _context.SaveChangesAsync();

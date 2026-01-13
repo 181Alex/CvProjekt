@@ -42,7 +42,7 @@
         <div class="tab-pane fade show active p-3" id="nav-base" role="tabpanel" aria-labelledby="nav-base-tab">
             <h2>Basinformation</h2>
 
-            <form asp-action="EditResumeInfo" method="post">
+            <form asp-action="EditResumeInfo" method="post" enctype="multipart/form-data">
                 <input type="hidden" asp-for="Id" />
                 <div class="mb-3">
                     <label asp-for="FirstName" class="form-label">Förnamn</label>
@@ -69,9 +69,10 @@
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="ImgUrl" class="form-label">Profilbild</label>
-                    <input asp-for="ImgUrl" class="form-control" />
-                    <span asp-validation-for="ImgUrl" class="text-danger"></span>
+                    <label for="image" class="form-label">Ladda upp ny profilbild</label>
+                    <input type="file" name="image" class="form-control" accept="image/*" />
+
+                    <input type="hidden" asp-for="ImgUrl" />
                 </div>
                 <button type="submit" class="btn btn-success">Spara basinformation</button>
             </form>

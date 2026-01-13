@@ -3,19 +3,7 @@
 @{
     ViewData["Title"] = "Min Profil";
 
-    // Hjälpmetod för att lösa bild-URL: använder Url.Content för lokala sökvägar,
-    // lämnar externa länkar (http/https) orörda och ger default-avatar om tom.
-    string ResolveImg(string? url)
-    {
-        if (string.IsNullOrWhiteSpace(url))
-        {
-            return Url.Content("~/images/default-avatar.png");
-        }
-
-        return url.StartsWith("http", System.StringComparison.OrdinalIgnoreCase)
-            ? url
-            : Url.Content(url);
-    }
+    
 }
 
 <style>
@@ -138,7 +126,7 @@
                 <div class="avatar" aria-hidden="true">
                     @if (!string.IsNullOrWhiteSpace(Model.ImgUrl))
                     {
-                        <img src="@ResolveImg(Model.ImgUrl)" alt="Profilbild" style="width:100%;height:100%;object-fit:cover;" />
+                        <img src="@Model.ImgUrl" alt="Profilbild" style="width:100%;height:100%;object-fit:cover;" />
                     }
                     else
                     {
