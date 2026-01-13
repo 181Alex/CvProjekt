@@ -203,11 +203,13 @@ namespace CvProjekt.Controllers
             return RedirectToAction("Settings");
         }
 
+        //returnerar myprofile vyn
         [HttpGet]
         public async Task<IActionResult> MyProfile()
         {
             var userId = _userManager.GetUserId(User);
 
+            //inkludera alla fält från foreign keys och sedan deras foreign keys
             var user = await _context.Users
                 .Include(u => u.Projects)
                     .ThenInclude(p => p.ProjectMembers)
@@ -220,10 +222,13 @@ namespace CvProjekt.Controllers
                     .ThenInclude(r => r.EducationList)
                 .FirstOrDefaultAsync(u => u.Id == userId);
 
+            //om ingen användare
             if (user == null)
             {
                 return Content($"Fel: Hittade ingen användare med ID '{userId}' i databasen. Har du kört database update?");
             }
+
+
             var memberProjectIds = await _context.ProjectMembers
                 .Where(pm => pm.MemberId == userId)
                 .Select(pm => pm.MProjectId)
@@ -274,7 +279,7 @@ namespace CvProjekt.Controllers
 
 
 
-
+        //Returnerar editresume view
         public async Task<IActionResult> EditResume()
         {
 
@@ -309,6 +314,7 @@ namespace CvProjekt.Controllers
                 return View("EditResume", updatedUser);
             }
 
+            //hämtar nuvarande person från DB
             var currentUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == updatedUser.Id);
 
             if (currentUser == null)
@@ -346,6 +352,7 @@ namespace CvProjekt.Controllers
                 currentUser.Resume = new Resume();
             }
 
+            //uppdaterar information på den nuvaranda till den nya informationen
             currentUser.FirstName = updatedUser.FirstName;
             currentUser.LastName = updatedUser.LastName;
             currentUser.Adress = updatedUser.Adress;
@@ -354,6 +361,7 @@ namespace CvProjekt.Controllers
             _context.Update(currentUser);
             await _context.SaveChangesAsync();
 
+            //skickar med ett successmessage
             TempData["SuccessMessage"] = "Uppdaterat basinformation";
             TempData["ActiveTab"] = "base";
 
@@ -361,9 +369,11 @@ namespace CvProjekt.Controllers
         }
 
         [HttpPost]
+        //redigera kvalifikationer
         public async Task<IActionResult> EditQualifications(User updatedUser)
         {
 
+            //hämtar nuvarande användare från db
             var currentUser = await _context.Users
                 .Include(u => u.Resume)
                 .ThenInclude(r => r.Qualifications)
@@ -409,6 +419,7 @@ namespace CvProjekt.Controllers
                     }
                 }
 
+                //returnerar vilken tab som ska vara öppen när man återgår till sidan
                 TempData["ActiveTab"] = "qualif";
                 return View("EditResume", currentUser);
             }
@@ -433,6 +444,8 @@ namespace CvProjekt.Controllers
             await _context.SaveChangesAsync();
 
             TempData["SuccessMessage"] = "Kompetenser sparade";
+
+            //returnerar vilken tab som ska vara öppen när man återgår till sidan
             TempData["ActiveTab"] = "qualif";
 
             return RedirectToAction("EditResume");
@@ -440,9 +453,10 @@ namespace CvProjekt.Controllers
         }
 
         [HttpPost]
+        //redigera utbildning
         public async Task<IActionResult> EditEducation(User updatedUser)
         {
-
+            //hämtar nuvarande användare
             var currentUser = await _context.Users
                 .Include(u => u.Resume)
                 .ThenInclude(r => r.EducationList)
@@ -464,6 +478,7 @@ namespace CvProjekt.Controllers
                                                 .ToList();
             var allKeys = ModelState.Keys.ToList();
 
+            //tar bort alla modelstate keys som inte har att göra med utbildning
             foreach (var key in allKeys)
             {
                 if (!eduKey.Contains(key))
@@ -495,6 +510,7 @@ namespace CvProjekt.Controllers
                     }
                 }
 
+                //returnerar vilken tab som ska vara öppen när man återgår till sidan
                 TempData["ActiveTab"] = "edu";
                 return View("EditResume", currentUser);
             }
@@ -523,6 +539,8 @@ namespace CvProjekt.Controllers
             await _context.SaveChangesAsync();
 
             TempData["SuccessMessage"] = "Utbildning sparad";
+
+            //returnerar vilken tab som ska vara öppen när man återgår till sidan
             TempData["ActiveTab"] = "edu";
 
             return RedirectToAction("EditResume");
@@ -530,9 +548,10 @@ namespace CvProjekt.Controllers
         }
 
         [HttpPost]
+        //redigera arbetserfarenhet
         public async Task<IActionResult> EditWork(User updatedUser)
         {
-
+            //hämtar nuvarande användare
             var currentUser = await _context.Users
                 .Include(u => u.Resume)
                 .ThenInclude(r => r.WorkList)
@@ -549,14 +568,15 @@ namespace CvProjekt.Controllers
             }
 
             //ignorera alla modelstate som inte har att göra med arbete
-            var eduKey = ModelState.Keys.Where(k => k.StartsWith("Resume.WorkList")
+            var workKey = ModelState.Keys.Where(k => k.StartsWith("Resume.WorkList")
                                                 && !k.EndsWith(".Resume"))
                                                 .ToList();
             var allKeys = ModelState.Keys.ToList();
 
+            //tar bort alla keys som inte har att göra med work
             foreach (var key in allKeys)
             {
-                if (!eduKey.Contains(key))
+                if (!workKey.Contains(key))
                 {
                     ModelState.Remove(key);
                 }
@@ -587,6 +607,7 @@ namespace CvProjekt.Controllers
                     }
                 }
 
+                //returnerar vilken tab som ska vara öppen när man återgår till sidan
                 TempData["ActiveTab"] = "work";
                 return View("EditResume", currentUser);
             }
@@ -615,15 +636,17 @@ namespace CvProjekt.Controllers
             await _context.SaveChangesAsync();
 
             TempData["SuccessMessage"] = "Arbete sparad";
+            //returnerar vilken tab som ska vara öppen när man återgår till sidan
             TempData["ActiveTab"] = "work";
 
             return RedirectToAction("EditResume");
 
         }
 
+        //returnerar vy för editprojects
         public async Task<IActionResult> EditProjects()
         {
-
+            //hämtar användare
             var userId = _userManager.GetUserId(User);
 
             var user = await _context.Users
@@ -646,9 +669,10 @@ namespace CvProjekt.Controllers
         }
 
         [HttpPost]
+        //redigera projekt metod
         public async Task<IActionResult> EditProjectInfo(User updatedUser)
         {
-
+            //hämtar användare som finns i db (nuvarande)
             var currentUser = await _context.Users
                 .Include(u => u.Projects)
             .FirstOrDefaultAsync(u => u.Id == updatedUser.Id);
@@ -658,7 +682,8 @@ namespace CvProjekt.Controllers
                 return Content("Hittar ej användare i databas");
             }
 
-            var eduKey = ModelState.Keys.Where(k => k.StartsWith("Projects")
+            //tar bort alla keys som inte har att göra med projektets model state
+            var projKey = ModelState.Keys.Where(k => k.StartsWith("Projects")
                                                 && !k.EndsWith(".Creator")
                                                 && !k.EndsWith(".CreatorId"))
                                                 .ToList();
@@ -666,12 +691,13 @@ namespace CvProjekt.Controllers
 
             foreach (var key in allKeys)
             {
-                if (!eduKey.Contains(key))
+                if (!projKey.Contains(key))
                 {
                     ModelState.Remove(key);
                 }
             }
 
+            //kontrollerar om modelstate är valid och kopierar den data som användare skrivit in så den inte försvinner
             if (!ModelState.IsValid)
             {
 
@@ -719,6 +745,7 @@ namespace CvProjekt.Controllers
 
             await _context.SaveChangesAsync();
 
+            //skickar meddelande för lyckad sparning
             TempData["SuccessMessage"] = "Projekt sparat";
             return RedirectToAction("EditProjects");
 
