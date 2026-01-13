@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CvProjekt.Migrations
 {
     [DbContext(typeof(CvContext))]
-    [Migration("20260113143015_migratio")]
-    partial class migratio
+    [Migration("20260113154705_nybast")]
+    partial class nybast
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -424,6 +424,7 @@ namespace CvProjekt.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 

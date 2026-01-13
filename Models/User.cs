@@ -23,10 +23,15 @@ namespace CvProjekt.Models
 
         [Required(ErrorMessage = "Du måste skriva adress")]
         [StringLength(100, ErrorMessage = "Max 100 tecken")]
-        // Tillåter bokstäver, siffror, mellanslag (viktigt!) och åäö
         [RegularExpression(@"^[a-zA-Z0-9åäöÅÄÖ\s]+$", 
             ErrorMessage = "Adressen får inte innehålla specialtecken")]
         public string Adress{get;set;}
+        [Required(ErrorMessage = "Du måste skriva epost")]
+        [StringLength(100, ErrorMessage = "Max 100 tecken")]
+
+        [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
+            ErrorMessage = "Ogiltig epost")]
+        public override string? Email { get => base.Email; set => base.Email = value; }
 
         public bool IsActive{get;set;}
         public bool IsPrivate { get;set;} = false;
