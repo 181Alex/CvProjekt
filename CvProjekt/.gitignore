@@ -416,15 +416,10 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
-# Ignorera konfigurationsfiler med känsliga uppgifter
-appsettings.json
-appsettings.Development.json
+
 
 # Om du råkar ha filer i undermappar kan du använda:
-**/appsettings.json
-**/appsettings.Development.json
-appsettings.json
-appsettings.json
+
 .vs/
 .vs
 */bin/
