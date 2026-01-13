@@ -317,7 +317,7 @@ namespace CvProjekt.Controllers
             }
 
             //hämtar nuvarande person från DB
-            var currentUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == updatedUser.Id);
+            var currentUser = await _userManager.FindByIdAsync(updatedUser.Id);
 
             if (currentUser == null)
             {
@@ -358,13 +358,25 @@ namespace CvProjekt.Controllers
             currentUser.FirstName = updatedUser.FirstName;
             currentUser.LastName = updatedUser.LastName;
             currentUser.Adress = updatedUser.Adress;
+
+            //uppdaterar mail inklusive andvändarinlogg
             currentUser.Email = updatedUser.Email;
+            currentUser.UserName = updatedUser.Email;
 
-            _context.Update(currentUser);
-            await _context.SaveChangesAsync();
+            var result = await _userManager.UpdateAsync(currentUser);
 
-            //skickar med ett successmessage
-            TempData["SuccessMessage"] = "Uppdaterat basinformation";
+            if (result.Succeeded)
+            {
+                TempData["SuccessMessage"] = "Basinformation sparad!";
+            }
+            else
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+                return View("EditResume", updatedUser);
+            }
             TempData["ActiveTab"] = "base";
 
             return RedirectToAction("EditResume");
