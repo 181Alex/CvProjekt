@@ -306,8 +306,9 @@ namespace CvProjekt.Controllers
 
         [HttpPost]
         //redigerar bas info
-        public async Task<IActionResult> EditResumeInfo(User updatedUser, IFormFile image)
+        public async Task<IActionResult> EditResumeInfo(User updatedUser, IFormFile? image)
         {
+            ModelState.Remove("ImgUrl");
             //kontrollerar att alla fält är validerade
             if (!ModelState.IsValid)
             {
