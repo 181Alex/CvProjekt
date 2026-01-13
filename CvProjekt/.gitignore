@@ -425,3 +425,7 @@ appsettings.Development.json
 **/appsettings.Development.json
 appsettings.json
 appsettings.json
+.vs/
+.vs
+*/bin/
+*/obj/
