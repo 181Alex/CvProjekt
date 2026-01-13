@@ -305,9 +305,10 @@ namespace CvProjekt.Controllers
         }
 
         [HttpPost]
-
+        //redigerar bas info
         public async Task<IActionResult> EditResumeInfo(User updatedUser, IFormFile image)
         {
+            //kontrollerar att alla fält är validerade
             if (!ModelState.IsValid)
             {
 
@@ -346,7 +347,7 @@ namespace CvProjekt.Controllers
                 currentUser.ImgUrl = "/uploads/" + fileName;
             }
 
-
+            //om cv är tomt skapas nytt
             if (currentUser.Resume == null)
             {
                 currentUser.Resume = new Resume();
