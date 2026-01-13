@@ -233,10 +233,10 @@
                             <div class="projects">
                                 @foreach (var p in Model.Projects)
                                 {
-                                    <div class="card mb-3">
+                                    <div class="card mb-3 shadow-sm">
                                         <div class="card-body">
                                             <div class="d-flex justify-content-between align-items-center">
-                                                <h5 class="card-title fw-bold text-info">@p.Title</h5>
+                                                <h5 class="card-title fw-bold">@p.Title</h5>
                                                 <small class="text-muted">(@p.Year)</small>
                                             </div>
                                             <p class="small text-muted">Språk: @p.Language</p>
@@ -308,9 +308,9 @@
                 @foreach (var project in memberProjects)
                 {
                     <div class="col">
-                        <div class="card h-100 border-success p-2 shadow-sm">
+                        <div class="card h-100 p-2 shadow-sm">
                             <div class="card-body">
-                                <h5 class="card-title fw-bold text-success">@project.Title (@project.Year)</h5>
+                                <h5 class="card-title fw-bold">@project.Title (@project.Year)</h5>
                                 <p class="small text-muted">Av: @project.Creator.FirstName @project.Creator.LastName</p>
                                 <p>Språk: @project.Language</p>
                                 @if (!string.IsNullOrWhiteSpace(project.Description))
